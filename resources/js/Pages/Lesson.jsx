@@ -5,23 +5,34 @@ export default function Lesson({ typingText }) {
     const [isTypingComplete, setIsTypingComplete] = useState(false);
     const [startTime, setStartTime] = useState(null);
     const [endTime, setEndTime] = useState(null);
+    const [errorCount, setErrorCount] = useState(0);
 
     useEffect(() => {
         const handleKeyDown = (e) => {
             const key = e.key;
 
-            // Check if user has reached the end of the text
+            // Check if the user has reached the end of the text
             if (userInput.length < typingText.length) {
-                // Only capture character keys
-                if (key.length === 1) {
+                // Only capture character keys (letters and spaces)
+                if (/^[a-zA-Z ]$/.test(key) || key === " ") {
                     setUserInput((prev) => prev + key);
+
+                    // Check if typing is complete
+                    if (userInput.length + 1 === typingText.length) {
+                        setEndTime(Date.now());
+                        setIsTypingComplete(true);
+                    }
                 }
-                // Check if typing is complete
-                if (userInput.length + 1 === typingText.length) {
-                    setIsTypingComplete(true);
-                    setEndTime(Date.now());
-                    //? calculate the typing speed and accuracy
-                    //? send the data back to the server in here
+            }
+
+            // Check for errors (exclude Shift key)
+            if (
+                userInput.length < typingText.length &&
+                key !== typingText[userInput.length]
+            ) {
+                // Exclude Shift key from errors
+                if (key !== "Shift") {
+                    setErrorCount((prev) => prev + 1);
                 }
             }
         };
@@ -38,17 +49,13 @@ export default function Lesson({ typingText }) {
     }, [userInput, typingText]);
 
     const elapsedTime =
-        endTime && startTime ? (endTime - startTime) / 1000 : null;
-    const correctKeystrokes = userInput
-        .split("")
-        .filter((char, i) => char === typingText[i]).length;
+        endTime && startTime ? (endTime - startTime) / 60000 : null; // Convert to minutes
+    const wordsTyped = Math.ceil(userInput.length / 5); // Every 5 characters is counted as a word
+    const netWPM = elapsedTime ? (wordsTyped - errorCount) / elapsedTime : 0;
 
-    // Typing speed in characters per second
-    const speed = elapsedTime ? correctKeystrokes / elapsedTime : 0;
-
-    // Accuracy in percentage
-    const accuracy =
-        userInput.length > 0 ? (correctKeystrokes / userInput.length) * 100 : 0;
+    // Calculate accuracy as a percentage
+    const charactersTyped = userInput.length;
+    const accuracy = ((charactersTyped - errorCount) / charactersTyped) * 100;
 
     return (
         <div>
@@ -68,10 +75,7 @@ export default function Lesson({ typingText }) {
             {isTypingComplete && (
                 <div>
                     <p>Typing Complete! Congratulations!</p>
-                    <p>
-                        Typing Speed: {speed.toFixed(2)} CPS (Characters per
-                        Second)
-                    </p>
+                    <p>Net WPM: {netWPM.toFixed(2)} WPM (Words per Minute)</p>
                     <p>Accuracy: {accuracy.toFixed(2)}%</p>
                 </div>
             )}
