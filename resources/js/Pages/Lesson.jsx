@@ -14,8 +14,16 @@ export default function Lesson({ typingText }) {
             // Check if the user has reached the end of the text
             if (userInput.length < typingText.length) {
                 // Only capture character keys (letters and spaces)
-                if (/^[a-zA-Z ]$/.test(key) || key === " ") {
-                    setUserInput((prev) => prev + key);
+                if (
+                    !e.ctrlKey &&
+                    !e.metaKey &&
+                    !e.altKey &&
+                    !e.getModifierState("CapsLock") &&
+                    e.key !== "Shift" &&
+                    e.key !== "Tab" &&
+                    !e.key.startsWith("Arrow")
+                ) {
+                    setUserInput((prev) => prev + e.key);
 
                     // Check if typing is complete
                     if (userInput.length + 1 === typingText.length) {
@@ -66,7 +74,7 @@ export default function Lesson({ typingText }) {
                         color = char === userInput[i] ? "green" : "red";
                     }
                     return (
-                        <span key={i} style={{ color }}>
+                        <span key={i} style={{ color }} class="text-2xl">
                             {char}
                         </span>
                     );

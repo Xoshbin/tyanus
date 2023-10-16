@@ -10,7 +10,8 @@ class LessonController extends Controller
 {
     public function challenge(): Response
     {
-        $text = 'This is some';
+        // $text = 'qwertyuiop[]\\\';lkjhgfdsazxcvbnm,./QWERTYUIOP{}|":LKJHGFDSAZXCVBNM<>?`1234567890-=~!@#$%^&*()_+';
+        $text = '`١٢٣٤٥٦٧٨٩٠-=\[]پۆیویترەوقاسدفگهژکل؛ع\.،منبڤجخز~!@#$%^&ى)(_+|{}ىووثڕێّئشذحڵ:غ؟<>چغض';
 
         return Inertia::render('Lesson', [
             'typingText' => $text
