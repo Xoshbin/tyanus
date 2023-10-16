@@ -12,7 +12,8 @@ class LessonController extends Controller
     {
         // $text = 'qwertyuiop[]\\\';lkjhgfdsazxcvbnm,./QWERTYUIOP{}|":LKJHGFDSAZXCVBNM<>?`1234567890-=~!@#$%^&*()_+';
         // $text = '`١٢٣٤٥٦٧٨٩٠-=\[]پۆیویترەوقاسدفگهژکل؛ع\.،منبڤجخز~!@#$%^&ى)(_+|{}ىووثڕێّئشذحڵ:غ؟<>چغض';
-        $text = "jj↩kk↩↩";
+        // $text = "jj↩kk↩↩";
+        $text = "jj ff gg kk ll";
 
         return Inertia::render('Lesson', [
             'typingText' => $text

@@ -65,36 +65,49 @@ export default function Lesson({ typingText }) {
         };
     }, [userInput, typingText]);
 
+    // Calculate Net WPM and Accuracy
     const elapsedTime =
-        endTime && startTime ? (endTime - startTime) / 60000 : null; // Convert to minutes
+        endTime && startTime ? (endTime - startTime) / 60000 : 0; // Prevent division by zero
     const wordsTyped = Math.ceil(userInput.length / 5); // Every 5 characters is counted as a word
-    const netWPM = elapsedTime ? (wordsTyped - errorCount) / elapsedTime : 0;
+    const netWPM = elapsedTime
+        ? Math.max((wordsTyped - errorCount) / elapsedTime, 0)
+        : 0;
 
     // Calculate accuracy as a percentage
     const charactersTyped = userInput.length;
-    const accuracy = ((charactersTyped - errorCount) / charactersTyped) * 100;
+    const accuracy = Math.max(
+        ((charactersTyped - errorCount) / charactersTyped) * 100,
+        0
+    );
 
     return (
         <div className="text-center">
             <p>
                 {typingText.split("").map((char, i) => {
                     let color = "text-black";
+
                     if (i < userInput.length) {
                         color =
                             char === userInput[i]
                                 ? "text-green-400"
-                                : "text-red-400";
+                                : "text-red-400"; // Remove underline when user types correctly
                     }
+
+                    if (char === " ") {
+                        return (
+                            <span
+                                key={i}
+                                className={`text-2xl font-naskh underline ${color}`}
+                            >
+                                &nbsp; {/* Non-breaking space */}
+                            </span>
+                        );
+                    }
+
                     return (
                         <span
                             key={i}
-                            className={`text-2xl font-naskh ${
-                                i < userInput.length
-                                    ? char === userInput[i]
-                                        ? "text-green-400"
-                                        : "text-red-400"
-                                    : ""
-                            }`}
+                            className={`text-2xl font-naskh ${color}`}
                         >
                             {char}
                         </span>
