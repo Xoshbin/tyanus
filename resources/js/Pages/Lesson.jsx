@@ -23,7 +23,16 @@ export default function Lesson({ typingText }) {
                     e.key !== "Tab" &&
                     !e.key.startsWith("Arrow")
                 ) {
-                    setUserInput((prev) => prev + e.key);
+                    const characterToType = e.key === "Enter" ? "↩" : e.key;
+
+                    // Check if the character at the current position should match the Enter symbol
+                    if (
+                        typingText.charAt(userInput.length) === characterToType
+                    ) {
+                        setUserInput((prev) => prev + characterToType);
+                    } else {
+                        setUserInput((prev) => prev + e.key);
+                    }
 
                     // Check if typing is complete
                     if (userInput.length + 1 === typingText.length) {
@@ -66,15 +75,27 @@ export default function Lesson({ typingText }) {
     const accuracy = ((charactersTyped - errorCount) / charactersTyped) * 100;
 
     return (
-        <div>
+        <div className="text-center">
             <p>
                 {typingText.split("").map((char, i) => {
-                    let color = "black";
+                    let color = "text-black";
                     if (i < userInput.length) {
-                        color = char === userInput[i] ? "green" : "red";
+                        color =
+                            char === userInput[i]
+                                ? "text-green-400"
+                                : "text-red-400";
                     }
                     return (
-                        <span key={i} style={{ color }} class="text-2xl">
+                        <span
+                            key={i}
+                            className={`text-2xl font-naskh ${
+                                i < userInput.length
+                                    ? char === userInput[i]
+                                        ? "text-green-400"
+                                        : "text-red-400"
+                                    : ""
+                            }`}
+                        >
                             {char}
                         </span>
                     );
