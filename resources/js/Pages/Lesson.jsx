@@ -1,4 +1,5 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
+import VirtualKeyboard from "@/Components/Typing/VirtualKeyboard";
 
 export default function Lesson({ typingText }) {
     const [userInput, setUserInput] = useState("");
@@ -6,13 +7,21 @@ export default function Lesson({ typingText }) {
     const [startTime, setStartTime] = useState(null);
     const [endTime, setEndTime] = useState(null);
     const [errorCount, setErrorCount] = useState(0);
+    const [currentCharacterIndex, setCurrentCharacterIndex] = useState(0);
+
+    // Define a function to update the current character
+    const updateCurrentCharacter = () => {
+        if (currentCharacterIndex < typingText.length) {
+            setCurrentCharacterIndex(currentCharacterIndex + 1);
+        }
+    };
 
     useEffect(() => {
         const handleKeyDown = (e) => {
             const key = e.key;
 
             // Check if the user has reached the end of the text
-            if (userInput.length < typingText.length) {
+            if (currentCharacterIndex < typingText.length) {
                 // Only capture character keys (letters and spaces)
                 if (
                     !e.ctrlKey &&
@@ -27,7 +36,8 @@ export default function Lesson({ typingText }) {
 
                     // Check if the character at the current position should match the Enter symbol
                     if (
-                        typingText.charAt(userInput.length) === characterToType
+                        typingText.charAt(currentCharacterIndex) ===
+                        characterToType
                     ) {
                         setUserInput((prev) => prev + characterToType);
                     } else {
@@ -35,17 +45,20 @@ export default function Lesson({ typingText }) {
                     }
 
                     // Check if typing is complete
-                    if (userInput.length + 1 === typingText.length) {
+                    if (currentCharacterIndex + 1 === typingText.length) {
                         setEndTime(Date.now());
                         setIsTypingComplete(true);
                     }
+
+                    // Update the current character
+                    updateCurrentCharacter();
                 }
             }
 
             // Check for errors (exclude Shift key)
             if (
-                userInput.length < typingText.length &&
-                key !== typingText[userInput.length]
+                currentCharacterIndex < typingText.length &&
+                key !== typingText[currentCharacterIndex]
             ) {
                 // Exclude Shift key from errors
                 if (key !== "Shift") {
@@ -63,7 +76,7 @@ export default function Lesson({ typingText }) {
         return () => {
             document.removeEventListener("keydown", handleKeyDown);
         };
-    }, [userInput, typingText]);
+    }, [userInput, typingText, currentCharacterIndex]);
 
     // Calculate Net WPM and Accuracy
     const elapsedTime =
@@ -80,8 +93,12 @@ export default function Lesson({ typingText }) {
         0
     );
 
+    // Get the current character to be typed
+    const currentCharacter = typingText[currentCharacterIndex];
+    console.log("currentCharacter" + currentCharacter);
+
     return (
-        <div className="text-center">
+        <div className="flex flex-col justify-center text-center">
             <p>
                 {typingText.split("").map((char, i) => {
                     let color = "text-black";
@@ -114,6 +131,8 @@ export default function Lesson({ typingText }) {
                     );
                 })}
             </p>
+            <VirtualKeyboard currentCharacter={currentCharacter} />
+
             {isTypingComplete && (
                 <div>
                     <p>Typing Complete! Congratulations!</p>
