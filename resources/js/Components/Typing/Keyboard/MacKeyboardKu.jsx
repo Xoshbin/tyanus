@@ -1,7 +1,7 @@
-import KeyboardKey from "@/Components/Typing/KeyboardKey";
+import KeyboardKey from "@/Components/Typing/Keyboard/KeyboardKey";
 import { useEffect } from "react";
 
-export default function VirtualKeyboard({ currentCharacter }) {
+export default function MacKeyboardKu({ currentCharacter }) {
     return (
         <div
             className="bg-zinc-200 px-2 py-4 rounded-lg shadow-md w-full max-w-3xl select-none"
@@ -28,61 +28,61 @@ export default function VirtualKeyboard({ currentCharacter }) {
                         className="w-12 h-10 items-center justify-center text-sm"
                     />
                     <KeyboardKey
-                        mainKey="0"
+                        mainKey="٠"
                         secondKey=")"
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
                     />
                     <KeyboardKey
-                        mainKey="9"
+                        mainKey="٩"
                         secondKey="("
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
                     />
                     <KeyboardKey
-                        mainKey="8"
+                        mainKey="٨"
                         secondKey="*"
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
                     />
                     <KeyboardKey
-                        mainKey="7"
+                        mainKey="٧"
                         secondKey="&"
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
                     />
                     <KeyboardKey
-                        mainKey="6"
+                        mainKey="٦"
                         secondKey="^"
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
                     />
                     <KeyboardKey
-                        mainKey="5"
+                        mainKey="٥"
                         secondKey="٪"
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
                     />
                     <KeyboardKey
-                        mainKey="4"
+                        mainKey="٤"
                         secondKey="$"
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
                     />
                     <KeyboardKey
-                        mainKey="3"
+                        mainKey="٣"
                         secondKey="#"
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
                     />
                     <KeyboardKey
-                        mainKey="2"
+                        mainKey="٢"
                         secondKey="@"
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
                     />
                     <KeyboardKey
-                        mainKey="1"
+                        mainKey="١"
                         secondKey="!"
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
@@ -114,61 +114,61 @@ export default function VirtualKeyboard({ currentCharacter }) {
                         className="w-12 h-10 items-center justify-center text-sm"
                     />
                     <KeyboardKey
-                        mainKey="p"
+                        mainKey="پ"
                         secondKey=""
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
                     />
                     <KeyboardKey
-                        mainKey="o"
+                        mainKey="ۆ"
                         secondKey=""
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
                     />
                     <KeyboardKey
-                        mainKey="i"
+                        mainKey="ی"
+                        secondKey="ى"
+                        currentCharacter={currentCharacter}
+                        className="w-12 h-10 items-center justify-center text-sm"
+                    />
+                    <KeyboardKey
+                        mainKey="و"
+                        secondKey="وو"
+                        currentCharacter={currentCharacter}
+                        className="w-12 h-10 items-center justify-center text-sm"
+                    />
+                    <KeyboardKey
+                        mainKey="ی"
                         secondKey=""
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
                     />
                     <KeyboardKey
-                        mainKey="u"
-                        secondKey=""
+                        mainKey="ت"
+                        secondKey="ث"
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
                     />
                     <KeyboardKey
-                        mainKey="y"
-                        secondKey=""
+                        mainKey="ر"
+                        secondKey="ڕ"
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
                     />
                     <KeyboardKey
-                        mainKey="t"
-                        secondKey=""
+                        mainKey="ە"
+                        secondKey="ێ"
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
                     />
                     <KeyboardKey
-                        mainKey="r"
-                        secondKey=""
+                        mainKey="و"
+                        secondKey="ّ"
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
                     />
                     <KeyboardKey
-                        mainKey="e"
-                        secondKey=""
-                        currentCharacter={currentCharacter}
-                        className="w-12 h-10 items-center justify-center text-sm"
-                    />
-                    <KeyboardKey
-                        mainKey="w"
-                        secondKey=""
-                        currentCharacter={currentCharacter}
-                        className="w-12 h-10 items-center justify-center text-sm"
-                    />
-                    <KeyboardKey
-                        mainKey="q"
+                        mainKey="ق"
                         secondKey=""
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
@@ -182,74 +182,74 @@ export default function VirtualKeyboard({ currentCharacter }) {
                 </div>
                 <div className="keyboard-row justify-center mb-3 flex">
                     <KeyboardKey
-                        mainKey="↩"
+                        mainKey="Enter"
                         secondKey=""
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-end px-2 grow text-xs"
                     />
                     <KeyboardKey
-                        mainKey="'"
-                        secondKey='"'
+                        mainKey="ع"
+                        secondKey="غ"
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
                     />
                     <KeyboardKey
-                        mainKey=";"
+                        mainKey="؛"
                         secondKey=":"
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
                     />
                     <KeyboardKey
-                        mainKey="l"
+                        mainKey="ل"
+                        secondKey="ڵ"
+                        currentCharacter={currentCharacter}
+                        className="w-12 h-10 items-center justify-center text-sm"
+                    />
+                    <KeyboardKey
+                        mainKey="ک"
                         secondKey=""
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
                     />
                     <KeyboardKey
-                        mainKey="k"
+                        mainKey="ژ"
                         secondKey=""
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
                     />
                     <KeyboardKey
-                        mainKey="j"
+                        mainKey="ه"
+                        secondKey="ح"
+                        currentCharacter={currentCharacter}
+                        className="w-12 h-10 items-center justify-center text-sm"
+                    />
+                    <KeyboardKey
+                        mainKey="گ"
                         secondKey=""
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
                     />
                     <KeyboardKey
-                        mainKey="h"
+                        mainKey="ف"
                         secondKey=""
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
                     />
                     <KeyboardKey
-                        mainKey="g"
-                        secondKey=""
+                        mainKey="د"
+                        secondKey="ذ"
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
                     />
                     <KeyboardKey
-                        mainKey="f"
-                        secondKey=""
+                        mainKey="س"
+                        secondKey="ش"
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
                     />
                     <KeyboardKey
-                        mainKey="d"
-                        secondKey=""
-                        currentCharacter={currentCharacter}
-                        className="w-12 h-10 items-center justify-center text-sm"
-                    />
-                    <KeyboardKey
-                        mainKey="s"
-                        secondKey=""
-                        currentCharacter={currentCharacter}
-                        className="w-12 h-10 items-center justify-center text-sm"
-                    />
-                    <KeyboardKey
-                        mainKey="a"
-                        secondKey=""
+                        mainKey="ا"
+                        secondKey="ئ"
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
                     />
@@ -268,62 +268,62 @@ export default function VirtualKeyboard({ currentCharacter }) {
                         className="w-12 h-10 items-end px-2 grow text-xs"
                     />
                     <KeyboardKey
-                        mainKey="/"
-                        secondKey="?"
+                        mainKey="\\"
+                        secondKey="؟"
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
                     />
                     <KeyboardKey
                         mainKey="."
-                        secondKey=">"
-                        currentCharacter={currentCharacter}
-                        className="w-12 h-10 items-center justify-center text-sm"
-                    />
-                    <KeyboardKey
-                        mainKey=","
                         secondKey="<"
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
                     />
                     <KeyboardKey
-                        mainKey="m"
+                        mainKey="،"
+                        secondKey=">"
+                        currentCharacter={currentCharacter}
+                        className="w-12 h-10 items-center justify-center text-sm"
+                    />
+                    <KeyboardKey
+                        mainKey="م"
                         secondKey=""
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
                     />
                     <KeyboardKey
-                        mainKey="n"
+                        mainKey="ن"
                         secondKey=""
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
                     />
                     <KeyboardKey
-                        mainKey="b"
+                        mainKey="ب"
                         secondKey=""
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
                     />
                     <KeyboardKey
-                        mainKey="v"
+                        mainKey="ڤ"
                         secondKey=""
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
                     />
                     <KeyboardKey
-                        mainKey="c"
-                        secondKey=""
+                        mainKey="ج"
+                        secondKey="چ"
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
                     />
                     <KeyboardKey
-                        mainKey="x"
-                        secondKey=""
+                        mainKey="خ"
+                        secondKey="غ"
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
                     />
                     <KeyboardKey
-                        mainKey="z"
-                        secondKey=""
+                        mainKey="ز"
+                        secondKey="ض"
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
                     />

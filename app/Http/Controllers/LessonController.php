@@ -15,7 +15,7 @@ class LessonController extends Controller
         // $text = "jJ↩kK↩↩";
         // $text = "jj ff gg kk ll";
 
-        return Inertia::render('Lesson', [
+        return Inertia::render('Typing/Lesson', [
             'typingText' => $text
         ]);
     }

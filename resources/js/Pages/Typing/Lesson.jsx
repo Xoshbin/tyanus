@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import VirtualKeyboard from "@/Components/Typing/VirtualKeyboard";
+import MacKeyboardEn from "@/Components/Typing/Keyboard/MacKeyboardEn";
+import MacKeyboardKu from "@/Components/Typing/Keyboard/MacKeyboardKu";
+import WindwosKeyboardKu from "@/Components/Typing/Keyboard/WindowsKeyboardKu";
 
 export default function Lesson({ typingText }) {
     const [userInput, setUserInput] = useState("");
@@ -131,7 +133,7 @@ export default function Lesson({ typingText }) {
                     );
                 })}
             </p>
-            <VirtualKeyboard currentCharacter={currentCharacter} />
+            <MacKeyboardEn currentCharacter={currentCharacter} />
 
             {isTypingComplete && (
                 <div>
