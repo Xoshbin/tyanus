@@ -397,6 +397,17 @@ export default function Lesson({ typingText }) {
                                 : "text-red-400"; // Remove underline when user types correctly
                     }
 
+                    if (char === " ") {
+                        return (
+                            <span
+                                key={i}
+                                className={`text-2xl font-naskh underline ${color}`}
+                            >
+                                &nbsp; {/* Non-breaking space */}
+                            </span>
+                        );
+                    }
+
                     const fingerImage = fingerMapping[char] || ""; // Get the finger image
 
                     return (
@@ -415,7 +426,7 @@ export default function Lesson({ typingText }) {
                     );
                 })}
             </p>
-            <MacKeyboardKu currentCharacter={currentCharacter} />
+            <MacKeyboardEn currentCharacter={currentCharacter} />
 
             {isTypingComplete && (
                 <div>
