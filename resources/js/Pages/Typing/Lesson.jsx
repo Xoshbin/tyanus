@@ -43,6 +43,9 @@ export default function Lesson({ typingText }) {
                         characterToType
                     ) {
                         setUserInput((prev) => prev + characterToType);
+                    } else if (characterToType === "↩") {
+                        // Check if the entered character is not "↩"
+                        setUserInput((prev) => prev + characterToType);
                     } else {
                         setUserInput((prev) => prev + e.key);
                     }
