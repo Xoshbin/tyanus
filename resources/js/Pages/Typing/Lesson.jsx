@@ -127,7 +127,7 @@ const fingerMapping = {
     "=": "/img/fingers/j.webp",
     "+": "/img/fingers/f.webp",
     enter: "/img/fingers/enter.webp",
-    space: "/img/fingers/space.webp",
+    " ": "/img/fingers/space.webp",
     // Add more mappings for other keys as needed
 };
 
@@ -164,6 +164,7 @@ export default function Lesson({ typingText }) {
         "g",
         "b",
         "6",
+        " ",
 
         //English Shift keys
         "~",

@@ -348,8 +348,9 @@ export default function MacKeyboardEn({ currentCharacter }) {
                         className="w-12 h-10 items-end text-xs px-2 flex-none"
                     />
                     <KeyboardKey
-                        mainKey=""
+                        mainKey=" "
                         className="w-12 h-10 items-end text-xs px-2 flex-none grow"
+                        currentCharacter={currentCharacter}
                         data-key="Space"
                     />
                     <KeyboardKey
