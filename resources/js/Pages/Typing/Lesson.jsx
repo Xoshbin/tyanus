@@ -375,7 +375,6 @@ export default function Lesson({ typingText }) {
 
     // Get the current character to be typed
     const currentCharacter = typingText[currentCharacterIndex];
-    console.log("currentCharacter" + currentCharacter);
 
     return (
         <div className="flex flex-col justify-center text-center">
@@ -398,13 +397,24 @@ export default function Lesson({ typingText }) {
                                 : "text-red-400"; // Remove underline when user types correctly
                     }
 
+                    //we need to handle the space key differently
                     if (char === " ") {
+                        const fingerImage = fingerMapping[char] || ""; // Get the finger image
+                        console.log("char " + char);
                         return (
-                            <span
-                                key={i}
-                                className={`text-2xl font-naskh underline ${color}`}
-                            >
-                                &nbsp; {/* Non-breaking space */}
+                            <span key={i}>
+                                {char === currentCharacter && (
+                                    <img
+                                        src={fingerImage}
+                                        alt=""
+                                        className={fingerClass} // Apply your styling for the finger image here
+                                    />
+                                )}
+                                <span
+                                    className={`text-2xl font-naskh underline ${color}`}
+                                >
+                                    {char}
+                                </span>
                             </span>
                         );
                     }
