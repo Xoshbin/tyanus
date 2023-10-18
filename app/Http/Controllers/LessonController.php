@@ -10,8 +10,8 @@ class LessonController extends Controller
 {
     public function challenge(): Response
     {
-        // $text = 'qwertyuiop[]\\\';lkjhgfdsazxcvbnm,./QWERTYUIOP{}|":LKJHGFDSAZXCVBNM<>?`1234567890-=~!@#$%^&*()_+↩';
-        $text = '`١٢٣٤٥٦٧٨٩٠-=\[]پۆیویترەوقاسدفگهژکل؛ع\.،منبڤجخز~!@#$%^&ى)(_+|{}ىووثڕێّئشذحڵ:غ؟<>چغض↩';
+        $text = 'qwertyuiop[]\\\';lkjhgfdsazxcvbnm,./QWERTYUIOP{}|":LKJHGFDSAZXCVBNM<>?`1234567890-=~!@#$%^&*()_+↩';
+        // $text = '`١٢٣٤٥٦٧٨٩٠-=\[]پۆیویترەوقاسدفگهژکل؛ع\.،منبڤجخز~!@#$%^&ى)(_+|{}ىووثڕێّئشذحڵ:غ؟<>چغض↩';
         // $text = "jJ↩kK↩↩";
         // $text = "jj ff gg kk ll";
 

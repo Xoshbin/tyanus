@@ -32,7 +32,8 @@ export default function Lesson({ typingText }) {
                     !e.getModifierState("CapsLock") &&
                     e.key !== "Shift" &&
                     e.key !== "Tab" &&
-                    !e.key.startsWith("Arrow")
+                    !e.key.startsWith("Arrow") &&
+                    e.key !== "Backspace" // Exclude the Backspace key
                 ) {
                     const characterToType = e.key === "Enter" ? "↩" : e.key;
 
