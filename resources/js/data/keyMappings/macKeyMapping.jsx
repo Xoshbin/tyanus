@@ -218,7 +218,6 @@ export const macLeftKeys = [
     "ت",
     "گ",
     "ب",
-    "٦",
 
     //Kurdish shift keys
     "ئ",
@@ -299,6 +298,7 @@ export const macRightKeys = [
     "ب",
     "گ",
     "٧",
+    "٦",
 
     //Kurdish Shift keys
     "غ",

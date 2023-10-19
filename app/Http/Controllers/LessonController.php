@@ -17,7 +17,7 @@ class LessonController extends Controller
         // $text = "jj ff gg kk ll";
 
         return Inertia::render('Typing/Lesson', [
-            'typingText' => $macENtext
+            'typingText' => $macKUtext
         ]);
     }
 }
