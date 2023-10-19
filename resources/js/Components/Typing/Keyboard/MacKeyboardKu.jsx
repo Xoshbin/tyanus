@@ -126,13 +126,13 @@ export default function MacKeyboardKu({ currentCharacter }) {
                         className="w-12 h-10 items-center justify-center text-sm"
                     />
                     <KeyboardKey
-                        mainKey="ی"
+                        mainKey=""
                         secondKey="ى"
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
                     />
                     <KeyboardKey
-                        mainKey="و"
+                        mainKey=""
                         secondKey="وو"
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
@@ -189,7 +189,7 @@ export default function MacKeyboardKu({ currentCharacter }) {
                     />
                     <KeyboardKey
                         mainKey="ع"
-                        secondKey="غ"
+                        secondKey=""
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
                     />

@@ -404,7 +404,6 @@ export default function Lesson({ typingText }) {
         "و",
         "ه",
         "ب",
-        "ی",
         "گ",
 
         //Kurdish Shift keys
@@ -603,7 +602,9 @@ export default function Lesson({ typingText }) {
         "چ",
         "%",
         "^",
+        "ث",
         "ڕ",
+        "ێ",
         "ط",
         "إ",
         "غ",
@@ -638,7 +639,6 @@ export default function Lesson({ typingText }) {
         "N",
         "+",
         "_",
-        "ث",
         "}",
         "{",
         ":",
@@ -656,7 +656,6 @@ export default function Lesson({ typingText }) {
         "*",
         "&",
         "ء",
-        "ێ",
         "أ",
         "ـ",
         "ة",
@@ -878,7 +877,7 @@ export default function Lesson({ typingText }) {
                     );
                 })}
             </p>
-            <MacKeyboardEn currentCharacter={currentCharacter} />
+            <MacKeyboardKu currentCharacter={currentCharacter} />
 
             {isTypingComplete && (
                 <div>
