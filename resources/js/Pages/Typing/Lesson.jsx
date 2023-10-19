@@ -206,7 +206,7 @@ export default function Lesson({ typingText }) {
                     );
                 })}
             </div>
-            <MacKeyboardKu currentCharacter={currentCharacter} />
+            <MacKeyboardEn currentCharacter={currentCharacter} />
 
             {isTypingComplete && (
                 <div>

@@ -10,13 +10,13 @@ class LessonController extends Controller
 {
     public function challenge(): Response
     {
-        // $text = 'qw↩ertyuiop[]\\\';lkjhgfdsazxcvbnm,./QWERTYUIOP{}|":LKJHGFDSAZXCVBNM<>?`1234567890-=~!@#$%^&*()_+↩';
+        $macENtext = 'zxcvbnm,./\';lkjhgfdsaqwertyuiop[]\=-0987654321 ZXCVBNM<>?":LKJHGFDSAQWERTYUIOP{}|+_)(*&^%$#@!~';
         $macKUtext = 'زخجڤبنم،.\ع؛لکژهگفدساقوەرتیویۆپ][\\=-٠٩٨٧٦٥٤٣٢١` ضغچ><؟غ:ڵحذشئّێڕثووى}{|+_()ى&^%$#@!~';
         // $text = "fF jJ ↩";
         // $text = "jj ff gg kk ll";
 
         return Inertia::render('Typing/Lesson', [
-            'typingText' => $macKUtext
+            'typingText' => $macENtext
         ]);
     }
 }
