@@ -11,12 +11,12 @@ class LessonController extends Controller
     public function challenge(): Response
     {
         // $text = 'qw↩ertyuiop[]\\\';lkjhgfdsazxcvbnm,./QWERTYUIOP{}|":LKJHGFDSAZXCVBNM<>?`1234567890-=~!@#$%^&*()_+↩';
-        $text = '`١٢٣٤٥٦٧٨٩٠-=\[]پۆیویترەوقاسدفگهژکل؛ع\.،منبڤجخز~!@#$%^&ى)(_+|{}ىووثڕێّئشذحڵ:غ؟<>چغض↩';
+        $macKUtext = 'زخجڤبنم،.\ع؛لکژهگفدساقوەرتیویۆپ][\\=-٠٩٨٧٦٥٤٣٢١` ضغچ><؟غ:ڵحذشئّێڕثووى}{|+_()ى&^%$#@!~';
         // $text = "fF jJ ↩";
         // $text = "jj ff gg kk ll";
 
         return Inertia::render('Typing/Lesson', [
-            'typingText' => $text
+            'typingText' => $macKUtext
         ]);
     }
 }
