@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import MacKeyboardEn from "@/Components/Typing/Keyboard/MacKeyboardEn";
-import MacKeyboardKu from "@/Components/Typing/Keyboard/MacKeyboardKU";
+import MacKeyboardKu from "@/Components/Typing/Keyboard/MacKeyboardKu";
 
 // Define the mapping between keyboard keys and finger images
-const fingerMapping = {
+const macFingerMapping = {
     //English characters
     a: "/img/fingers/a.webp",
     A: "/img/fingers/a.webp",
@@ -56,7 +56,7 @@ const fingerMapping = {
     y: "/img/fingers/y.webp",
     Y: "/img/fingers/y.webp",
     z: "/img/fingers/z.webp",
-    z: "/img/fingers/z.webp",
+    Z: "/img/fingers/z.webp",
 
     //Kurdish characters
     ا: "/img/fingers/a.webp",
@@ -89,8 +89,6 @@ const fingerMapping = {
     ش: "/img/fingers/s.webp",
     ت: "/img/fingers/t.webp",
     ث: "/img/fingers/t.webp",
-    و: "/img/fingers/u.webp",
-    وو: "/img/fingers/u.webp",
     ڤ: "/img/fingers/v.webp",
     و: "/img/fingers/w.webp",
     خ: "/img/fingers/x.webp",
@@ -109,7 +107,142 @@ const fingerMapping = {
     "?": "/img/fingers/j.webp",
     ",": "/img/fingers/f.webp",
     ">": "/img/fingers/F.webp",
-    ",": "/img/fingers/j.webp",
+    "<": "/img/fingers/j.webp",
+    "`": "/img/fingers/j.webp",
+    "!": "/img/fingers/j.webp",
+    "@": "/img/fingers/f.webp",
+    "#": "/img/fingers/F.webp",
+    $: "/img/fingers/j.webp",
+    "%": "/img/fingers/j.webp",
+    "^": "/img/fingers/j.webp",
+    "&": "/img/fingers/j.webp",
+    "*": "/img/fingers/f.webp",
+    "(": "/img/fingers/F.webp",
+    ")": "/img/fingers/j.webp",
+    "-": "/img/fingers/j.webp",
+    _: "/img/fingers/j.webp",
+    "=": "/img/fingers/j.webp",
+    "+": "/img/fingers/f.webp",
+    enter: "/img/fingers/enter.webp",
+    " ": "/img/fingers/space.webp",
+    // Add more mappings for other keys as needed
+};
+
+const windowsFingerMapping = {
+    //English characters
+    a: "/img/fingers/a.webp",
+    A: "/img/fingers/a.webp",
+    b: "/img/fingers/b.webp",
+    B: "/img/fingers/b.webp",
+    c: "/img/fingers/c.webp",
+    C: "/img/fingers/c.webp",
+    d: "/img/fingers/d.webp",
+    D: "/img/fingers/d.webp",
+    e: "/img/fingers/e.webp",
+    E: "/img/fingers/e.webp",
+    f: "/img/fingers/f.webp",
+    F: "/img/fingers/f.webp",
+    g: "/img/fingers/g.webp",
+    G: "/img/fingers/g.webp",
+    h: "/img/fingers/h.webp",
+    H: "/img/fingers/h.webp",
+    i: "/img/fingers/i.webp",
+    I: "/img/fingers/i.webp",
+    j: "/img/fingers/j.webp",
+    J: "/img/fingers/j.webp",
+    k: "/img/fingers/k.webp",
+    K: "/img/fingers/k.webp",
+    l: "/img/fingers/l.webp",
+    L: "/img/fingers/l.webp",
+    m: "/img/fingers/m.webp",
+    M: "/img/fingers/m.webp",
+    n: "/img/fingers/n.webp",
+    N: "/img/fingers/n.webp",
+    o: "/img/fingers/o.webp",
+    O: "/img/fingers/o.webp",
+    p: "/img/fingers/p.webp",
+    P: "/img/fingers/p.webp",
+    q: "/img/fingers/q.webp",
+    Q: "/img/fingers/q.webp",
+    r: "/img/fingers/r.webp",
+    R: "/img/fingers/r.webp",
+    s: "/img/fingers/s.webp",
+    S: "/img/fingers/s.webp",
+    t: "/img/fingers/t.webp",
+    T: "/img/fingers/t.webp",
+    u: "/img/fingers/u.webp",
+    U: "/img/fingers/u.webp",
+    v: "/img/fingers/v.webp",
+    V: "/img/fingers/v.webp",
+    w: "/img/fingers/w.webp",
+    W: "/img/fingers/w.webp",
+    x: "/img/fingers/x.webp",
+    X: "/img/fingers/x.webp",
+    y: "/img/fingers/y.webp",
+    Y: "/img/fingers/y.webp",
+    z: "/img/fingers/z.webp",
+    Z: "/img/fingers/z.webp",
+
+    //Kurdish characters
+    ا: "/img/fingers/a.webp",
+    آ: "/img/fingers/a.webp",
+    ب: "/img/fingers/b.webp",
+    ى: "/img/fingers/b.webp",
+    ج: "/img/fingers/c.webp",
+    چ: "/img/fingers/c.webp",
+    د: "/img/fingers/d.webp",
+    ذ: "/img/fingers/d.webp",
+    ە: "/img/fingers/e.webp",
+    ي: "/img/fingers/e.webp",
+    ف: "/img/fingers/f.webp",
+    إ: "/img/fingers/f.webp",
+    گ: "/img/fingers/g.webp",
+    غ: "/img/fingers/g.webp",
+    ه: "/img/fingers/h.webp",
+    ح: "/img/fingers/i.webp",
+    ع: "/img/fingers/i.webp",
+    ژ: "/img/fingers/j.webp",
+    أ: "/img/fingers/j.webp",
+    ک: "/img/fingers/k.webp",
+    ك: "/img/fingers/k.webp",
+    ل: "/img/fingers/l.webp",
+    ڵ: "/img/fingers/l.webp",
+    م: "/img/fingers/m.webp",
+    ـ: "/img/fingers/m.webp",
+    ن: "/img/fingers/n.webp",
+    ة: "/img/fingers/n.webp",
+    ۆ: "/img/fingers/o.webp",
+    ؤ: "/img/fingers/o.webp",
+    پ: "/img/fingers/p.webp",
+    ث: "/img/fingers/p.webp",
+    ق: "/img/fingers/q.webp",
+    ر: "/img/fingers/r.webp",
+    ڕ: "/img/fingers/r.webp",
+    س: "/img/fingers/s.webp",
+    ش: "/img/fingers/s.webp",
+    ت: "/img/fingers/t.webp",
+    ط: "/img/fingers/t.webp",
+    ڤ: "/img/fingers/v.webp",
+    ظ: "/img/fingers/v.webp",
+    و: "/img/fingers/w.webp",
+    وو: "/img/fingers/w.webp",
+    خ: "/img/fingers/x.webp",
+    ص: "/img/fingers/x.webp",
+    ی: "/img/fingers/y.webp",
+    ێ: "/img/fingers/y.webp",
+    ز: "/img/fingers/z.webp",
+    ض: "/img/fingers/z.webp",
+
+    "\\": "/img/fingers/j.webp",
+    "|": "/img/fingers/j.webp",
+    '"': "/img/fingers/f.webp",
+    "'": "/img/fingers/F.webp",
+    ";": "/img/fingers/j.webp",
+    ":": "/img/fingers/j.webp",
+    "/": "/img/fingers/j.webp",
+    "?": "/img/fingers/j.webp",
+    ",": "/img/fingers/f.webp",
+    ">": "/img/fingers/F.webp",
     "<": "/img/fingers/j.webp",
     "`": "/img/fingers/j.webp",
     "!": "/img/fingers/j.webp",
@@ -281,7 +414,6 @@ export default function Lesson({ typingText }) {
         "ڵ",
         "ى",
         "ى",
-        "وو",
         "ح",
     ];
 
@@ -399,7 +531,7 @@ export default function Lesson({ typingText }) {
 
                     //we need to handle the space key differently
                     if (char === " ") {
-                        const fingerImage = fingerMapping[char] || ""; // Get the finger image
+                        const fingerImage = macFingerMapping[char] || ""; // Get the finger image
                         console.log("char " + char);
                         return (
                             <span key={i}>
@@ -419,7 +551,7 @@ export default function Lesson({ typingText }) {
                         );
                     }
 
-                    const fingerImage = fingerMapping[char] || ""; // Get the finger image
+                    const fingerImage = macFingerMapping[char] || ""; // Get the finger image
 
                     return (
                         <span key={i}>
