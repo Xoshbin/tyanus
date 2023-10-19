@@ -182,7 +182,7 @@ export default function MacKeyboardKu({ currentCharacter }) {
                 </div>
                 <div className="keyboard-row justify-center mb-3 flex">
                     <KeyboardKey
-                        mainKey="Enter"
+                        mainKey="↩"
                         secondKey=""
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-end px-2 grow text-xs"
@@ -348,8 +348,9 @@ export default function MacKeyboardKu({ currentCharacter }) {
                         className="w-12 h-10 items-end text-xs px-2 flex-none"
                     />
                     <KeyboardKey
-                        mainKey=""
+                        mainKey=" "
                         className="w-12 h-10 items-end text-xs px-2 flex-none grow"
+                        currentCharacter={currentCharacter}
                         data-key="Space"
                     />
                     <KeyboardKey

@@ -12,11 +12,12 @@ class LessonController extends Controller
     {
         $macENtext = 'zxcvbnm,./\';lkjhgfdsaqwertyuiop[]\=-0987654321 ZXCVBNM<>?":LKJHGFDSAQWERTYUIOP{}|+_)(*&^%$#@!~';
         $macKUtext = 'زخجڤبنم،.\ع؛لکژهگفدساقوەرتیویۆپ][\\=-٠٩٨٧٦٥٤٣٢١` ضغچ><؟غ:ڵحذشئّێڕثووى}{|+_()ى&^%$#@!~';
-        // $text = "fF jJ ↩";
+        $spaceEnterENText = "fF jJ ↩";
+        $spaceEnterKUText = "ف ش ↩";
         // $text = "jj ff gg kk ll";
 
         return Inertia::render('Typing/Lesson', [
-            'typingText' => $macENtext
+            'typingText' => $spaceEnterKUText
         ]);
     }
 }
