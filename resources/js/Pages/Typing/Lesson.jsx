@@ -72,8 +72,6 @@ const macFingerMapping = {
     گ: "/img/fingers/g.webp",
     ه: "/img/fingers/h.webp",
     ح: "/img/fingers/h.webp",
-    ی: "/img/fingers/i.webp",
-    ى: "/img/fingers/i.webp",
     ژ: "/img/fingers/j.webp",
     ک: "/img/fingers/k.webp",
     ل: "/img/fingers/l.webp",
@@ -810,9 +808,9 @@ export default function Lesson({ typingText }) {
                     let color = "text-black";
                     let fingerClass = "absolute -right-28 -top-7 w-4/5"; // Initialize hand class
 
-                    if (windowsLeftKeys.includes(char.toLowerCase())) {
+                    if (macLeftKeys.includes(char.toLowerCase())) {
                         fingerClass = "absolute -left-44 -top-14 w-4/5"; // Assign left-hand class
-                    } else if (windowsRightKeys.includes(char.toLowerCase())) {
+                    } else if (macRightKeys.includes(char.toLowerCase())) {
                         fingerClass = "absolute -right-28 -top-7 w-4/5"; // Assign right-hand class
                     }
 
@@ -824,7 +822,7 @@ export default function Lesson({ typingText }) {
                     }
 
                     if (char === " ") {
-                        const fingerImage = windowsFingerMapping[char] || ""; // Get the finger image
+                        const fingerImage = macFingerMapping[char] || ""; // Get the finger image
                         return (
                             <span key={i}>
                                 {char === currentCharacter && (
@@ -843,13 +841,13 @@ export default function Lesson({ typingText }) {
                         );
                     }
 
-                    const fingerImage = windowsFingerMapping[char] || ""; // Get the finger image
+                    const fingerImage = macFingerMapping[char] || ""; // Get the finger image
                     let shiftImage = null;
 
                     // Handle characters that require the Shift key
-                    if (windowsRightShiftKeys.includes(char)) {
+                    if (macRightShiftKeys.includes(char)) {
                         shiftImage = "/img/fingers/right-shift.webp"; // Set the image for the right Shift key
-                    } else if (windowsLeftShiftKeys.includes(char)) {
+                    } else if (macLeftShiftKeys.includes(char)) {
                         shiftImage = "/img/fingers/left-shift.webp"; // Set the image for the left Shift key
                     }
 
