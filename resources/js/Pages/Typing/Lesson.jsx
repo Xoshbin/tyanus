@@ -125,6 +125,7 @@ const macFingerMapping = {
     "+": "/img/fingers/f.webp",
     enter: "/img/fingers/enter.webp",
     " ": "/img/fingers/space.webp",
+    Shift: ["/img/fingers/left-shift.webp", "/img/fingers/right-shift.webp"],
     // Add more mappings for other keys as needed
 };
 
@@ -273,7 +274,7 @@ export default function Lesson({ typingText }) {
     const [currentCharacterIndex, setCurrentCharacterIndex] = useState(0);
 
     // Define your left and right key arrays
-    const leftKeys = [
+    const macLeftKeys = [
         //English keys
         "`",
         "1",
@@ -342,7 +343,7 @@ export default function Lesson({ typingText }) {
         "ڕ",
         "ث",
     ];
-    const rightKeys = [
+    const macRightKeys = [
         //English keys
         "\\",
         "]",
@@ -415,6 +416,300 @@ export default function Lesson({ typingText }) {
         "ى",
         "ى",
         "ح",
+    ];
+
+    const windowsLeftKeys = [
+        //English keys
+        "`",
+        "1",
+        "q",
+        "a",
+        "z",
+        "2",
+        "w",
+        "s",
+        "x",
+        "3",
+        "e",
+        "d",
+        "c",
+        "4",
+        "r",
+        "f",
+        "v",
+        "5",
+        "t",
+        "g",
+        "b",
+        "6",
+        " ",
+
+        //English Shift keys
+        "~",
+        "!",
+        "@",
+        "#",
+        "$",
+        "%",
+        "^",
+
+        //Kurdish keys
+        "١",
+        "ق",
+        "ا",
+        "ز",
+        "٢",
+        "و",
+        "س",
+        "خ",
+        "٣",
+        "ە",
+        "د",
+        "ج",
+        "٤",
+        "ر",
+        "ف",
+        "ڤ",
+        "٥",
+        "ت",
+        "گ",
+        "ب",
+        "٦",
+
+        //Kurdish shift keys
+        "آ",
+        "ض",
+        "ش",
+        "ص",
+        "ي",
+        "ذ",
+        "چ",
+        "ڕ",
+        "إ",
+        "ظ",
+        "ط",
+        "غ",
+        "ى",
+    ];
+    const windowsRightKeys = [
+        //English keys
+        "\\",
+        "]",
+        "'",
+        "/",
+        "=",
+        "[",
+        ";",
+        ".",
+        "-",
+        "p",
+        "l",
+        ",",
+        "0",
+        "o",
+        "k",
+        "m",
+        "9",
+        "i",
+        "j",
+        "n",
+        "8",
+        "u",
+        "h",
+        "b",
+        "y",
+        "g",
+
+        //English Shift keys
+        "|",
+        "}",
+        '"',
+        "?",
+        "+",
+        "{",
+        ":",
+        ">",
+        "_",
+        "<",
+        ")",
+        "(",
+        "*",
+
+        //Kurdish keys
+        "؛",
+        "پ",
+        "ل",
+        "،",
+        "٠",
+        "ۆ",
+        "ک",
+        "م",
+        "٩",
+        "ح",
+        "ژ",
+        "ن",
+        "٨",
+        "ئ",
+        "ه",
+
+        //Kurdish Shift keys
+        "؟",
+        "ث",
+        "ڵ",
+        "ؤ",
+        "ك",
+        "ـ",
+        "ع",
+        "أ",
+        "ة",
+        "ء",
+    ];
+
+    // Utilize the $macShiftKeyCombinationsEN array
+    const macRightShiftKeys = [
+        "~",
+        "!",
+        "@",
+        "Q",
+        "A",
+        "Z",
+        "#",
+        "W",
+        "S",
+        "X",
+        "$",
+        "E",
+        "D",
+        "C",
+        "%",
+        "R",
+        "F",
+        "V",
+        "^",
+        "T",
+        "G",
+        "B",
+        "~",
+        "!",
+        "@",
+        "`",
+        "آ",
+        "ض",
+        "#",
+        "وو",
+        "ش",
+        "ص",
+        "$",
+        "ي",
+        "ذ",
+        "چ",
+        "%",
+        "^",
+        "ڕ",
+        "ط",
+        "إ",
+        "غ",
+        "ظ",
+        "ى",
+        "ئ",
+    ];
+    const macLeftShiftKeys = [
+        "+",
+        "_",
+        "P",
+        "{",
+        "}",
+        "|",
+        '"',
+        "?",
+        ">",
+        "L",
+        "O",
+        ")",
+        "(",
+        "I",
+        "K",
+        "<",
+        "M",
+        "J",
+        "U",
+        "*",
+        "&",
+        "Y",
+        "H",
+        "N",
+        "+",
+        "_",
+        "ث",
+        "}",
+        "{",
+        ":",
+        '"',
+        "؟",
+        "ڵ",
+        "(",
+        "ؤ",
+        "ڵ",
+        "ح",
+        ")",
+        "ع",
+        "ك",
+        ">",
+        "*",
+        "&",
+        "ء",
+        "ێ",
+        "أ",
+        "ـ",
+        "ة",
+    ];
+
+    const windowsRightShiftKeys = [
+        "آ",
+        "ض",
+        "ش",
+        "ص",
+        "ي",
+        "ذ",
+        "چ",
+        "ڕ",
+        "إ",
+        "ظ",
+        "ط",
+        "غ",
+        "ى",
+        "~",
+        "!",
+        "@",
+        "#",
+        "$",
+        "%",
+        "^",
+    ];
+    const windowsLeftShiftKeys = [
+        "؟",
+        "ث",
+        "ڵ",
+        "ؤ",
+        "ك",
+        "ـ",
+        "ع",
+        "أ",
+        "ة",
+        "ء",
+        "|",
+        "}",
+        '"',
+        "?",
+        "+",
+        "{",
+        ":",
+        ">",
+        "_",
+        "<",
+        ")",
+        "(",
+        "*",
     ];
 
     // Define a function to update the current character
@@ -515,10 +810,9 @@ export default function Lesson({ typingText }) {
                     let color = "text-black";
                     let fingerClass = "absolute -right-28 -top-7 w-4/5"; // Initialize hand class
 
-                    // Check if the character is in the leftKeys or rightKeys arrays
-                    if (leftKeys.includes(char.toLowerCase())) {
+                    if (windowsLeftKeys.includes(char.toLowerCase())) {
                         fingerClass = "absolute -left-44 -top-14 w-4/5"; // Assign left-hand class
-                    } else if (rightKeys.includes(char.toLowerCase())) {
+                    } else if (windowsRightKeys.includes(char.toLowerCase())) {
                         fingerClass = "absolute -right-28 -top-7 w-4/5"; // Assign right-hand class
                     }
 
@@ -529,10 +823,8 @@ export default function Lesson({ typingText }) {
                                 : "text-red-400"; // Remove underline when user types correctly
                     }
 
-                    //we need to handle the space key differently
                     if (char === " ") {
-                        const fingerImage = macFingerMapping[char] || ""; // Get the finger image
-                        console.log("char " + char);
+                        const fingerImage = windowsFingerMapping[char] || ""; // Get the finger image
                         return (
                             <span key={i}>
                                 {char === currentCharacter && (
@@ -551,10 +843,29 @@ export default function Lesson({ typingText }) {
                         );
                     }
 
-                    const fingerImage = macFingerMapping[char] || ""; // Get the finger image
+                    const fingerImage = windowsFingerMapping[char] || ""; // Get the finger image
+                    let shiftImage = null;
+
+                    // Handle characters that require the Shift key
+                    if (windowsRightShiftKeys.includes(char)) {
+                        shiftImage = "/img/fingers/right-shift.webp"; // Set the image for the right Shift key
+                    } else if (windowsLeftShiftKeys.includes(char)) {
+                        shiftImage = "/img/fingers/left-shift.webp"; // Set the image for the left Shift key
+                    }
+
+                    // Determine if the shiftImage should be shown
+                    const shouldDisplayShiftImage =
+                        shiftImage && char === currentCharacter;
 
                     return (
                         <span key={i}>
+                            {shouldDisplayShiftImage && (
+                                <img
+                                    src={shiftImage}
+                                    alt=""
+                                    className={fingerClass} // Apply your styling for the finger image here
+                                />
+                            )}
                             {char === currentCharacter && (
                                 <img
                                     src={fingerImage}
