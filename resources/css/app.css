@@ -2,3 +2,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: "feelfree";
+    src: url("/public/fonts/feelfree/FeelfreeRegular")
+            format("embedded-opentype"),
+        /* IE6-IE8 */ url("/public/fonts/feelfree/FeelfreeRegular.ttf")
+            format("truetype"),
+        /* Safari, Android, iOS */
+            url("/public/fonts/feelfree/FeelfreeRegular.woff") format("woff"); /* Modern Browsers */
+    font-weight: normal;
+    font-style: normal;
+}

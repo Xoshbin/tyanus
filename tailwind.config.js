@@ -17,6 +17,7 @@ export default {
                 ibmplex: ["IBM Plex Sans", ...defaultTheme.fontFamily.sans],
                 naskh: ["Noto Naskh Arabic", ...defaultTheme.fontFamily.serif],
                 notosans: ["Noto Sans Arabic", ...defaultTheme.fontFamily.sans],
+                feelfree: ["feelfree"],
             },
         },
     },
