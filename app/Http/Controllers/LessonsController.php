@@ -7,11 +7,28 @@ use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\UserProgress;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Cache;
+use App\Models\Lesson;
+
 
 class LessonsController extends Controller
 {
     function index(): Response
     {
+        $exerciseLang = auth()->user()->settings['exercise_lang'] ?? 'ckb';
+
+        if ($exerciseLang) {
+            $lessons = Cache::rememberForever('lessons' . $exerciseLang, function () use ($exerciseLang) {
+                return Lesson::where('locale', $exerciseLang)->where('active', true)->with('exercises.screens.userProgress')->get();
+            });
+        } else {
+            $lessons = Cache::rememberForever('lessons' . App::getLocale(), function () {
+                return Lesson::where('locale', App::getLocale())->where('active', true)->with('exercises.screens.userProgress')->get();
+            });
+        }
+
+
         $locale = app()->getLocale();
         $daily_time = auth()->user()->settings['daily_time'] ?? 15;
         $userProgress = UserProgress::where('user_id', auth()->id())->select('time', 'typing_speed', 'accuracy_percentage')->get();
@@ -35,6 +52,7 @@ class LessonsController extends Controller
         $avgAccuracy = $userProgress->avg('accuracy_percentage');
 
         return Inertia::render('Typing/Lessons', [
+            'lessons' => $lessons,
             'locale' => $locale,
             'daily_time' => $daily_time,
             'sumTime' => $sumTime,
