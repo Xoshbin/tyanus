@@ -88,4 +88,15 @@ class Screen extends Model
 
         return $userTested;
     }
+
+    public function getUniqueScreensPlayedAttribute()
+    {
+        // Assuming you want to retrieve unique screens played by a user for this screen.
+        return UserProgress::where('screen_id', $this->id)
+            ->where('user_id', auth()->id())
+            ->select('screen_id')
+            ->distinct()
+            ->get()
+            ->pluck('screen_id');
+    }
 }

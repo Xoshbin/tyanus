@@ -4,6 +4,8 @@ import { Head } from "@inertiajs/react";
 import { useState } from "react";
 import { __ } from "@/Libs/Lang";
 import LessonCard from "@/Components/Typing/LessonCard";
+import moment from "moment";
+import ScreenTooltip from "@/Components/Typing/ScreenTooltip";
 
 export default function Lessons({
     auth,
@@ -192,20 +194,232 @@ export default function Lessons({
                                                     : "none",
                                         }}
                                     >
-                                        <div>
-                                            <div className="relative mb-5">
-                                                {/* Your content for the current lesson */}
-                                            </div>
+                                        <div className="relative mb-5">
                                             <h3 className="text-2xl font-black leading-tight text-kblue-50">
                                                 {lesson.title}
                                             </h3>
                                             {lesson.exercises.map(
                                                 (exercise) => (
-                                                    <LessonCard
+                                                    <div
                                                         key={exercise.id}
-                                                        lesson={lesson.id}
-                                                        exercise={exercise.id}
-                                                    ></LessonCard>
+                                                        className={`lg:container max-w-7xl mx-auto block rounded-lg pt-6 pb-1 px-1 space-y-4 ${
+                                                            exercise.isExerciseFinished
+                                                                ? "bg-gradient-to-r from-kblue-700 to-kblue-400 text-kblue-100"
+                                                                : "text-kblue-800 bg-gradient-to-r from-kblue-200 to-kblue-50"
+                                                        }`}
+                                                    >
+                                                        <div className="flex flex-col px-5 space-y-2">
+                                                            <div className="flex flex-row-reverse">
+                                                                <div className="flex w-4/12 justify-end">
+                                                                    {exercise.isExerciseFinishedc ===
+                                                                    true ? (
+                                                                        <x-button className="px-3 py-2 text-sm font-medium text-center space-x-2 inline-flex items-center text-kblue-700 bg-kblue-50 rounded-lg hover:bg-kblue-200 focus:ring-4 focus:outline-none focus:ring-kblue-500">
+                                                                            <svg
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                className="icon icon-tabler icon-tabler-repeat text-kblue-900"
+                                                                                width="24"
+                                                                                height="24"
+                                                                                viewBox="0 0 24 24"
+                                                                                strokeWidth="2"
+                                                                                stroke="currentColor"
+                                                                                fill="none"
+                                                                                strokeLinecap="round"
+                                                                                stroke-inejoin="round"
+                                                                            >
+                                                                                <path
+                                                                                    stroke="none"
+                                                                                    d="M0 0h24v24H0z"
+                                                                                    fill="none"
+                                                                                ></path>
+                                                                                <path d="M4 12v-3a3 3 0 0 1 3 -3h13m-3 -3l3 3l-3 3"></path>
+                                                                                <path d="M20 12v3a3 3 0 0 1 -3 3h-13m3 3l-3 -3l3 -3"></path>
+                                                                            </svg>
+                                                                            <div className="text-kblue-900 font-notosans">
+                                                                                {__(
+                                                                                    "Restart"
+                                                                                )}
+                                                                            </div>
+                                                                        </x-button>
+                                                                    ) : exercise.isHalfwayThroughExercise ? (
+                                                                        <x-button className="px-3 py-2 text-sm font-medium text-center space-x-2 inline-flex items-center text-kblue-700 bg-kblue-50 rounded-lg hover:bg-kblue-200 focus:ring-4 focus:outline-none focus:ring-kblue-500">
+                                                                            <svg
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                className="icon icon-tabler icon-tabler-repeat text-kblue-900"
+                                                                                width="24"
+                                                                                height="24"
+                                                                                viewBox="0 0 24 24"
+                                                                                strokeWidth="2"
+                                                                                stroke="currentColor"
+                                                                                fill="none"
+                                                                                strokeLinecap="round"
+                                                                                stroke-inejoin="round"
+                                                                            >
+                                                                                <path
+                                                                                    stroke="none"
+                                                                                    d="M0 0h24v24H0z"
+                                                                                    fill="none"
+                                                                                ></path>
+                                                                                <path d="M4 12v-3a3 3 0 0 1 3 -3h13m-3 -3l3 3l-3 3"></path>
+                                                                                <path d="M20 12v3a3 3 0 0 1 -3 3h-13m3 3l-3 -3l3 -3"></path>
+                                                                            </svg>
+                                                                            <div className="text-kblue-900 font-notosans">
+                                                                                {__(
+                                                                                    "Restart"
+                                                                                )}
+                                                                            </div>
+                                                                        </x-button>
+                                                                    ) : (
+                                                                        <x-button className="px-3 py-2 text-sm font-medium text-center space-x-2 inline-flex items-center text-kblue-700 bg-kblue-50 rounded-lg hover:bg-kblue-200 focus:ring-4 focus:outline-none focus:ring-kblue-500">
+                                                                            <svg
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                className="icon icon-tabler icon-tabler-repeat text-kblue-900"
+                                                                                width="24"
+                                                                                height="24"
+                                                                                viewBox="0 0 24 24"
+                                                                                strokeWidth="2"
+                                                                                stroke="currentColor"
+                                                                                fill="none"
+                                                                                strokeLinecap="round"
+                                                                                stroke-inejoin="round"
+                                                                            >
+                                                                                <path
+                                                                                    stroke="none"
+                                                                                    d="M0 0h24v24H0z"
+                                                                                    fill="none"
+                                                                                ></path>
+                                                                                <path d="M4 12v-3a3 3 0 0 1 3 -3h13m-3 -3l3 3l-3 3"></path>
+                                                                                <path d="M20 12v3a3 3 0 0 1 -3 3h-13m3 3l-3 -3l3 -3"></path>
+                                                                            </svg>
+                                                                            <div className="text-kblue-900 font-notosans">
+                                                                                {__(
+                                                                                    "Restart"
+                                                                                )}
+                                                                            </div>
+                                                                        </x-button>
+                                                                    )}
+                                                                </div>
+                                                            </div>
+                                                            <div className="flex w-4/12">
+                                                                {exercise.title}
+                                                            </div>
+                                                        </div>
+                                                        <hr className="h-px my-8 bg-kblue-200 border-0" />
+
+                                                        {exercise.totalStarsEarned >=
+                                                            1 && (
+                                                            <div className="flex flex-row">
+                                                                <p className="">
+                                                                    {__(
+                                                                        "Speed"
+                                                                    )}
+                                                                    :{" "}
+                                                                    {intval(
+                                                                        $avgSpeed
+                                                                    )}{" "}
+                                                                    {__(
+                                                                        "Words per minute"
+                                                                    )}
+                                                                </p>
+                                                                <p className="mx-4">
+                                                                    {__(
+                                                                        "Accuracy"
+                                                                    )}
+                                                                    : %{" "}
+                                                                    {intval(
+                                                                        $avgAccuracy
+                                                                    )}
+                                                                </p>
+                                                                <p className="mx-4">
+                                                                    {__("Time")}
+                                                                    :
+                                                                    {moment
+                                                                        .duration(
+                                                                            sumTime,
+                                                                            "milliseconds"
+                                                                        )
+                                                                        .locale(
+                                                                            "ku"
+                                                                        )
+                                                                        .humanize()}
+                                                                </p>
+                                                            </div>
+                                                        )}
+
+                                                        <div
+                                                            className={`flex ${
+                                                                locale === "ckb"
+                                                                    ? "flex-row-reverse"
+                                                                    : ""
+                                                            } w-full space-x-1`}
+                                                        >
+                                                            {locale === "ckb"
+                                                                ? exercise.screens
+                                                                      .filter(
+                                                                          (
+                                                                              screen
+                                                                          ) =>
+                                                                              screen.content_type ===
+                                                                              "letters"
+                                                                      )
+                                                                      .reverse()
+                                                                      .map(
+                                                                          (
+                                                                              screen,
+                                                                              index
+                                                                          ) => (
+                                                                              <ScreenTooltip
+                                                                                  key={
+                                                                                      screen.id
+                                                                                  }
+                                                                                  screen={
+                                                                                      screen
+                                                                                  }
+                                                                                  exercise={
+                                                                                      exercise
+                                                                                  }
+                                                                                  index={
+                                                                                      index
+                                                                                  }
+                                                                                  locale={
+                                                                                      locale
+                                                                                  }
+                                                                              ></ScreenTooltip>
+                                                                          )
+                                                                      )
+                                                                : exercise.screens
+                                                                      .filter(
+                                                                          (
+                                                                              screen
+                                                                          ) =>
+                                                                              screen.content_type ===
+                                                                              "letters"
+                                                                      )
+                                                                      .map(
+                                                                          (
+                                                                              screen,
+                                                                              index
+                                                                          ) => (
+                                                                              <ScreenTooltip
+                                                                                  key={
+                                                                                      screen.id
+                                                                                  }
+                                                                                  screen={
+                                                                                      screen
+                                                                                  }
+                                                                                  exercise={
+                                                                                      exercise
+                                                                                  }
+                                                                                  index={
+                                                                                      index
+                                                                                  }
+                                                                                  locale={
+                                                                                      locale
+                                                                                  }
+                                                                              ></ScreenTooltip>
+                                                                          )
+                                                                      )}
+                                                        </div>
+                                                    </div>
                                                 )
                                             )}
                                         </div>
