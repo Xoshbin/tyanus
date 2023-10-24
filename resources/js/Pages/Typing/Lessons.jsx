@@ -3,7 +3,7 @@ import ProgressHeader from "@/Components/Typing/ProgressHeader/ProgressHeader";
 import { Head } from "@inertiajs/react";
 import { useState } from "react";
 import { __ } from "@/Libs/Lang";
-import LessonCard from "@/Components/Typing/LessonCard";
+import PrimaryButton from "../../Components/PrimaryButton";
 import moment from "moment";
 import ScreenTooltip from "@/Components/Typing/ScreenTooltip";
 
@@ -194,7 +194,7 @@ export default function Lessons({
                                                     : "none",
                                         }}
                                     >
-                                        <div className="relative mb-5">
+                                        <div className="relative mb-5 space-y-3">
                                             <h3 className="text-2xl font-black leading-tight text-kblue-50">
                                                 {lesson.title}
                                             </h3>
@@ -211,9 +211,9 @@ export default function Lessons({
                                                         <div className="flex flex-col px-5 space-y-2">
                                                             <div className="flex flex-row-reverse">
                                                                 <div className="flex w-4/12 justify-end">
-                                                                    {exercise.isExerciseFinishedc ===
+                                                                    {exercise.isExerciseFinished ===
                                                                     true ? (
-                                                                        <x-button className="px-3 py-2 text-sm font-medium text-center space-x-2 inline-flex items-center text-kblue-700 bg-kblue-50 rounded-lg hover:bg-kblue-200 focus:ring-4 focus:outline-none focus:ring-kblue-500">
+                                                                        <PrimaryButton className="px-3 py-2 text-sm font-medium text-center space-x-2 inline-flex items-center text-kblue-700 bg-kblue-50 rounded-lg hover:bg-kblue-200 focus:ring-4 focus:outline-none focus:ring-kblue-500">
                                                                             <svg
                                                                                 xmlns="http://www.w3.org/2000/svg"
                                                                                 className="icon icon-tabler icon-tabler-repeat text-kblue-900"
@@ -224,7 +224,7 @@ export default function Lessons({
                                                                                 stroke="currentColor"
                                                                                 fill="none"
                                                                                 strokeLinecap="round"
-                                                                                stroke-inejoin="round"
+                                                                                strokeLinejoin="round"
                                                                             >
                                                                                 <path
                                                                                     stroke="none"
@@ -239,63 +239,69 @@ export default function Lessons({
                                                                                     "Restart"
                                                                                 )}
                                                                             </div>
-                                                                        </x-button>
+                                                                        </PrimaryButton>
                                                                     ) : exercise.isHalfwayThroughExercise ? (
-                                                                        <x-button className="px-3 py-2 text-sm font-medium text-center space-x-2 inline-flex items-center text-kblue-700 bg-kblue-50 rounded-lg hover:bg-kblue-200 focus:ring-4 focus:outline-none focus:ring-kblue-500">
+                                                                        <PrimaryButton className="px-3 py-2 text-sm font-medium text-center space-x-2 inline-flex items-center text-kblue-900 bg-kyellow-300 rounded-lg hover:bg-kyellow-400 focus:ring-4 focus:outline-none focus:ring-kyellow-50">
                                                                             <svg
                                                                                 xmlns="http://www.w3.org/2000/svg"
-                                                                                className="icon icon-tabler icon-tabler-repeat text-kblue-900"
-                                                                                width="24"
-                                                                                height="24"
+                                                                                className="@if (app()->getLocale() == 'ckb') scale-x-[-1] @endif icon icon-tabler text-kblue-900 icon-tabler-player-play-filled"
+                                                                                width="18"
+                                                                                height="18"
                                                                                 viewBox="0 0 24 24"
                                                                                 strokeWidth="2"
                                                                                 stroke="currentColor"
                                                                                 fill="none"
                                                                                 strokeLinecap="round"
-                                                                                stroke-inejoin="round"
+                                                                                strokeLinejoin="round"
                                                                             >
                                                                                 <path
                                                                                     stroke="none"
                                                                                     d="M0 0h24v24H0z"
                                                                                     fill="none"
                                                                                 ></path>
-                                                                                <path d="M4 12v-3a3 3 0 0 1 3 -3h13m-3 -3l3 3l-3 3"></path>
-                                                                                <path d="M20 12v3a3 3 0 0 1 -3 3h-13m3 3l-3 -3l3 -3"></path>
+                                                                                <path
+                                                                                    d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z"
+                                                                                    strokeWidth="0"
+                                                                                    fill="currentColor"
+                                                                                ></path>
                                                                             </svg>
                                                                             <div className="text-kblue-900 font-notosans">
                                                                                 {__(
-                                                                                    "Restart"
+                                                                                    "Continue"
                                                                                 )}
                                                                             </div>
-                                                                        </x-button>
+                                                                        </PrimaryButton>
                                                                     ) : (
-                                                                        <x-button className="px-3 py-2 text-sm font-medium text-center space-x-2 inline-flex items-center text-kblue-700 bg-kblue-50 rounded-lg hover:bg-kblue-200 focus:ring-4 focus:outline-none focus:ring-kblue-500">
+                                                                        <PrimaryButton className="px-3 py-2 text-sm font-medium text-center space-x-2 inline-flex items-center text-kblue-900 bg-kyellow-300 rounded-lg hover:bg-kyellow-400 focus:ring-4 focus:outline-none focus:ring-kyellow-50">
                                                                             <svg
                                                                                 xmlns="http://www.w3.org/2000/svg"
-                                                                                className="icon icon-tabler icon-tabler-repeat text-kblue-900"
-                                                                                width="24"
-                                                                                height="24"
+                                                                                className="@if (app()->getLocale() == 'ckb') scale-x-[-1] @endif icon icon-tabler text-kblue-900 icon-tabler-player-play-filled"
+                                                                                width="18"
+                                                                                height="18"
                                                                                 viewBox="0 0 24 24"
                                                                                 strokeWidth="2"
                                                                                 stroke="currentColor"
                                                                                 fill="none"
                                                                                 strokeLinecap="round"
-                                                                                stroke-inejoin="round"
+                                                                                strokeLinejoin="round"
                                                                             >
                                                                                 <path
                                                                                     stroke="none"
                                                                                     d="M0 0h24v24H0z"
                                                                                     fill="none"
                                                                                 ></path>
-                                                                                <path d="M4 12v-3a3 3 0 0 1 3 -3h13m-3 -3l3 3l-3 3"></path>
-                                                                                <path d="M20 12v3a3 3 0 0 1 -3 3h-13m3 3l-3 -3l3 -3"></path>
+                                                                                <path
+                                                                                    d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z"
+                                                                                    strokeWidth="0"
+                                                                                    fill="currentColor"
+                                                                                ></path>
                                                                             </svg>
                                                                             <div className="text-kblue-900 font-notosans">
                                                                                 {__(
-                                                                                    "Restart"
+                                                                                    "Start"
                                                                                 )}
                                                                             </div>
-                                                                        </x-button>
+                                                                        </PrimaryButton>
                                                                     )}
                                                                 </div>
                                                             </div>
@@ -313,8 +319,8 @@ export default function Lessons({
                                                                         "Speed"
                                                                     )}
                                                                     :{" "}
-                                                                    {intval(
-                                                                        $avgSpeed
+                                                                    {parseInt(
+                                                                        avgSpeed
                                                                     )}{" "}
                                                                     {__(
                                                                         "Words per minute"
@@ -325,8 +331,8 @@ export default function Lessons({
                                                                         "Accuracy"
                                                                     )}
                                                                     : %{" "}
-                                                                    {intval(
-                                                                        $avgAccuracy
+                                                                    {parseInt(
+                                                                        avgAccuracy
                                                                     )}
                                                                 </p>
                                                                 <p className="mx-4">

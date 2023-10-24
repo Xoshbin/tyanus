@@ -13,8 +13,6 @@ export default function ProgressHeader({
     moment.updateLocale(locale, null); // To update the locale dynamically
     const sumTimeHuman = duration.humanize();
 
-    console.log("locale " + locale);
-
     /* Determine the locale condition here */
 
     return (
