@@ -14,6 +14,9 @@ class Exercise extends Model
 
     // protected $with = ['screens'];
 
+    //in inertia react, you have to load the accessors at the beginning otherwise the accessors not going down to the react or js
+    protected $appends = array('isExerciseFinished', 'isHalfwayThroughExercise', 'totalStarsEarned');
+
 
     protected $fillable = ['lesson_id', 'title', 'target_speed'];
 

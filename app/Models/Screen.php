@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,6 +14,9 @@ class Screen extends Model
     use HasFactory;
 
     protected $fillable = ['exercise_id', 'content', 'target_speed', 'content_type', 'order'];
+
+    //in inertia react, you have to load the accessors at the beginning otherwise the accessors not going down to the react or js
+    protected $appends = array('hasStar', 'starsEarned', 'typingSpeed', 'accuracyPercentage', 'time', 'isUserTested', 'uniqueScreensPlayed');
 
     // protected $with = ['userProgress'];
 
@@ -32,12 +36,14 @@ class Screen extends Model
         return $this->hasMany(UserProgress::class);
     }
 
+
     public function getHasStarAttribute()
     {
-        // Assuming you have a relationship called userProgress
-        return $this->userProgress()
+        $userProgress = $this->userProgress()
             ->where('user_id', auth()->id())
             ->first();
+
+        return $userProgress ? true : false;
     }
 
     public function getStarsEarnedAttribute()
