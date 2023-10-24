@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, router } from "react";
 import MacKeyboardEn from "@/Components/Typing/Keyboard/MacKeyboardEn";
 import MacKeyboardKu from "@/Components/Typing/Keyboard/MacKeyboardKu";
 import {
@@ -8,8 +8,9 @@ import {
     macRightShiftKeys,
     macLeftShiftKeys,
 } from "@/data/keyMappings/macKeyMapping";
+import axios from "axios";
 
-export default function Lesson({ typingText }) {
+export default function Lesson({ screen, auth }) {
     const [userInput, setUserInput] = useState("");
     const [isTypingComplete, setIsTypingComplete] = useState(false);
     const [startTime, setStartTime] = useState(null);
@@ -19,7 +20,7 @@ export default function Lesson({ typingText }) {
 
     // Define a function to update the current character
     const updateCurrentCharacter = () => {
-        if (currentCharacterIndex < typingText.length) {
+        if (currentCharacterIndex < screen.content.length) {
             setCurrentCharacterIndex(currentCharacterIndex + 1);
         }
     };
@@ -29,7 +30,7 @@ export default function Lesson({ typingText }) {
             const key = e.key;
 
             // Check if the user has reached the end of the text
-            if (currentCharacterIndex < typingText.length) {
+            if (currentCharacterIndex < screen.content.length) {
                 // Only capture character keys (letters and spaces)
                 if (
                     !e.ctrlKey &&
@@ -45,7 +46,7 @@ export default function Lesson({ typingText }) {
 
                     // Check if the character at the current position should match the Enter symbol
                     if (
-                        typingText.charAt(currentCharacterIndex) ===
+                        screen.content.charAt(currentCharacterIndex) ===
                         characterToType
                     ) {
                         setUserInput((prev) => prev + characterToType);
@@ -57,7 +58,7 @@ export default function Lesson({ typingText }) {
                     }
 
                     // Check if typing is complete
-                    if (currentCharacterIndex + 1 === typingText.length) {
+                    if (currentCharacterIndex + 1 === screen.content.length) {
                         setEndTime(Date.now());
                         setIsTypingComplete(true);
                     }
@@ -69,8 +70,8 @@ export default function Lesson({ typingText }) {
 
             // Check for errors (exclude Shift key)
             if (
-                currentCharacterIndex < typingText.length &&
-                key !== typingText[currentCharacterIndex]
+                currentCharacterIndex < screen.content.length &&
+                key !== screen.content[currentCharacterIndex]
             ) {
                 // Exclude Shift key from errors
                 if (key !== "Shift") {
@@ -85,10 +86,20 @@ export default function Lesson({ typingText }) {
 
         document.addEventListener("keydown", handleKeyDown);
 
+        if (isTypingComplete) {
+            // Call handleLessonCompletion with the required parameters.
+            handleLessonCompletion(
+                netWPM.toFixed(2),
+                accuracy.toFixed(2),
+                elapsedTime,
+                starsEarned
+            );
+        }
+
         return () => {
             document.removeEventListener("keydown", handleKeyDown);
         };
-    }, [userInput, typingText, currentCharacterIndex]);
+    }, [userInput, screen.content, currentCharacterIndex, isTypingComplete]);
 
     // Calculate Net WPM and Accuracy
     const elapsedTime =
@@ -105,13 +116,43 @@ export default function Lesson({ typingText }) {
         0
     );
 
+    const starsEarned = Math.round((accuracy / 100) * 3);
+
     // Get the current character to be typed
-    const currentCharacter = typingText[currentCharacterIndex];
+    const currentCharacter = screen.content[currentCharacterIndex];
+
+    //save user progress in the database
+    const handleLessonCompletion = async (
+        typingSpeed,
+        accuracy,
+        time,
+        starsEarned
+    ) => {
+        try {
+            const response = await axios.post("/api/saveprogress", {
+                user_id: auth.id,
+                lesson_id: screen.lesson_id,
+                exercise_id: screen.exercise_id,
+                screen_id: screen.id,
+                locale: screen.locale,
+                typing_speed: typingSpeed,
+                accuracy_percentage: accuracy,
+                stars_earned: starsEarned,
+                time: time,
+            });
+            console.log(response);
+
+            // Handle the response as needed
+        } catch (error) {
+            console.error(error);
+            // Handle errors
+        }
+    };
 
     return (
         <div className="flex flex-col w-full max-w-3xl justify-center items-center mx-auto mt-6">
             <p className="w-full py-4 px-4 text-2xl text-center">
-                {typingText.split("").map((char, i) => {
+                {screen.content.split("").map((char, i) => {
                     let color = "text-black";
 
                     if (i < userInput.length) {
@@ -145,7 +186,7 @@ export default function Lesson({ typingText }) {
 
             {/* start images */}
             <div className="flex flex-row justify-center relative w-full">
-                {typingText.split("").map((char, i) => {
+                {screen.content.split("").map((char, i) => {
                     let fingerClass = "absolute -right-28 -top-7 w-4/5"; // Initialize hand class
 
                     if (macLeftKeys.includes(char.toLowerCase())) {

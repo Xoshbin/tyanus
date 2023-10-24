@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\LessonCardComtroller;
+use App\Http\Controllers\LessonController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,3 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('lessoncard/{lessonId}/{exerciseId}', [LessonCardComtroller::class, 'show']);
+Route::post('saveprogress', [LessonController::class, 'saveProgress']);
