@@ -1,6 +1,6 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import ProgressHeader from "@/Components/Typing/ProgressHeader/ProgressHeader";
-import { Head } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 import { useState } from "react";
 import { __ } from "@/Libs/Lang";
 import PrimaryButton from "../../Components/PrimaryButton";
@@ -215,7 +215,11 @@ export default function Lessons({
                                                                 <div className="flex w-4/12 justify-end">
                                                                     {exercise.isExerciseFinished ===
                                                                     true ? (
-                                                                        <PrimaryButton className="h-max px-3 py-2 text-sm font-medium text-center space-x-2 inline-flex items-center text-kblue-700 bg-kblue-50 rounded-lg hover:bg-kblue-200 focus:ring-4 focus:outline-none focus:ring-kblue-500">
+                                                                        <Link
+                                                                            href={`/lesson/${screenToContinue}`}
+                                                                            as="button"
+                                                                            className="h-max px-3 py-2 text-sm font-medium text-center space-x-2 inline-flex items-center text-kblue-700 bg-kblue-50 rounded-lg hover:bg-kblue-200 focus:ring-4 focus:outline-none focus:ring-kblue-500"
+                                                                        >
                                                                             <svg
                                                                                 xmlns="http://www.w3.org/2000/svg"
                                                                                 className="icon icon-tabler icon-tabler-repeat text-kblue-900"
@@ -241,9 +245,16 @@ export default function Lessons({
                                                                                     "Restart"
                                                                                 )}
                                                                             </div>
-                                                                        </PrimaryButton>
+                                                                        </Link>
                                                                     ) : exercise.isHalfwayThroughExercise ? (
-                                                                        <PrimaryButton className="h-max px-3 py-2 text-sm font-medium text-center space-x-2 inline-flex items-center text-kblue-900 bg-kyellow-300 rounded-lg hover:bg-kyellow-400 focus:ring-4 focus:outline-none focus:ring-kyellow-50">
+                                                                        <Link
+                                                                            href={`/lesson/${
+                                                                                exercise.screens.first()
+                                                                                    .id
+                                                                            }`}
+                                                                            as="button"
+                                                                            className="h-max px-3 py-2 text-sm font-medium text-center space-x-2 inline-flex items-center text-kblue-900 bg-kyellow-300 rounded-lg hover:bg-kyellow-400 focus:ring-4 focus:outline-none focus:ring-kyellow-50"
+                                                                        >
                                                                             <svg
                                                                                 xmlns="http://www.w3.org/2000/svg"
                                                                                 className="@if (app()->getLocale() == 'ckb') scale-x-[-1] @endif icon icon-tabler text-kblue-900 icon-tabler-player-play-filled"
@@ -272,9 +283,13 @@ export default function Lessons({
                                                                                     "Continue"
                                                                                 )}
                                                                             </div>
-                                                                        </PrimaryButton>
+                                                                        </Link>
                                                                     ) : (
-                                                                        <PrimaryButton className="h-max px-3 py-2 text-sm font-medium text-center space-x-2 inline-flex items-center text-kblue-900 bg-kyellow-300 rounded-lg hover:bg-kyellow-400 focus:ring-4 focus:outline-none focus:ring-kyellow-50">
+                                                                        <Link
+                                                                            href={`/lesson/${exercise.screens[0].id}`}
+                                                                            as="button"
+                                                                            className="h-max px-3 py-2 text-sm font-medium text-center space-x-2 inline-flex items-center text-kblue-900 bg-kyellow-300 rounded-lg hover:bg-kyellow-400 focus:ring-4 focus:outline-none focus:ring-kyellow-50"
+                                                                        >
                                                                             <svg
                                                                                 xmlns="http://www.w3.org/2000/svg"
                                                                                 className="@if (app()->getLocale() == 'ckb') scale-x-[-1] @endif icon icon-tabler text-kblue-900 icon-tabler-player-play-filled"
@@ -303,7 +318,7 @@ export default function Lessons({
                                                                                     "Start"
                                                                                 )}
                                                                             </div>
-                                                                        </PrimaryButton>
+                                                                        </Link>
                                                                     )}
                                                                 </div>
                                                                 <div
