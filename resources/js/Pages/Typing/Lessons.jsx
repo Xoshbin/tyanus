@@ -199,6 +199,7 @@ export default function Lessons({
                                             <h3 className="text-2xl font-black leading-tight text-kblue-50">
                                                 {lesson.title}
                                             </h3>
+                                            {/* Lessons card */}
                                             {lesson.exercises.map(
                                                 (exercise) => (
                                                     <div
@@ -214,7 +215,7 @@ export default function Lessons({
                                                                 <div className="flex w-4/12 justify-end">
                                                                     {exercise.isExerciseFinished ===
                                                                     true ? (
-                                                                        <PrimaryButton className="px-3 py-2 text-sm font-medium text-center space-x-2 inline-flex items-center text-kblue-700 bg-kblue-50 rounded-lg hover:bg-kblue-200 focus:ring-4 focus:outline-none focus:ring-kblue-500">
+                                                                        <PrimaryButton className="h-max px-3 py-2 text-sm font-medium text-center space-x-2 inline-flex items-center text-kblue-700 bg-kblue-50 rounded-lg hover:bg-kblue-200 focus:ring-4 focus:outline-none focus:ring-kblue-500">
                                                                             <svg
                                                                                 xmlns="http://www.w3.org/2000/svg"
                                                                                 className="icon icon-tabler icon-tabler-repeat text-kblue-900"
@@ -242,7 +243,7 @@ export default function Lessons({
                                                                             </div>
                                                                         </PrimaryButton>
                                                                     ) : exercise.isHalfwayThroughExercise ? (
-                                                                        <PrimaryButton className="px-3 py-2 text-sm font-medium text-center space-x-2 inline-flex items-center text-kblue-900 bg-kyellow-300 rounded-lg hover:bg-kyellow-400 focus:ring-4 focus:outline-none focus:ring-kyellow-50">
+                                                                        <PrimaryButton className="h-max px-3 py-2 text-sm font-medium text-center space-x-2 inline-flex items-center text-kblue-900 bg-kyellow-300 rounded-lg hover:bg-kyellow-400 focus:ring-4 focus:outline-none focus:ring-kyellow-50">
                                                                             <svg
                                                                                 xmlns="http://www.w3.org/2000/svg"
                                                                                 className="@if (app()->getLocale() == 'ckb') scale-x-[-1] @endif icon icon-tabler text-kblue-900 icon-tabler-player-play-filled"
@@ -273,7 +274,7 @@ export default function Lessons({
                                                                             </div>
                                                                         </PrimaryButton>
                                                                     ) : (
-                                                                        <PrimaryButton className="px-3 py-2 text-sm font-medium text-center space-x-2 inline-flex items-center text-kblue-900 bg-kyellow-300 rounded-lg hover:bg-kyellow-400 focus:ring-4 focus:outline-none focus:ring-kyellow-50">
+                                                                        <PrimaryButton className="h-max px-3 py-2 text-sm font-medium text-center space-x-2 inline-flex items-center text-kblue-900 bg-kyellow-300 rounded-lg hover:bg-kyellow-400 focus:ring-4 focus:outline-none focus:ring-kyellow-50">
                                                                             <svg
                                                                                 xmlns="http://www.w3.org/2000/svg"
                                                                                 className="@if (app()->getLocale() == 'ckb') scale-x-[-1] @endif icon icon-tabler text-kblue-900 icon-tabler-player-play-filled"
@@ -305,19 +306,27 @@ export default function Lessons({
                                                                         </PrimaryButton>
                                                                     )}
                                                                 </div>
-                                                            </div>
-                                                            <div class="flex w-4/12 rounded-full bottom-3 @if ($isExerciseFinished) text-kblue-100  @else text-kyellow-300 @endif border-kyellow">
-                                                                <ExerciseStars
-                                                                    exerciseTotalStars={
-                                                                        35
+                                                                <div
+                                                                    className={`flex w-4/12 rounded-full bottom-3 ${
+                                                                        exercise.isExerciseFinished
+                                                                            ? "text-kblue-100"
+                                                                            : "text-kyellow-300"
+                                                                    } border-kyellow`}
+                                                                >
+                                                                    <ExerciseStars
+                                                                        exerciseTotalStars={
+                                                                            35
+                                                                        }
+                                                                        totalStarsEarned={
+                                                                            16
+                                                                        }
+                                                                    ></ExerciseStars>
+                                                                </div>
+                                                                <div className="flex w-4/12">
+                                                                    {
+                                                                        exercise.title
                                                                     }
-                                                                    totalStarsEarned={
-                                                                        16
-                                                                    }
-                                                                ></ExerciseStars>
-                                                            </div>
-                                                            <div className="flex w-4/12">
-                                                                {exercise.title}
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <hr className="h-px my-8 bg-kblue-200 border-0" />

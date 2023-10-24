@@ -31,7 +31,7 @@ const ExerciseStars = ({ exerciseTotalStars, totalStarsEarned }) => {
     }
 
     return (
-        <div className="justify-center items-center text-gray-300 mt-1">
+        <div className="grid grid-cols-12 gap-2 justify-center items-center text-gray-300 mt-1">
             {stars}
         </div>
     );
