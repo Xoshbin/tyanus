@@ -6,6 +6,7 @@ import { __ } from "@/Libs/Lang";
 import PrimaryButton from "../../Components/PrimaryButton";
 import moment from "moment";
 import ScreenTooltip from "@/Components/Typing/ScreenTooltip";
+import ExerciseStars from "../../Components/Typing/ExerciseStars";
 
 export default function Lessons({
     auth,
@@ -304,6 +305,16 @@ export default function Lessons({
                                                                         </PrimaryButton>
                                                                     )}
                                                                 </div>
+                                                            </div>
+                                                            <div class="flex w-4/12 rounded-full bottom-3 @if ($isExerciseFinished) text-kblue-100  @else text-kyellow-300 @endif border-kyellow">
+                                                                <ExerciseStars
+                                                                    exerciseTotalStars={
+                                                                        35
+                                                                    }
+                                                                    totalStarsEarned={
+                                                                        16
+                                                                    }
+                                                                ></ExerciseStars>
                                                             </div>
                                                             <div className="flex w-4/12">
                                                                 {exercise.title}
