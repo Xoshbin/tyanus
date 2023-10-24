@@ -9,10 +9,13 @@ import {
     macLeftShiftKeys,
 } from "@/data/keyMappings/macKeyMapping";
 import axios from "axios";
+import Modal from "@/Components/Modal";
+import ExerciseSummary from "@/Components/Typing/ExerciseSummary";
 
 export default function Lesson({ screen, auth }) {
     const [userInput, setUserInput] = useState("");
     const [isTypingComplete, setIsTypingComplete] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
     const [startTime, setStartTime] = useState(null);
     const [endTime, setEndTime] = useState(null);
     const [errorCount, setErrorCount] = useState(0);
@@ -140,13 +143,22 @@ export default function Lesson({ screen, auth }) {
                 stars_earned: starsEarned,
                 time: time,
             });
-            console.log(response);
+            console.log(response.status);
+            if (response.status === 201) {
+                setModalOpen(true);
+            }
 
             // Handle the response as needed
         } catch (error) {
             console.error(error);
             // Handle errors
         }
+    };
+
+    const closeModal = () => {
+        setModalOpen(false);
+
+        reset();
     };
 
     return (
@@ -249,13 +261,16 @@ export default function Lesson({ screen, auth }) {
             </div>
             <MacKeyboardKu currentCharacter={currentCharacter} />
 
-            {isTypingComplete && (
-                <div>
-                    <p>Typing Complete! Congratulations!</p>
-                    <p>Net WPM: {netWPM.toFixed(2)} WPM (Words per Minute)</p>
-                    <p>Accuracy: {accuracy.toFixed(2)}%</p>
-                </div>
-            )}
+            <Modal show={modalOpen} onClose={closeModal}>
+                <ExerciseSummary
+                    authid={auth.id}
+                    starsEarned={starsEarned.toFixed(2)}
+                    finishedTyping={isTypingComplete}
+                    speed={netWPM.toFixed(2)}
+                    accuracy={accuracy.toFixed(2)}
+                    time={elapsedTime.toFixed(2)}
+                ></ExerciseSummary>
+            </Modal>
         </div>
     );
 }
