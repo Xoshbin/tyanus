@@ -11,6 +11,7 @@ import {
 import axios from "axios";
 import Modal from "@/Components/Modal";
 import ExerciseSummary from "@/Components/Typing/ExerciseSummary";
+import AppLayout from "@/Layouts/AppLayout";
 
 export default function Lesson({ screen, auth }) {
     const [userInput, setUserInput] = useState("");
@@ -162,55 +163,105 @@ export default function Lesson({ screen, auth }) {
     };
 
     return (
-        <div className="flex flex-col w-full max-w-3xl justify-center items-center mx-auto mt-6">
-            <p className="w-full py-4 px-4 text-2xl text-center">
-                {screen.content.split("").map((char, i) => {
-                    let color = "text-black";
+        <AppLayout
+            user={auth.user}
+            header={
+                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
+                    Dashboard
+                </h2>
+            }
+        >
+            <div className="flex flex-col w-full max-w-3xl justify-center items-center mx-auto mt-6">
+                <p className="w-full py-4 px-4 text-2xl text-center">
+                    {screen.content.split("").map((char, i) => {
+                        let color = "text-black";
 
-                    if (i < userInput.length) {
-                        color =
-                            char === userInput[i]
-                                ? "text-green-400"
-                                : "text-red-400"; // Remove underline when user types correctly
-                    }
+                        if (i < userInput.length) {
+                            color =
+                                char === userInput[i]
+                                    ? "text-green-400"
+                                    : "text-red-400"; // Remove underline when user types correctly
+                        }
 
-                    if (char === " ") {
+                        if (char === " ") {
+                            return (
+                                <span key={i}>
+                                    <span
+                                        className={`text-2xl font-naskh underline ${color}`}
+                                    >
+                                        {char}
+                                    </span>
+                                </span>
+                            );
+                        }
+
                         return (
                             <span key={i}>
                                 <span
-                                    className={`text-2xl font-naskh underline ${color}`}
+                                    className={`text-2xl font-naskh ${color}`}
                                 >
                                     {char}
                                 </span>
                             </span>
                         );
-                    }
+                    })}
+                </p>
 
-                    return (
-                        <span key={i}>
-                            <span className={`text-2xl font-naskh ${color}`}>
-                                {char}
-                            </span>
-                        </span>
-                    );
-                })}
-            </p>
+                {/* start images */}
+                <div className="flex flex-row justify-center relative w-full">
+                    {screen.content.split("").map((char, i) => {
+                        let fingerClass = "absolute -right-28 -top-7 w-4/5"; // Initialize hand class
 
-            {/* start images */}
-            <div className="flex flex-row justify-center relative w-full">
-                {screen.content.split("").map((char, i) => {
-                    let fingerClass = "absolute -right-28 -top-7 w-4/5"; // Initialize hand class
+                        if (macLeftKeys.includes(char.toLowerCase())) {
+                            fingerClass = "absolute -left-44 -top-14 w-4/5"; // Assign left-hand class
+                        } else if (macRightKeys.includes(char.toLowerCase())) {
+                            fingerClass = "absolute -right-28 -top-7 w-4/5"; // Assign right-hand class
+                        }
 
-                    if (macLeftKeys.includes(char.toLowerCase())) {
-                        fingerClass = "absolute -left-44 -top-14 w-4/5"; // Assign left-hand class
-                    } else if (macRightKeys.includes(char.toLowerCase())) {
-                        fingerClass = "absolute -right-28 -top-7 w-4/5"; // Assign right-hand class
-                    }
+                        if (char === " ") {
+                            const fingerImage = macFingerMapping[char] || ""; // Get the finger image
+                            return (
+                                <span key={i}>
+                                    {char === currentCharacter && (
+                                        <img
+                                            src={fingerImage}
+                                            alt=""
+                                            className={fingerClass} // Apply your styling for the finger image here
+                                        />
+                                    )}
+                                </span>
+                            );
+                        }
 
-                    if (char === " ") {
                         const fingerImage = macFingerMapping[char] || ""; // Get the finger image
+                        let shiftImage = null;
+                        let shiftFingerClass =
+                            "absolute -right-28 -top-7 w-4/5"; // Initialize hand class
+
+                        // Handle characters that require the Shift key
+                        if (macRightShiftKeys.includes(char)) {
+                            shiftImage = "/img/fingers/right-shift.webp"; // Set the image for the right Shift key
+                            shiftFingerClass =
+                                "absolute -right-28 -top-7 w-4/5";
+                        } else if (macLeftShiftKeys.includes(char)) {
+                            shiftImage = "/img/fingers/left-shift.webp"; // Set the image for the left Shift key
+                            shiftFingerClass =
+                                "absolute -left-44 -top-14 w-4/5";
+                        }
+
+                        // Determine if the shiftImage should be shown
+                        const shouldDisplayShiftImage =
+                            shiftImage && char === currentCharacter;
+
                         return (
                             <span key={i}>
+                                {shouldDisplayShiftImage && (
+                                    <img
+                                        src={shiftImage}
+                                        alt=""
+                                        className={shiftFingerClass} // Apply your styling for the finger image here
+                                    />
+                                )}
                                 {char === currentCharacter && (
                                     <img
                                         src={fingerImage}
@@ -220,57 +271,21 @@ export default function Lesson({ screen, auth }) {
                                 )}
                             </span>
                         );
-                    }
+                    })}
+                </div>
+                <MacKeyboardKu currentCharacter={currentCharacter} />
 
-                    const fingerImage = macFingerMapping[char] || ""; // Get the finger image
-                    let shiftImage = null;
-                    let shiftFingerClass = "absolute -right-28 -top-7 w-4/5"; // Initialize hand class
-
-                    // Handle characters that require the Shift key
-                    if (macRightShiftKeys.includes(char)) {
-                        shiftImage = "/img/fingers/right-shift.webp"; // Set the image for the right Shift key
-                        shiftFingerClass = "absolute -right-28 -top-7 w-4/5";
-                    } else if (macLeftShiftKeys.includes(char)) {
-                        shiftImage = "/img/fingers/left-shift.webp"; // Set the image for the left Shift key
-                        shiftFingerClass = "absolute -left-44 -top-14 w-4/5";
-                    }
-
-                    // Determine if the shiftImage should be shown
-                    const shouldDisplayShiftImage =
-                        shiftImage && char === currentCharacter;
-
-                    return (
-                        <span key={i}>
-                            {shouldDisplayShiftImage && (
-                                <img
-                                    src={shiftImage}
-                                    alt=""
-                                    className={shiftFingerClass} // Apply your styling for the finger image here
-                                />
-                            )}
-                            {char === currentCharacter && (
-                                <img
-                                    src={fingerImage}
-                                    alt=""
-                                    className={fingerClass} // Apply your styling for the finger image here
-                                />
-                            )}
-                        </span>
-                    );
-                })}
+                <Modal show={modalOpen} onClose={closeModal}>
+                    <ExerciseSummary
+                        authid={auth.id}
+                        starsEarned={starsEarned.toFixed(2)}
+                        finishedTyping={isTypingComplete}
+                        speed={netWPM.toFixed(2)}
+                        accuracy={accuracy.toFixed(2)}
+                        time={elapsedTime.toFixed(2)}
+                    ></ExerciseSummary>
+                </Modal>
             </div>
-            <MacKeyboardKu currentCharacter={currentCharacter} />
-
-            <Modal show={modalOpen} onClose={closeModal}>
-                <ExerciseSummary
-                    authid={auth.id}
-                    starsEarned={starsEarned.toFixed(2)}
-                    finishedTyping={isTypingComplete}
-                    speed={netWPM.toFixed(2)}
-                    accuracy={accuracy.toFixed(2)}
-                    time={elapsedTime.toFixed(2)}
-                ></ExerciseSummary>
-            </Modal>
-        </div>
+        </AppLayout>
     );
 }
