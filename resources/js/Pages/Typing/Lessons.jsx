@@ -1,4 +1,4 @@
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import AppLayout from "@/Layouts/AppLayout";
 import ProgressHeader from "@/Components/Typing/ProgressHeader/ProgressHeader";
 import { Head, Link } from "@inertiajs/react";
 import { useState } from "react";
@@ -23,7 +23,7 @@ export default function Lessons({
     let buttonGenerated = false; // Initialize a flag
 
     return (
-        <AuthenticatedLayout
+        <AppLayout
             user={auth.user}
             header={
                 <ProgressHeader
@@ -489,6 +489,6 @@ export default function Lessons({
                     </div>
                 </div>
             </div>
-        </AuthenticatedLayout>
+        </AppLayout>
     );
 }
