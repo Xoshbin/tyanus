@@ -20,6 +20,8 @@ export default function Lessons({
 }) {
     const [activeTab, setActiveTab] = useState("tab1");
 
+    let buttonGenerated = false; // Initialize a flag
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -216,7 +218,7 @@ export default function Lessons({
                                                                     {exercise.isExerciseFinished ===
                                                                     true ? (
                                                                         <Link
-                                                                            href={`/lesson/${screenToContinue}`}
+                                                                            href={`/lesson/${exercise.screens[0].id}`}
                                                                             as="button"
                                                                             className="h-max px-3 py-2 text-sm font-medium text-center space-x-2 inline-flex items-center text-kblue-700 bg-kblue-50 rounded-lg hover:bg-kblue-200 focus:ring-4 focus:outline-none focus:ring-kblue-500"
                                                                         >
@@ -247,43 +249,59 @@ export default function Lessons({
                                                                             </div>
                                                                         </Link>
                                                                     ) : exercise.isHalfwayThroughExercise ? (
-                                                                        <Link
-                                                                            href={`/lesson/${
-                                                                                exercise.screens.first()
-                                                                                    .id
-                                                                            }`}
-                                                                            as="button"
-                                                                            className="h-max px-3 py-2 text-sm font-medium text-center space-x-2 inline-flex items-center text-kblue-900 bg-kyellow-300 rounded-lg hover:bg-kyellow-400 focus:ring-4 focus:outline-none focus:ring-kyellow-50"
-                                                                        >
-                                                                            <svg
-                                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                                className="@if (app()->getLocale() == 'ckb') scale-x-[-1] @endif icon icon-tabler text-kblue-900 icon-tabler-player-play-filled"
-                                                                                width="18"
-                                                                                height="18"
-                                                                                viewBox="0 0 24 24"
-                                                                                strokeWidth="2"
-                                                                                stroke="currentColor"
-                                                                                fill="none"
-                                                                                strokeLinecap="round"
-                                                                                strokeLinejoin="round"
-                                                                            >
-                                                                                <path
-                                                                                    stroke="none"
-                                                                                    d="M0 0h24v24H0z"
-                                                                                    fill="none"
-                                                                                ></path>
-                                                                                <path
-                                                                                    d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z"
-                                                                                    strokeWidth="0"
-                                                                                    fill="currentColor"
-                                                                                ></path>
-                                                                            </svg>
-                                                                            <div className="text-kblue-900 font-notosans">
-                                                                                {__(
-                                                                                    "Continue"
-                                                                                )}
-                                                                            </div>
-                                                                        </Link>
+                                                                        exercise.screens.map(
+                                                                            (
+                                                                                screen
+                                                                            ) => {
+                                                                                if (
+                                                                                    !buttonGenerated &&
+                                                                                    screen.hasStar !==
+                                                                                        true
+                                                                                ) {
+                                                                                    buttonGenerated = true; // Set the flag to true after generating the button
+                                                                                    return (
+                                                                                        <Link
+                                                                                            key={
+                                                                                                screen.id
+                                                                                            }
+                                                                                            href={`/lesson/${screen.id}`}
+                                                                                            as="button"
+                                                                                            className="h-max px-3 py-2 text-sm font-medium text-center space-x-2 inline-flex items-center text-kblue-900 bg-kyellow-300 rounded-lg hover:bg-kyellow-400 focus:ring-4 focus:outline-none focus:ring-kyellow-50"
+                                                                                        >
+                                                                                            <svg
+                                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                                className="@if (app()->getLocale() == 'ckb') scale-x-[-1] @endif icon icon-tabler text-kblue-900 icon-tabler-player-play-filled"
+                                                                                                width="18"
+                                                                                                height="18"
+                                                                                                viewBox="0 0 24 24"
+                                                                                                strokeWidth="2"
+                                                                                                stroke="currentColor"
+                                                                                                fill="none"
+                                                                                                strokeLinecap="round"
+                                                                                                strokeLinejoin="round"
+                                                                                            >
+                                                                                                <path
+                                                                                                    stroke="none"
+                                                                                                    d="M0 0h24v24H0z"
+                                                                                                    fill="none"
+                                                                                                ></path>
+                                                                                                <path
+                                                                                                    d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z"
+                                                                                                    strokeWidth="0"
+                                                                                                    fill="currentColor"
+                                                                                                ></path>
+                                                                                            </svg>
+                                                                                            <div className="text-kblue-900 font-notosans">
+                                                                                                {__(
+                                                                                                    "Continue"
+                                                                                                )}
+                                                                                            </div>
+                                                                                        </Link>
+                                                                                    );
+                                                                                }
+                                                                                return null; // Render nothing for other cases
+                                                                            }
+                                                                        )
                                                                     ) : (
                                                                         <Link
                                                                             href={`/lesson/${exercise.screens[0].id}`}
