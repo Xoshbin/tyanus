@@ -85,7 +85,21 @@ export default function App({ user, header, children }) {
                                         </Dropdown.Content>
                                     </Dropdown>
                                 ) : (
-                                    <p>loign</p>
+                                    <>
+                                        <Link
+                                            href={route("login")}
+                                            className="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
+                                        >
+                                            Log in
+                                        </Link>
+
+                                        <Link
+                                            href={route("register")}
+                                            className="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
+                                        >
+                                            Register
+                                        </Link>
+                                    </>
                                 )}
                             </div>
                         </div>
@@ -139,15 +153,6 @@ export default function App({ user, header, children }) {
                         " sm:hidden"
                     }
                 >
-                    <div className="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink
-                            href={route("dashboard")}
-                            active={route().current("dashboard")}
-                        >
-                            Dashboard
-                        </ResponsiveNavLink>
-                    </div>
-
                     {user ? (
                         <div className="pt-4 pb-1 border-t border-gray-200">
                             <div className="px-4">
@@ -173,7 +178,20 @@ export default function App({ user, header, children }) {
                             </div>
                         </div>
                     ) : (
-                        <div></div>
+                        <div className="pt-2 pb-3 space-y-1">
+                            <ResponsiveNavLink
+                                href={route("login")}
+                                active={route().current("login")}
+                            >
+                                Log in
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink
+                                href={route("register")}
+                                active={route().current("register")}
+                            >
+                                Register
+                            </ResponsiveNavLink>
+                        </div>
                     )}
                 </div>
             </nav>
