@@ -10,7 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
 use App\Models\Lesson;
-
+use Illuminate\Support\Facades\Auth;
 
 class LessonsController extends Controller
 {
@@ -58,7 +58,8 @@ class LessonsController extends Controller
             'sumTime' => $sumTime,
             'avgSpeed' => $avgSpeed,
             'avgAccuracy' => $avgAccuracy,
-            'todaySumTime' => $todaySumTime
+            'todaySumTime' => $todaySumTime,
+            'auth' => Auth::user(),
         ]);
     }
 }

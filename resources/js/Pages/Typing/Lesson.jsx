@@ -164,7 +164,7 @@ export default function Lesson({ screen, auth }) {
 
     return (
         <AppLayout
-            user={auth.user}
+            user={auth ? auth.user : undefined}
             header={
                 <h2 className="font-semibold text-xl text-gray-800 leading-tight">
                     Dashboard
@@ -277,7 +277,7 @@ export default function Lesson({ screen, auth }) {
 
                 <Modal show={modalOpen} onClose={closeModal}>
                     <ExerciseSummary
-                        authid={auth.id}
+                        authid={auth ? auth.id : undefined}
                         starsEarned={starsEarned.toFixed(2)}
                         finishedTyping={isTypingComplete}
                         speed={netWPM.toFixed(2)}
