@@ -13,7 +13,7 @@ import Modal from "@/Components/Modal";
 import ExerciseSummary from "@/Components/Typing/ExerciseSummary";
 import AppLayout from "@/Layouts/AppLayout";
 import LessonSettings from "@/Components/Typing/LessonSettings";
-import { usePage } from "@inertiajs/react";
+import { router, usePage } from "@inertiajs/react";
 
 export default function Lesson({ screen, locale, userSettings }) {
     const [userInput, setUserInput] = useState("");
@@ -135,8 +135,9 @@ export default function Lesson({ screen, locale, userSettings }) {
         time,
         starsEarned
     ) => {
-        try {
-            const response = await axios.post("/api/saveprogress", {
+        router.post(
+            "/saveprogress",
+            {
                 user_id: auth.id,
                 lesson_id: screen.lesson_id,
                 exercise_id: screen.exercise_id,
@@ -146,17 +147,10 @@ export default function Lesson({ screen, locale, userSettings }) {
                 accuracy_percentage: accuracy,
                 stars_earned: starsEarned,
                 time: time,
-            });
-            console.log(response.status);
-            if (response.status === 201) {
-                setModalOpen(true);
-            }
-
-            // Handle the response as needed
-        } catch (error) {
-            console.error(error);
-            // Handle errors
-        }
+            },
+            { preserveState: true }
+        );
+        setModalOpen(true);
     };
 
     const closeModal = () => {

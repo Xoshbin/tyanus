@@ -34,7 +34,6 @@ class LessonController extends Controller
     public function saveProgress(Request $request)
     {
         $data = $request->validate([
-            'user_id' => 'required',
             'lesson_id' => 'required',
             'exercise_id' => 'required',
             'screen_id' => 'required',
@@ -45,9 +44,8 @@ class LessonController extends Controller
             'time' => 'required',
         ]);
 
-        $result = UserProgress::create($data);
-        return $result;
+        $data['user_id'] = auth()->user()->id;
 
-        // Your additional logic here
+        UserProgress::create($data);
     }
 }
