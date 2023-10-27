@@ -29,7 +29,6 @@ class LessonsController extends Controller
         }
 
 
-        $locale = app()->getLocale();
         $daily_time = auth()->user()->settings['daily_time'] ?? 15;
         $userProgress = UserProgress::where('user_id', auth()->id())->select('time', 'typing_speed', 'accuracy_percentage')->get();
         $userProgressToday = UserProgress::where('user_id', auth()->id())->whereDate('created_at', Carbon::today())->select('time')->get();
@@ -53,13 +52,12 @@ class LessonsController extends Controller
 
         return Inertia::render('Typing/Lessons', [
             'lessons' => $lessons,
-            'locale' => $locale,
+            'locale' => app()->getLocale(),
             'daily_time' => $daily_time,
             'sumTime' => $sumTime,
             'avgSpeed' => $avgSpeed,
             'avgAccuracy' => $avgAccuracy,
             'todaySumTime' => $todaySumTime,
-            'auth' => Auth::user(),
         ]);
     }
 }
