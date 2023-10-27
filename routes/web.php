@@ -35,6 +35,8 @@ Route::get('/lesson/{id}', [LessonController::class, 'challenge'])->name('lesson
 Route::get('/test', [LessonController::class, 'test'])->name('test');
 Route::get('/lessons', [LessonsController::class, 'index'])->name('lessons');
 
+Route::post('/update-user-settings', [ProfileController::class, 'userSettings'])->name('update-user-settings');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

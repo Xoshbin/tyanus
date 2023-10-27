@@ -1,4 +1,4 @@
-import { useEffect, useState, router } from "react";
+import { useEffect, useState } from "react";
 import MacKeyboardEn from "@/Components/Typing/Keyboard/MacKeyboardEn";
 import MacKeyboardKu from "@/Components/Typing/Keyboard/MacKeyboardKu";
 import {
@@ -12,9 +12,10 @@ import axios from "axios";
 import Modal from "@/Components/Modal";
 import ExerciseSummary from "@/Components/Typing/ExerciseSummary";
 import AppLayout from "@/Layouts/AppLayout";
+import LessonSettings from "@/Components/Typing/LessonSettings";
 import { usePage } from "@inertiajs/react";
 
-export default function Lesson({ screen, auth }) {
+export default function Lesson({ screen, locale, userSettings }) {
     const [userInput, setUserInput] = useState("");
     const [isTypingComplete, setIsTypingComplete] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
@@ -168,9 +169,10 @@ export default function Lesson({ screen, auth }) {
         <AppLayout
             user={auth ? auth.user : undefined}
             header={
-                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    Dashboard
-                </h2>
+                <LessonSettings
+                    locale={locale}
+                    userSettings={userSettings}
+                ></LessonSettings>
             }
         >
             <div className="flex flex-col w-full max-w-3xl justify-center items-center mx-auto mt-6">

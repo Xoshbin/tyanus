@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -59,5 +61,24 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    function userSettings(Request $request)
+    {
+        // Get the setting to update and its new value from the request.
+        $settingToUpdate = $request->get('setting'); // 'enable_sound', 'exercise_lang', etc.
+        $newValue = $request->get('value');
+
+        // Validate the settingToUpdate if necessary.
+
+        // Find the user whose settings you want to update.
+        $user = auth()->user();
+        if (auth()->user()) {
+            $user->addUniqueSetting($settingToUpdate, $newValue);
+        }
+
+        // Update the user's settings.
+        // Save the updated user.
+        $user->save();
     }
 }
