@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Modal from "@/Components/Modal";
 import { router, usePage } from "@inertiajs/react";
+import KeyboardSettings from "./KeyboardSettings";
 
-const LessonSettings = ({ locale, userSettings }) => {
+const LessonSettings = ({ locale }) => {
     const [modalOpen, setModalOpen] = useState(false);
     const { user_settings } = usePage().props;
 
@@ -24,13 +25,14 @@ const LessonSettings = ({ locale, userSettings }) => {
         // Calculate the new value by toggling the current value.
         const newValue = !currentValue;
 
-        router.visit("/update-user-settings", {
-            method: "post",
-            data: {
+        router.post(
+            "/update-user-settings",
+            {
                 setting: "enable_sound",
                 value: newValue,
             },
-        });
+            { preserveState: true }
+        );
     };
 
     return (
@@ -140,7 +142,7 @@ const LessonSettings = ({ locale, userSettings }) => {
             </div>
             {/* Include your Inertia components or React components here */}
             <Modal show={modalOpen} onClose={closeModal}>
-                <p>hi there</p>
+                <KeyboardSettings locale={locale} />
             </Modal>
         </div>
     );
