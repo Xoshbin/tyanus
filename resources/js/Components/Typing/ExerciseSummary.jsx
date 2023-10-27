@@ -1,13 +1,15 @@
 import React from "react";
+import { usePage } from "@inertiajs/react";
 
 const ExerciseSummary = ({
-    authid,
+    totalStars,
     starsEarned,
     finishedTyping,
     speed,
     accuracy,
     time,
 }) => {
+    const { auth } = usePage().props;
     return (
         <div className="m-4">
             {starsEarned >= 1 && (
@@ -28,7 +30,7 @@ const ExerciseSummary = ({
                 )}
             </div>
             <div className="col-start-1 col-end-7 text-center">
-                {`${starsEarned} Stars earned out of 3`}
+                {`${starsEarned} Stars earned out of ${totalStars}`}
             </div>
             {finishedTyping && (
                 <div className="w-full bg-gradient-to-r from-kblue-300 to-kblue-400 rounded-lg mt-4 p-4 text-right">
@@ -38,7 +40,7 @@ const ExerciseSummary = ({
                 </div>
             )}
             <div className="mt-4">
-                {authid ? (
+                {auth ? (
                     <button
                         type="button"
                         className={`inline-flex w-full justify-center rounded-md ${

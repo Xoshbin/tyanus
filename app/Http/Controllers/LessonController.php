@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Exercise;
 use App\Models\Screen;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -25,8 +26,17 @@ class LessonController extends Controller
             return Screen::where('id', $id)->first();
         });
 
+        $totalScreens = Cache::rememberForever('totalExerciseScreens' . $screen->exercise_id, function () use ($screen) {
+            $exercise = Exercise::find($screen->exercise_id);
+            return $exercise->screens->where('content_type', 'letters')->count();
+        });
+
+        //? each screen have 3 stars that can be earned
+        $exerciseTotalStars = $totalScreens * 3;
+
         return Inertia::render('Typing/Lesson', [
             'screen' => $screen,
+            'exerciseTotalStars' => $exerciseTotalStars,
             'locale' => app()->getLocale(),
         ]);
     }

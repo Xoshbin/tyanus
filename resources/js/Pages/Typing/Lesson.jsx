@@ -15,7 +15,12 @@ import AppLayout from "@/Layouts/AppLayout";
 import LessonSettings from "@/Components/Typing/LessonSettings";
 import { router, usePage } from "@inertiajs/react";
 
-export default function Lesson({ screen, locale, userSettings }) {
+export default function Lesson({
+    screen,
+    locale,
+    userSettings,
+    exerciseTotalStars,
+}) {
     const [userInput, setUserInput] = useState("");
     const [isTypingComplete, setIsTypingComplete] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
@@ -275,7 +280,7 @@ export default function Lesson({ screen, locale, userSettings }) {
 
                 <Modal show={modalOpen} onClose={closeModal}>
                     <ExerciseSummary
-                        authid={auth ? auth.id : undefined}
+                        totalStars={exerciseTotalStars}
                         starsEarned={starsEarned.toFixed(2)}
                         finishedTyping={isTypingComplete}
                         speed={netWPM.toFixed(2)}
