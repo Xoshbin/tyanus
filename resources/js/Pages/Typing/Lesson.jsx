@@ -114,11 +114,10 @@ export default function Lesson({
     }, [userInput, screen.content, currentCharacterIndex, isTypingComplete]);
 
     // Calculate Net WPM and Accuracy
-    const elapsedTime =
-        endTime && startTime ? (endTime - startTime) / 60000 : 0; // Prevent division by zero
+    const elapsedTime = endTime && startTime ? (endTime - startTime) / 1000 : 0; // Prevent division by zero
     const wordsTyped = Math.ceil(userInput.length / 5); // Every 5 characters is counted as a word
     const netWPM = elapsedTime
-        ? Math.max((wordsTyped - errorCount) / elapsedTime, 0)
+        ? Math.max((wordsTyped - errorCount) / elapsedTime, 0) * 100
         : 0;
 
     // Calculate accuracy as a percentage

@@ -395,7 +395,7 @@ export default function Lessons({
                                                                     {moment
                                                                         .duration(
                                                                             sumTime,
-                                                                            "milliseconds"
+                                                                            "seconds"
                                                                         )
                                                                         .locale(
                                                                             "ku"

@@ -1,5 +1,6 @@
 import React from "react";
 import { usePage } from "@inertiajs/react";
+import moment from "moment";
 
 const ExerciseSummary = ({
     totalStars,
@@ -36,7 +37,10 @@ const ExerciseSummary = ({
                 <div className="w-full bg-gradient-to-r from-kblue-300 to-kblue-400 rounded-lg mt-4 p-4 text-right">
                     <p>{`Speed: ${speed} Words per minute`}</p>
                     <p>{`Accuracy: ${accuracy}%`}</p>
-                    <p>{`Time: ${time}`}</p>
+                    <p>{`Time: ${moment
+                        .duration(time, "seconds")
+                        .locale("ku")
+                        .humanize()}`}</p>
                 </div>
             )}
             <div className="mt-4">
