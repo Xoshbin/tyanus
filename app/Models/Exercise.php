@@ -15,7 +15,7 @@ class Exercise extends Model
     // protected $with = ['screens'];
 
     //in inertia react, you have to load the accessors at the beginning otherwise the accessors not going down to the react or js
-    protected $appends = array('isExerciseFinished', 'isHalfwayThroughExercise', 'totalStarsEarned');
+    protected $appends = array('isExerciseFinished', 'isHalfwayThroughExercise', 'totalStarsEarned', 'exerciseTotalStars');
 
 
     protected $fillable = ['lesson_id', 'title', 'target_speed'];
@@ -49,6 +49,14 @@ class Exercise extends Model
         return $uniqueScreensPlayedCount >= $totalScreens;
     }
 
+    public function getExerciseTotalStarsAttribute()
+    {
+        // Assuming you want to check if all screens in the exercise are completed by the user.
+        $totalScreens = $this->screens->count();
+
+        return $totalScreens * 3;
+    }
+
     public function getIsHalfwayThroughExerciseAttribute()
     {
         // Use the userProgress relationship to check if the user has played at least one screen
@@ -63,7 +71,6 @@ class Exercise extends Model
     public function getTotalStarsEarnedAttribute()
     {
         $uniqueScreensPlayed = UserProgress::where('user_id', auth()->id())
-            ->where('lesson_id', $this->lesson_id) // Assuming 'lesson_id' is the correct attribute name
             ->where('exercise_id', $this->id) // Assuming 'id' is the correct attribute name for the exercise
             ->where(function ($query) {
                 // Subquery to get the latest completed_at for each screen_id
@@ -78,6 +85,7 @@ class Exercise extends Model
             })
             ->groupBy('screen_id')
             ->get();
+
 
         return $uniqueScreensPlayed->sum('stars_earned');
     }

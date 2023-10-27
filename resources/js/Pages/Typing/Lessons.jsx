@@ -349,10 +349,10 @@ export default function Lessons({
                                                                 >
                                                                     <ExerciseStars
                                                                         exerciseTotalStars={
-                                                                            35
+                                                                            exercise.exerciseTotalStars
                                                                         }
                                                                         totalStarsEarned={
-                                                                            16
+                                                                            exercise.totalStarsEarned
                                                                         }
                                                                     ></ExerciseStars>
                                                                 </div>
