@@ -7,9 +7,9 @@ import PrimaryButton from "../../Components/PrimaryButton";
 import moment from "moment";
 import ScreenTooltip from "@/Components/Typing/ScreenTooltip";
 import ExerciseStars from "../../Components/Typing/ExerciseStars";
+import { usePage } from "@inertiajs/react";
 
 export default function Lessons({
-    auth,
     lessons,
     locale,
     daily_time,
@@ -19,6 +19,7 @@ export default function Lessons({
     todaySumTime,
 }) {
     const [activeTab, setActiveTab] = useState("tab1");
+    const { auth } = usePage().props;
 
     let buttonGenerated = false; // Initialize a flag
 

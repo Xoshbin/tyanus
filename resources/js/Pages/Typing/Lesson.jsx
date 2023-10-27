@@ -12,6 +12,7 @@ import axios from "axios";
 import Modal from "@/Components/Modal";
 import ExerciseSummary from "@/Components/Typing/ExerciseSummary";
 import AppLayout from "@/Layouts/AppLayout";
+import { usePage } from "@inertiajs/react";
 
 export default function Lesson({ screen, auth }) {
     const [userInput, setUserInput] = useState("");
@@ -21,6 +22,7 @@ export default function Lesson({ screen, auth }) {
     const [endTime, setEndTime] = useState(null);
     const [errorCount, setErrorCount] = useState(0);
     const [currentCharacterIndex, setCurrentCharacterIndex] = useState(0);
+    const { auth } = usePage().props;
 
     // Define a function to update the current character
     const updateCurrentCharacter = () => {

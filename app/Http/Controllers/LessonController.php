@@ -27,7 +27,7 @@ class LessonController extends Controller
 
         return Inertia::render('Typing/Lesson', [
             'screen' => $screen,
-            'auth' => Auth::user(),
+            'locale' => app()->getLocale(),
         ]);
     }
 
