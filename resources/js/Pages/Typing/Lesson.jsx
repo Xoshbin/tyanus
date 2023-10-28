@@ -156,8 +156,6 @@ export default function Lesson({ screen, locale, exerciseTotalStars }) {
 
     const closeModal = () => {
         setModalOpen(false);
-
-        reset();
     };
 
     return (
