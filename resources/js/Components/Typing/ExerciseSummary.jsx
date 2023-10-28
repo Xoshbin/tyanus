@@ -1,6 +1,7 @@
 import React from "react";
-import { usePage } from "@inertiajs/react";
+import { usePage, Link } from "@inertiajs/react";
 import moment from "moment";
+import { __ } from "@/Libs/Lang";
 
 const ExerciseSummary = ({
     totalStars,
@@ -9,8 +10,14 @@ const ExerciseSummary = ({
     speed,
     accuracy,
     time,
+    screen,
 }) => {
     const { auth } = usePage().props;
+
+    const redoLesson = () => {
+        // Perform a visit to the current page's URL to reload it.
+        window.location.reload();
+    };
     return (
         <div className="m-4">
             {starsEarned >= 1 && (
@@ -45,8 +52,9 @@ const ExerciseSummary = ({
             )}
             <div className="mt-4">
                 {auth ? (
-                    <button
-                        type="button"
+                    <Link
+                        href={`/lesson/${screen.id + 1}`}
+                        as="button"
                         className={`inline-flex w-full justify-center rounded-md ${
                             starsEarned === 0
                                 ? "bg-kblue-100"
@@ -55,16 +63,23 @@ const ExerciseSummary = ({
                         disabled={starsEarned === 0}
                     >
                         {`Next`}
-                    </button>
+                    </Link>
                 ) : (
-                    <a
-                        href="/login"
-                        className="self-center text-center ml-8 bg-yellow-300 pl-4 pr-4 pt-1 pb-1"
+                    <Link
+                        href="login"
+                        as="button"
+                        className={`inline-flex w-full justify-center rounded-md ${
+                            starsEarned === 0
+                                ? "bg-kblue-100"
+                                : "bg-green-600 hover:bg-green-500"
+                        } px-3 py-2 text-sm font-semibold text-kblue shadow-sm sm:ml-3 sm:w-auto`}
+                        disabled={starsEarned === 0}
                     >
                         {`Please login to save your progress`}
-                    </a>
+                    </Link>
                 )}
                 <button
+                    onClick={redoLesson}
                     type="button"
                     className="mt-3 inline-flex w-full justify-center rounded-md bg-kblue-50 px-3 py-2 text-sm font-semibold text-kblue-900 shadow-sm ring-1 ring-inset ring-kblue-300 hover:bg-kblue-50 sm:mt-0 sm:w-auto"
                 >

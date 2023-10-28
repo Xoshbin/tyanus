@@ -285,6 +285,7 @@ export default function Lesson({
                         speed={netWPM.toFixed(2)}
                         accuracy={accuracy.toFixed(2)}
                         time={elapsedTime.toFixed(2)}
+                        screen={screen}
                     ></ExerciseSummary>
                 </Modal>
             </div>
