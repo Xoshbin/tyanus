@@ -2,6 +2,7 @@ import React from "react";
 import { usePage, Link } from "@inertiajs/react";
 import moment from "moment";
 import { __ } from "@/Libs/Lang";
+import "moment/locale/ku"; // Import the Kurdish locale
 
 const ExerciseSummary = ({
     totalStars,
@@ -13,6 +14,7 @@ const ExerciseSummary = ({
     screen,
 }) => {
     const { auth } = usePage().props;
+    moment.locale("ku");
 
     const redoLesson = () => {
         // Perform a visit to the current page's URL to reload it.
@@ -38,16 +40,21 @@ const ExerciseSummary = ({
                 )}
             </div>
             <div className="col-start-1 col-end-7 text-center">
-                {`${starsEarned} Stars earned out of ${totalStars}`}
+                {Math.floor(starsEarned)} {__(`Stars earned out of 3`)}
             </div>
             {finishedTyping && (
                 <div className="w-full bg-gradient-to-r from-kblue-300 to-kblue-400 rounded-lg mt-4 p-4 text-right">
-                    <p>{`Speed: ${speed} Words per minute`}</p>
-                    <p>{`Accuracy: ${accuracy}%`}</p>
-                    <p>{`Time: ${moment
-                        .duration(time, "seconds")
-                        .locale("ku")
-                        .humanize()}`}</p>
+                    <p>
+                        {__("Speed")}: <span>{speed}</span>{" "}
+                        {__("Words per minute")}
+                    </p>
+                    <p>
+                        {__("Accuracy")}: <span>{accuracy}%</span>
+                    </p>
+                    <p>
+                        {__("Time")}:
+                        {moment.duration(time, "seconds").humanize()}
+                    </p>
                 </div>
             )}
             <div className="mt-4">
@@ -62,7 +69,7 @@ const ExerciseSummary = ({
                         } px-3 py-2 text-sm font-semibold text-kblue shadow-sm sm:ml-3 sm:w-auto`}
                         disabled={starsEarned === 0}
                     >
-                        {`Next`}
+                        {__("Next")}
                     </Link>
                 ) : (
                     <Link
@@ -75,7 +82,7 @@ const ExerciseSummary = ({
                         } px-3 py-2 text-sm font-semibold text-kblue shadow-sm sm:ml-3 sm:w-auto`}
                         disabled={starsEarned === 0}
                     >
-                        {`Please login to save your progress`}
+                        {__("Please login to save your progress")}
                     </Link>
                 )}
                 <button
@@ -83,7 +90,7 @@ const ExerciseSummary = ({
                     type="button"
                     className="mt-3 inline-flex w-full justify-center rounded-md bg-kblue-50 px-3 py-2 text-sm font-semibold text-kblue-900 shadow-sm ring-1 ring-inset ring-kblue-300 hover:bg-kblue-50 sm:mt-0 sm:w-auto"
                 >
-                    {`Repeat`}
+                    {__("Repeat")}
                 </button>
             </div>
         </div>
