@@ -90,7 +90,25 @@ export default function Lessons({
                                                         : "bg-gray-300 text-black"
                                                 }`}
                                             >
-                                                {lesson.title}
+                                                <span>
+                                                    {lesson.locale === "ckb" &&
+                                                    lesson.locale !==
+                                                        user_settings.exercise_lang
+                                                        ? lesson.title ===
+                                                          "سەرەتایی"
+                                                            ? "beginner"
+                                                            : lesson.title ===
+                                                              "ناوەندی"
+                                                            ? "intermediate"
+                                                            : lesson.title
+                                                        : lesson.title ===
+                                                          "beginner"
+                                                        ? "سەرەتایی"
+                                                        : lesson.title ===
+                                                          "intermediate"
+                                                        ? "ناوەندی"
+                                                        : lesson.title}
+                                                </span>
 
                                                 <span
                                                     className={`p-1 rounded-md ${
