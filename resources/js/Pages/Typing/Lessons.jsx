@@ -67,7 +67,7 @@ export default function Lessons({
                         locale === "ckb" ? "" : ""
                     } max-w-7xl mx-auto sm:px-6 lg:px-8`}
                 >
-                    <div className="flex flex-col lg:flex-row lg:container max-w-5xl mx-auto lg:max-w-5xl lg:mx-auto md:space-x-2 justify-center mt-16 space-y-8">
+                    <div className="flex flex-col lg:flex-row lg:container max-w-5xl mx-auto lg:max-w-5xl lg:mx-auto md:space-x-2 justify-center space-y-8">
                         <div className="flex lg:w-3/12">
                             <div className="flex md:flex-col justify-between w-full font-notosans lg:px-4">
                                 <ul className="flex lg:flex-col overflow-x-scroll hide-scroll-bar md:overflow-hidden space-x-4 md:space-y-2">
