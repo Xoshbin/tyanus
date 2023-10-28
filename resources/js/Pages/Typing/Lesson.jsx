@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import MacKeyboardEn from "@/Components/Typing/Keyboard/MacKeyboardEn";
 import MacKeyboardKu from "@/Components/Typing/Keyboard/MacKeyboardKu";
+import WindowsKeyboardKu from "@/Components/Typing/Keyboard/WindowsKeyboardKu";
 import {
     macFingerMapping,
     macLeftKeys,
@@ -15,12 +16,7 @@ import AppLayout from "@/Layouts/AppLayout";
 import LessonSettings from "@/Components/Typing/LessonSettings";
 import { router, usePage } from "@inertiajs/react";
 
-export default function Lesson({
-    screen,
-    locale,
-    userSettings,
-    exerciseTotalStars,
-}) {
+export default function Lesson({ screen, locale, exerciseTotalStars }) {
     const [userInput, setUserInput] = useState("");
     const [isTypingComplete, setIsTypingComplete] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
@@ -29,6 +25,7 @@ export default function Lesson({
     const [errorCount, setErrorCount] = useState(0);
     const [currentCharacterIndex, setCurrentCharacterIndex] = useState(0);
     const { auth } = usePage().props;
+    const { user_settings } = usePage().props;
 
     // Define a function to update the current character
     const updateCurrentCharacter = () => {
@@ -166,12 +163,7 @@ export default function Lesson({
     return (
         <AppLayout
             user={auth ? auth.user : undefined}
-            header={
-                <LessonSettings
-                    locale={locale}
-                    userSettings={userSettings}
-                ></LessonSettings>
-            }
+            header={<LessonSettings locale={locale}></LessonSettings>}
         >
             <div className="flex flex-col w-full max-w-3xl justify-center items-center mx-auto mt-6">
                 <p className="w-full py-4 px-4 text-2xl text-center">
@@ -275,7 +267,17 @@ export default function Lesson({
                         );
                     })}
                 </div>
-                <MacKeyboardKu currentCharacter={currentCharacter} />
+                {locale === "ckb" ? (
+                    user_settings.keyboard_type === "windows" ? (
+                        <WindowsKeyboardKu
+                            currentCharacter={currentCharacter}
+                        />
+                    ) : (
+                        <MacKeyboardKu currentCharacter={currentCharacter} />
+                    )
+                ) : (
+                    <MacKeyboardEn currentCharacter={currentCharacter} />
+                )}
 
                 <Modal show={modalOpen} onClose={closeModal}>
                     <ExerciseSummary
