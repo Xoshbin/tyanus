@@ -11,7 +11,7 @@ use Inertia\Response;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\App;
 use App\Models\UserProgress;
-
+use Illuminate\Support\Str;
 
 class LessonController extends Controller
 {
@@ -41,21 +41,47 @@ class LessonController extends Controller
         ]);
     }
 
+
     public function saveProgress(Request $request)
     {
-        $data = $request->validate([
-            'lesson_id' => 'required',
-            'exercise_id' => 'required',
-            'screen_id' => 'required',
-            'locale' => 'required',
-            'typing_speed' => 'required',
-            'accuracy_percentage' => 'required',
-            'stars_earned' => 'required',
-            'time' => 'required',
-        ]);
+        if (Auth::check()) {
+            $data = $request->validate([
+                'lesson_id' => 'required',
+                'exercise_id' => 'required',
+                'screen_id' => 'required',
+                'locale' => 'required',
+                'typing_speed' => 'required',
+                'accuracy_percentage' => 'required',
+                'stars_earned' => 'required',
+                'time' => 'required',
+            ]);
 
-        $data['user_id'] = auth()->user()->id;
+            $data['user_id'] = auth()->user()->id;
 
-        UserProgress::create($data);
+            UserProgress::create($data);
+        } else {
+            // Check if a guest user ID already exists in the session
+            $guestUserId = session('guest_user_id');
+
+            if (!$guestUserId) {
+                // Generate a unique identifier for the guest user
+                $guestUserId = Str::uuid()->toString();
+
+                // Store the guest user ID in the session
+                session(['guest_user_id' => $guestUserId]);
+            }
+
+            // Retrieve the existing progress data for the guest user (if any)
+            $progressData = session('progress_' . $guestUserId, []);
+
+            // Extract the screen ID from the request
+            $screenId = $request->input('screen_id');
+
+            // Add the current progress data to the specific screen's array
+            $progressData[$screenId][] = $request->all();
+
+            // Store the updated progress data back in the session
+            session(['progress_' . $guestUserId => $progressData]);
+        }
     }
 }
