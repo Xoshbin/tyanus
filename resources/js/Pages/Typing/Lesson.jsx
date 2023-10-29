@@ -26,6 +26,18 @@ export default function Lesson({ screen, locale, exerciseTotalStars }) {
     const [currentCharacterIndex, setCurrentCharacterIndex] = useState(0);
     const { auth } = usePage().props;
     const { user_settings } = usePage().props;
+    const keySound = "/sound/soft-key.mp3";
+    const wrongKeySound = "/sound/wrong.mp3";
+
+    const playKeySound = () => {
+        const audio = new Audio(keySound);
+        audio.play();
+    };
+
+    const playWrongKeySound = () => {
+        const audio = new Audio(wrongKeySound);
+        audio.play();
+    };
 
     // Define a function to update the current character
     const updateCurrentCharacter = () => {
@@ -37,6 +49,8 @@ export default function Lesson({ screen, locale, exerciseTotalStars }) {
     useEffect(() => {
         const handleKeyDown = (e) => {
             const key = e.key;
+
+            playKeySound(); // Add this line to play the sound
 
             // Check if the user has reached the end of the text
             if (currentCharacterIndex < screen.content.length) {
@@ -85,6 +99,7 @@ export default function Lesson({ screen, locale, exerciseTotalStars }) {
                 // Exclude Shift key from errors
                 if (key !== "Shift") {
                     setErrorCount((prev) => prev + 1);
+                    playWrongKeySound(); // Add this line to play the wrong character sound
                 }
             }
         };
