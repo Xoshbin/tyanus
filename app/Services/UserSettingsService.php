@@ -2,9 +2,10 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
-class UserSettings
+class UserSettingsService
 {
 
     private $guestUserId;
@@ -20,11 +21,13 @@ class UserSettings
      */
     public function getExerciseLang(): string
     {
-        if ($this->guestUserId) {
-            $settings = session('settings_' . $this->guestUserId, []);
-            return $settings['exercise_lang'] ?? 'ckb';
-        } else {
+        if (Auth::check()) {
             return auth()->user()->settings['exercise_lang'] ?? 'ckb';
+        } else {
+            if ($this->guestUserId) {
+                $settings = session('settings_' . $this->guestUserId, []);
+                return $settings['exercise_lang'] ?? 'ckb';
+            }
         }
     }
 
@@ -35,11 +38,13 @@ class UserSettings
      */
     public function getKeyboardType(): string
     {
-        if ($this->guestUserId) {
-            $settings = session('settings_' . $this->guestUserId, []);
-            return $settings['keyboard_type'] ?? 'windows';
-        } else {
+        if (Auth::check()) {
             return auth()->user()->settings['keyboard_type'] ?? 'windows';
+        } else {
+            if ($this->guestUserId) {
+                $settings = session('settings_' . $this->guestUserId, []);
+                return $settings['keyboard_type'] ?? 'windows';
+            }
         }
     }
 
@@ -50,11 +55,13 @@ class UserSettings
      */
     public function getShowKeyboard(): bool
     {
-        if ($this->guestUserId) {
-            $settings = session('settings_' . $this->guestUserId, []);
-            return $settings['show_keyboard'] ?? true;
-        } else {
+        if (Auth::check()) {
             return auth()->user()->settings['show_keyboard'] ?? true;
+        } else {
+            if ($this->guestUserId) {
+                $settings = session('settings_' . $this->guestUserId, []);
+                return $settings['show_keyboard'] ?? true;
+            }
         }
     }
 
@@ -65,11 +72,13 @@ class UserSettings
      */
     public function getShowHands(): bool
     {
-        if ($this->guestUserId) {
-            $settings = session('settings_' . $this->guestUserId, []);
-            return $settings['show_hands'] ?? true;
-        } else {
+        if (Auth::check()) {
             return auth()->user()->settings['show_hands'] ?? true;
+        } else {
+            if ($this->guestUserId) {
+                $settings = session('settings_' . $this->guestUserId, []);
+                return $settings['show_hands'] ?? true;
+            }
         }
     }
 
@@ -80,11 +89,13 @@ class UserSettings
      */
     public function getEnableSound(): bool
     {
-        if ($this->guestUserId) {
-            $settings = session('settings_' . $this->guestUserId, []);
-            return $settings['enable_sound'] ?? true;
-        } else {
+        if (Auth::check()) {
             return auth()->user()->settings['enable_sound'] ?? true;
+        } else {
+            if ($this->guestUserId) {
+                $settings = session('settings_' . $this->guestUserId, []);
+                return $settings['enable_sound'] ?? true;
+            }
         }
     }
 
@@ -95,11 +106,13 @@ class UserSettings
      */
     public function getDailyTime(): int
     {
-        if ($this->guestUserId) {
-            $settings = session('settings_' . $this->guestUserId, []);
-            return $settings['daily_time'] ?? 15;
-        } else {
+        if (Auth::check()) {
             return auth()->user()->settings['daily_time'] ?? 15;
+        } else {
+            if ($this->guestUserId) {
+                $settings = session('settings_' . $this->guestUserId, []);
+                return $settings['daily_time'] ?? 15;
+            }
         }
     }
 }

@@ -2,25 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\UserSettings;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
-use App\Models\UserProgress;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
 use App\Models\Lesson;
 use App\Services\UserProgressService;
+use App\Services\UserSettingsService;
 
 class LessonsController extends Controller
 {
 
     function index(): Response
     {
-        $userSettings = new UserSettings;
+        $userSettings = new UserSettingsService;
         $userProgressService = new UserProgressService;
         $exerciseLanguage = $userSettings->getExerciseLang();
+        // dd($exerciseLanguage);
         $lessons = Cache::rememberForever('lessons' . $exerciseLanguage, function () use ($exerciseLanguage) {
             return Lesson::where('locale', $exerciseLanguage)->where('active', true)->with('exercises.screens.userProgress')->get();
         });

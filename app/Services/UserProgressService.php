@@ -20,7 +20,7 @@ class UserProgressService
 
     public function getTodaySumTime()
     {
-        $userSettings = new UserSettings;
+        $userSettings = new UserSettingsService;
         if (Auth::check()) {
             $userProgressToday = UserProgress::where('user_id', auth()->id())
                 ->whereDate('created_at', Carbon::today())
@@ -77,7 +77,7 @@ class UserProgressService
 
     public function getSumTime()
     {
-        $userSettings = new UserSettings;
+        $userSettings = new UserSettingsService;
         if (Auth::check()) {
             $userProgress = UserProgress::where('user_id', auth()->id())
                 ->where('locale', $userSettings->getExerciseLang())
@@ -115,7 +115,7 @@ class UserProgressService
 
     public function getAvgSpeed()
     {
-        $userSettings = new UserSettings;
+        $userSettings = new UserSettingsService;
         if (Auth::check()) {
             $userProgress = UserProgress::where('user_id', auth()->id())->where('locale', $userSettings->getExerciseLang())->select('time', 'typing_speed', 'accuracy_percentage')->get();
             $avgSpeed = $userProgress->avg('typing_speed');
@@ -155,7 +155,7 @@ class UserProgressService
 
     public function getAvgAccuracy()
     {
-        $userSettings = new UserSettings;
+        $userSettings = new UserSettingsService;
         if (Auth::check()) {
             $userProgress = UserProgress::where('user_id', auth()->id())
                 ->where('locale', $userSettings->getExerciseLang())
