@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Services\UserSettings;
 use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\UserProgress;
@@ -10,26 +10,19 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
 use App\Models\Lesson;
-use Illuminate\Support\Facades\Auth;
 
 class LessonsController extends Controller
 {
+
     function index(): Response
     {
-        $exerciseLang = auth()->user()->settings['exercise_lang'] ?? 'ckb';
+        $userSettings = new UserSettings;
+        $exerciseLanguage = $userSettings->getExerciseLang();
+        $lessons = Cache::rememberForever('lessons' . $exerciseLanguage, function () use ($exerciseLanguage) {
+            return Lesson::where('locale', $exerciseLanguage)->where('active', true)->with('exercises.screens.userProgress')->get();
+        });
 
-        if ($exerciseLang) {
-            $lessons = Cache::rememberForever('lessons' . $exerciseLang, function () use ($exerciseLang) {
-                return Lesson::where('locale', $exerciseLang)->where('active', true)->with('exercises.screens.userProgress')->get();
-            });
-        } else {
-            $lessons = Cache::rememberForever('lessons' . App::getLocale(), function () {
-                return Lesson::where('locale', App::getLocale())->where('active', true)->with('exercises.screens.userProgress')->get();
-            });
-        }
-
-
-        $daily_time = auth()->user()->settings['daily_time'] ?? 15;
+        $daily_time = $userSettings->getDailyTime();
         $userProgress = UserProgress::where('user_id', auth()->id())->select('time', 'typing_speed', 'accuracy_percentage')->get();
         $userProgressToday = UserProgress::where('user_id', auth()->id())->whereDate('created_at', Carbon::today())->select('time')->get();
 
