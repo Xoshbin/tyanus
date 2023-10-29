@@ -98,8 +98,8 @@ export default function Lesson({ screen, locale, exerciseTotalStars }) {
             ) {
                 // Exclude Shift key from errors
                 if (key !== "Shift") {
-                    setErrorCount((prev) => prev + 1);
                     playWrongKeySound(); // Add this line to play the wrong character sound
+                    setErrorCount((prev) => prev + 1);
                 }
             }
         };
