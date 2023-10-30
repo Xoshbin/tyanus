@@ -49,6 +49,8 @@ class ScreenSeederTestEN extends Seeder
             // ['lesson_id' => 9, 'order' => 12, 'exercise_id' => 32, 'title' => 'O, B, and A Keys - 12', 'content_type' => 'letters', 'content' => '',  'target_speed' => 60, 'locale' => 'en'],
         ];
 
-        Screen::insert($screens);
+        foreach ($screens as $screenData) {
+            Screen::create($screenData);
+        }
     }
 }

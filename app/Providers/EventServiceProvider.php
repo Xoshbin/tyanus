@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Listeners\TransferGuestData;
+use App\Models\Screen;
+use App\Observers\ScreenObserver;
 use Illuminate\Auth\Events\Authenticated;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -11,6 +13,16 @@ use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider
 {
+
+    /**
+     * The model observers for your application.
+     *
+     * @var array
+     */
+    // protected $observers = [
+    //     Screen::class => [ScreenObserver::class],
+    // ];
+
     /**
      * The event to listener mappings for the application.
      *
@@ -30,7 +42,7 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Screen::observe(ScreenObserver::class);
     }
 
     /**

@@ -97,7 +97,7 @@ class ScreenSeederIntermediateEN extends Seeder
             ['lesson_id' => 10, 'order' => 3, 'exercise_id' => 47, 'title' => 'Intermediate Punctuation - 3', 'content_type' => 'letters', 'content' => '; """ ; """ ; """ ; """ ; """ ;;; "" ;; "" ; """',  'target_speed' => 60, 'locale' => 'en'],
             ['lesson_id' => 10, 'order' => 4, 'exercise_id' => 47, 'title' => 'Intermediate Punctuation - 4', 'content_type' => 'letters', 'content' => '"Learning is an adventure." "Challenges make us grow." "Knowledge empowers us."',  'target_speed' => 60, 'locale' => 'en'],
             ['lesson_id' => 10, 'order' => 5, 'exercise_id' => 47, 'title' => 'Intermediate Punctuation - 5', 'content_type' => 'letters', 'content' => 'l ::: l ::: l ::: l ::: l ::: l ::: lll ;; lll ;; l ; ll :::',  'target_speed' => 60, 'locale' => 'en'],
-            ['lesson_id' => 10, 'order' => 6, 'exercise_id' => 47, 'title' => 'Intermediate Punctuation - 5', 'content_type' => 'letters', 'content' => 'Acquire these: Exchange those: Swap these: for those:',  'target_speed' => 60, 'locale' => 'en'],
+            ['lesson_id' => 10, 'order' => 6, 'exercise_id' => 47, 'title' => 'Intermediate Punctuation - 6', 'content_type' => 'letters', 'content' => 'Acquire these: Exchange those: Swap these: for those:',  'target_speed' => 60, 'locale' => 'en'],
             ['lesson_id' => 10, 'order' => 7, 'exercise_id' => 47, 'title' => 'Intermediate Punctuatio', 'content_type' => 'badge', 'content' => '',  'target_speed' => 0, 'locale' => 'en'],
 
             ['lesson_id' => 10, 'order' => 1, 'exercise_id' => 48, 'title' => 'Quick Sentences - 1', 'content_type' => 'letters', 'content' => 'Embrace change, adapt wisely.',  'target_speed' => 60, 'locale' => 'en'],
@@ -121,8 +121,8 @@ class ScreenSeederIntermediateEN extends Seeder
             ['lesson_id' => 10, 'order' => 3, 'exercise_id' => 49, 'title' => 'Short Paragraphs - 3', 'content_type' => 'letters', 'content' => "The rock, Sammy explained, could transport them to a world of talking animals and wonders. Timmy, eager for adventure, closed his eyes, touched the rock, and they were in a meadow filled with dancing butterflies.",  'target_speed' => 60, 'locale' => 'en'],
             ['lesson_id' => 10, 'order' => 4, 'exercise_id' => 49, 'title' => 'Short Paragraphs - 4', 'content_type' => 'letters', 'content' => "Together, Timmy and Sammy went on many adventures, meeting wise owls and friendly bears. Each day was a new, exciting journey filled with laughter and discovery.",  'target_speed' => 60, 'locale' => 'en'],
             ['lesson_id' => 10, 'order' => 5, 'exercise_id' => 49, 'title' => 'Short Paragraphs - 5', 'content_type' => 'letters', 'content' => "As the sun set, Timmy knew it was time to go home. Sammy led him back to the rock, where they said goodbye.",  'target_speed' => 60, 'locale' => 'en'],
-            ['lesson_id' => 10, 'order' => 6, 'exercise_id' => 49, 'title' => 'Short Paragraphs - 5', 'content_type' => 'letters', 'content' => "Back in the village, Timmy shared his magical adventures with friends and family, cherishing the enchantment hidden within the forest.",  'target_speed' => 60, 'locale' => 'en'],
-            ['lesson_id' => 10, 'order' => 7, 'exercise_id' => 49, 'title' => 'Short Paragraphs - 5', 'content_type' => 'letters', 'content' => "The curious boy, Timmy, continued to dream big, finding magic in unexpected places, knowing that even a simple glowing rock could hold extraordinary secrets.",  'target_speed' => 60, 'locale' => 'en'],
+            ['lesson_id' => 10, 'order' => 6, 'exercise_id' => 49, 'title' => 'Short Paragraphs - 6', 'content_type' => 'letters', 'content' => "Back in the village, Timmy shared his magical adventures with friends and family, cherishing the enchantment hidden within the forest.",  'target_speed' => 60, 'locale' => 'en'],
+            ['lesson_id' => 10, 'order' => 7, 'exercise_id' => 49, 'title' => 'Short Paragraphs - 7', 'content_type' => 'letters', 'content' => "The curious boy, Timmy, continued to dream big, finding magic in unexpected places, knowing that even a simple glowing rock could hold extraordinary secrets.",  'target_speed' => 60, 'locale' => 'en'],
             ['lesson_id' => 10, 'order' => 8, 'exercise_id' => 49, 'title' => 'Short Paragraphs', 'content_type' => 'badge', 'content' => '',  'target_speed' => 0, 'locale' => 'en'],
 
             ['lesson_id' => 10, 'order' => 1, 'exercise_id' => 50, 'title' => 'Speed Drills - 1', 'content_type' => 'letters', 'content' => 'Patience is the key to mastering any skill.',  'target_speed' => 60, 'locale' => 'en'],
@@ -160,6 +160,8 @@ class ScreenSeederIntermediateEN extends Seeder
             // ['lesson_id' => 1, 'order' => 12, 'exercise_id' => 5, 'title' => 'ۆ، ب لەگەڵ ا - 12', 'content_type' => 'letters', 'content' => '',  'target_speed' => 60, 'locale' => 'en'],
         ];
 
-        Screen::insert($screens);
+        foreach ($screens as $screenData) {
+            Screen::create($screenData);
+        }
     }
 }
