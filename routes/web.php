@@ -7,6 +7,7 @@ use App\Models\Screen;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,18 @@ Route::get('/test', [LessonController::class, 'test'])->name('test');
 Route::get('/lessons', [LessonsController::class, 'index'])->name('lessons');
 Route::post('saveprogress', [LessonController::class, 'saveProgress']);
 Route::post('/update-user-settings', [ProfileController::class, 'userSettings'])->name('update-user-settings');
+
+Route::get('/policy', function () {
+    return view('policy', [
+        'policy' => Str::markdown(file_get_contents(resource_path('markdown/policy.md'))),
+    ]);
+})->name('policy');
+
+Route::get('/terms', function () {
+    return view('terms', [
+        'terms' => Str::markdown(file_get_contents(resource_path('markdown/terms.md'))),
+    ]);
+})->name('terms');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

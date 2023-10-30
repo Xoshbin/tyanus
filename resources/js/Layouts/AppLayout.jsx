@@ -5,6 +5,7 @@ import NavLink from "@/Components/NavLink";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link } from "@inertiajs/react";
 import { __ } from "@/Libs/Lang";
+import Footer from "@/Components/Typing/Footer";
 
 export default function App({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
@@ -205,6 +206,8 @@ export default function App({ user, header, children }) {
             )}
 
             <main>{children}</main>
+
+            <Footer />
         </div>
     );
 }

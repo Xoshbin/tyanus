@@ -38,6 +38,11 @@ class LessonController extends Controller
         ]);
     }
 
+    public function test(): Response
+    {
+        return 'test';
+    }
+
 
     public function saveProgress(Request $request)
     {
