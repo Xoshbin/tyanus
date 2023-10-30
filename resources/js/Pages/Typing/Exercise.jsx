@@ -11,9 +11,9 @@ import {
 } from "@/data/keyMappings/macKeyMapping";
 import axios from "axios";
 import Modal from "@/Components/Modal";
-import ExerciseSummary from "@/Components/Typing/ExerciseSummary";
+import ExerciseSummary from "@/Components/Typing/ExercisePage/ExerciseSummary";
 import AppLayout from "@/Layouts/AppLayout";
-import LessonSettings from "@/Components/Typing/LessonSettings";
+import LessonSettings from "@/Components/Typing/ExercisePage/LessonSettings";
 import { router, usePage } from "@inertiajs/react";
 
 export default function Lesson({ screen, locale, exerciseTotalStars }) {

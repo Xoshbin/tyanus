@@ -31,7 +31,7 @@ class LessonController extends Controller
         //? each screen have 3 stars that can be earned
         $exerciseTotalStars = $totalScreens * 3;
 
-        return Inertia::render('Typing/Lesson', [
+        return Inertia::render('Typing/Exercise', [
             'screen' => $screen,
             'exerciseTotalStars' => $exerciseTotalStars,
             'locale' => app()->getLocale(),

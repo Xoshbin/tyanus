@@ -5,8 +5,8 @@ import { useState, useEffect } from "react";
 import { __ } from "@/Libs/Lang";
 import PrimaryButton from "../../Components/PrimaryButton";
 import moment from "moment";
-import ScreenTooltip from "@/Components/Typing/ScreenTooltip";
-import ExerciseStars from "../../Components/Typing/ExerciseStars";
+import ScreenTooltip from "@/Components/Typing/LessonsPage/ScreenTooltip";
+import ExerciseStars from "../../Components/Typing/LessonsPage/ExerciseStars";
 
 export default function Lessons({
     lessons,
