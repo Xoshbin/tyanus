@@ -52,7 +52,7 @@ class Exercise extends Model
     public function getExerciseTotalStarsAttribute()
     {
         // Assuming you want to check if all screens in the exercise are completed by the user.
-        $totalScreens = $this->screens->count();
+        $totalScreens = $this->screens->where('content_type', 'letters')->count();
 
         return $totalScreens * 3;
     }
