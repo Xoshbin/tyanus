@@ -30,13 +30,17 @@ export default function Lesson({ screen, locale, exerciseTotalStars }) {
     const wrongKeySound = "/sound/wrong.mp3";
 
     const playKeySound = () => {
-        const audio = new Audio(keySound);
-        audio.play();
+        if (user_settings.enable_sound) {
+            const audio = new Audio(keySound);
+            audio.play();
+        }
     };
 
     const playWrongKeySound = () => {
-        const audio = new Audio(wrongKeySound);
-        audio.play();
+        if (user_settings.enable_sound) {
+            const audio = new Audio(wrongKeySound);
+            audio.play();
+        }
     };
 
     // Define a function to update the current character
