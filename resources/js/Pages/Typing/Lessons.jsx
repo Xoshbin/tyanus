@@ -87,7 +87,7 @@ export default function Lessons({
                                                     activeTab ===
                                                     "tab" + lesson.id
                                                         ? "z-20 border-l-2 transform translate-x-0 border-blue-500"
-                                                        : "bg-gray-300 text-black"
+                                                        : " transform translate-x-2"
                                                 }`}
                                             >
                                                 <span>
@@ -115,7 +115,7 @@ export default function Lessons({
                                                         activeTab ===
                                                         "tab" + lesson.id
                                                             ? "bg-yellow-400"
-                                                            : "bg-gray-300 text-black"
+                                                            : ""
                                                     }`}
                                                 >
                                                     {locale === "ckb" ? (
