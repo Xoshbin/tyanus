@@ -16,7 +16,12 @@ import AppLayout from "@/Layouts/AppLayout";
 import LessonSettings from "@/Components/Typing/ExercisePage/LessonSettings";
 import { router, usePage } from "@inertiajs/react";
 
-export default function Lesson({ screen, locale, exerciseTotalStars }) {
+export default function Lesson({
+    screen,
+    locale,
+    exerciseTotalStars,
+    nextScreen,
+}) {
     const [userInput, setUserInput] = useState("");
     const [isTypingComplete, setIsTypingComplete] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
@@ -318,7 +323,8 @@ export default function Lesson({ screen, locale, exerciseTotalStars }) {
                         accuracy={accuracy.toFixed(2)}
                         time={elapsedTime.toFixed(2)}
                         screen={screen}
-                    ></ExerciseSummary>
+                        nextScreen={nextScreen}
+                    />
                 </Modal>
             </div>
         </AppLayout>

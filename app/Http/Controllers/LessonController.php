@@ -12,16 +12,13 @@ use Illuminate\Support\Facades\Cache;
 
 class LessonController extends Controller
 {
-    public function challenge($id): Response
+    public function challenge(Screen $screen): Response
     {
         // $macENtext = 'zxcvbnm,./\';lkjhgfdsaqwertyuiop[]\=-0987654321 ZXCVBNM<>?":LKJHGFDSAQWERTYUIOP{}|+_)(*&^%$#@!~';
         // $macKUtext = 'زخجڤبنم،.\ع؛لکژهگفدساقوەرتیویۆپ][\\=-٠٩٨٧٦٥٤٣٢١` ضغچ><؟غ:ڵحذشئّێڕثووى}{|+_()ى&^%$#@!~';
         // $spaceEnterENText = "fF jJ ↩";
         // $spaceEnterKUText = "ف ش ↩";
         // $text = "jj ff gg kk ll";
-        $screen = Cache::rememberForever('screen' . $id, function () use ($id) {
-            return Screen::where('id', $id)->first();
-        });
 
         $totalScreens = Cache::rememberForever('totalExerciseScreens' . $screen->exercise_id, function () use ($screen) {
             $exercise = Exercise::find($screen->exercise_id);
@@ -31,10 +28,13 @@ class LessonController extends Controller
         //? each screen have 3 stars that can be earned
         $exerciseTotalStars = $totalScreens * 3;
 
+        $nextScreen = Screen::where('id', $screen->id + 1)->first();
+
         return Inertia::render('Typing/Exercise', [
             'screen' => $screen,
             'exerciseTotalStars' => $exerciseTotalStars,
             'locale' => app()->getLocale(),
+            'nextScreen' => $nextScreen
         ]);
     }
 

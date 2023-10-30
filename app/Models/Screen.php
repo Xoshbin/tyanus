@@ -13,7 +13,7 @@ class Screen extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['exercise_id', 'content', 'target_speed', 'content_type', 'order'];
+    protected $fillable = ['exercise_id', 'lesson_id', 'title', 'url', 'locale', 'content_type', 'content', 'target_speed',  'order'];
 
     //in inertia react, you have to load the accessors at the beginning otherwise the accessors not going down to the react or js
     protected $appends = array('hasStar', 'starsEarned', 'typingSpeed', 'accuracyPercentage', 'time', 'isUserTested', 'uniqueScreensPlayed');

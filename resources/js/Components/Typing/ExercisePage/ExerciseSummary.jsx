@@ -12,6 +12,7 @@ const ExerciseSummary = ({
     accuracy,
     time,
     screen,
+    nextScreen,
 }) => {
     const { auth } = usePage().props;
     moment.locale("ku");
@@ -60,7 +61,7 @@ const ExerciseSummary = ({
             <div className="mt-4">
                 {auth ? (
                     <Link
-                        href={`/lesson/${screen.id + 1}`}
+                        href={`/lesson/${nextScreen.url}`}
                         as="button"
                         className={`inline-flex w-full justify-center rounded-md ${
                             starsEarned === 0
