@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Services\UserSettingsService;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tightenco\Ziggy\Ziggy;
@@ -30,6 +31,7 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $userSettings = new UserSettingsService;
         return [
             ...parent::share($request),
             'auth' => [
@@ -40,6 +42,14 @@ class HandleInertiaRequests extends Middleware
                 'location' => $request->url(),
             ],
             'language' => fn () => translations(base_path('lang/' . app()->getLocale() . '.json')),
+            'user_settings' => [
+                'exercise_lang' => $userSettings->getExerciseLang(),
+                'enable_sound' => $userSettings->getEnableSound(),
+                'keyboard_type' => $userSettings->getKeyboardType(),
+                'show_keyboard' => $userSettings->getShowKeyboard(),
+                'show_hands' => $userSettings->getShowHands(),
+                'daily_time' => $userSettings->getDailyTime(),
+            ]
         ];
     }
 }

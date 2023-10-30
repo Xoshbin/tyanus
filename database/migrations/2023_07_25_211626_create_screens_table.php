@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('exercise_id');
             $table->unsignedBigInteger('lesson_id');
             $table->text('title');
+            $table->string('url')->unique();
             $table->string('locale');
             $table->enum('content_type', ['letters', 'words', 'sentences', 'video', 'game', 'badge', 'intro', 'test']);
             $table->text('content');

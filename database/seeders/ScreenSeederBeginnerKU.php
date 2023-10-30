@@ -284,6 +284,8 @@ class ScreenSeederBeginnerKU extends Seeder
             // ['lesson_id' => 1, 'order' => 12, 'exercise_id' => 5, 'title' => 'ۆ، ب لەگەڵ ا - ١٢', 'content_type' => 'letters', 'content' => $converter->convertToKurdish(''),  'target_speed' => 60, 'locale' => 'ckb'],
         ];
 
-        Screen::insert($screens);
+        foreach ($screens as $screenData) {
+            Screen::create($screenData);
+        }
     }
 }

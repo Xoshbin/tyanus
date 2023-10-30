@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::create('user_progress', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('lesson_id')->nullable();
-            $table->unsignedBigInteger('exercise_id')->nullable();
-            $table->unsignedBigInteger('screen_id')->nullable();
+            $table->unsignedBigInteger('lesson_id');
+            $table->unsignedBigInteger('exercise_id');
+            $table->unsignedBigInteger('screen_id');
             $table->string('locale');
             $table->integer('typing_speed');
             $table->float('accuracy_percentage');
             $table->integer('stars_earned')->default(0);
             $table->timestamp('completed_at')->nullable();
-            $table->integer('time')->nullable();
+            $table->decimal('time', 8, 2);
             // Additional fields for errors, time taken, etc., can be added here
             $table->timestamps();
 

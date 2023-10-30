@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Screen;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use  App\Services\LetterConverter;
 
@@ -234,6 +233,8 @@ class ScreenSeederBeginnerEN extends Seeder
             // ['lesson_id' => 9, 'order' => 12, 'exercise_id' => 32, 'title' => 'O, B, and A Keys - 12', 'content_type' => 'letters', 'content' => '',  'target_speed' => 60, 'locale' => 'en'],
         ];
 
-        Screen::insert($screens);
+        foreach ($screens as $screenData) {
+            Screen::create($screenData);
+        }
     }
 }

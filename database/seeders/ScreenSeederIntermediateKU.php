@@ -147,7 +147,7 @@ class ScreenSeederIntermediateKU extends Seeder
             ['lesson_id' => 2, 'order' => 6, 'exercise_id' => 27, 'title' => 'پێداچونەوەی ناوەندی - ٦', 'content_type' => 'letters', 'content' => 'کچە بچوکەکەیان دەڵێت: ئەها ئەو مستە!',  'target_speed' => 60, 'locale' => 'ckb'],
             ['lesson_id' => 2, 'order' => 7, 'exercise_id' => 27, 'title' => 'پێداچونەوەی ناوەندی - ٧', 'content_type' => 'letters', 'content' => 'کچە ناوەنجییەکەش: دەڵێت وەلا چۆیە تونەتە!',  'target_speed' => 60, 'locale' => 'ckb'],
             ['lesson_id' => 2, 'order' => 8, 'exercise_id' => 27, 'title' => 'پێداچونەوەی ناوەندی - ٨', 'content_type' => 'letters', 'content' => 'کچە گەورەکەش کە خۆی لەوانی تر بە زیرەکتر دەزانێت،',  'target_speed' => 60, 'locale' => 'ckb'],
-            ['lesson_id' => 2, 'order' => 9, 'exercise_id' => 27, 'title' => 'پێداچونەوەی ناوەندی - ٨', 'content_type' => 'letters', 'content' => 'دەڵێت: شتر و متر خۆم قسەم نەتر.',  'target_speed' => 60, 'locale' => 'ckb'],
+            ['lesson_id' => 2, 'order' => 9, 'exercise_id' => 27, 'title' => 'پێداچونەوەی ناوەندی - ٩', 'content_type' => 'letters', 'content' => 'دەڵێت: شتر و متر خۆم قسەم نەتر.',  'target_speed' => 60, 'locale' => 'ckb'],
             ['lesson_id' => 2, 'order' => 10, 'exercise_id' => 27, 'title' => 'پێداچونەوەی ناوەندی', 'content_type' => 'badge', 'content' => '',  'target_speed' => 0, 'locale' => 'ckb'],
 
             // ['lesson_id' => 1, 'order' => 1, 'exercise_id' => 5, 'title' => 'ۆ، ب لەگەڵ ا - ١', 'content_type' => 'letters', 'content' => '',  'target_speed' => 60, 'locale' => 'ckb'],
@@ -164,6 +164,8 @@ class ScreenSeederIntermediateKU extends Seeder
             // ['lesson_id' => 1, 'order' => 12, 'exercise_id' => 5, 'title' => 'ۆ، ب لەگەڵ ا - ١٢', 'content_type' => 'letters', 'content' => '',  'target_speed' => 60, 'locale' => 'ckb'],
         ];
 
-        Screen::insert($screens);
+        foreach ($screens as $screenData) {
+            Screen::create($screenData);
+        }
     }
 }

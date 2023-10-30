@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\LessonController;
+use App\Http\Controllers\LessonsController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Screen;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -30,7 +32,11 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/lesson', [LessonController::class, 'challenge'])->name('lesson');
+Route::get('/lesson/{screen:url}', [LessonController::class, 'challenge'])->name('lesson');
+Route::get('/test', [LessonController::class, 'test'])->name('test');
+Route::get('/lessons', [LessonsController::class, 'index'])->name('lessons');
+Route::post('saveprogress', [LessonController::class, 'saveProgress']);
+Route::post('/update-user-settings', [ProfileController::class, 'userSettings'])->name('update-user-settings');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

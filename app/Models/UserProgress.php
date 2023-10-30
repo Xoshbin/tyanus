@@ -12,6 +12,17 @@ class UserProgress extends Model
 
     protected $fillable = ['user_id', 'lesson_id', 'exercise_id', 'screen_id', 'locale', 'typing_speed', 'accuracy_percentage', 'completed_at', 'stars_earned', 'time'];
 
+    protected $dates = ['completed_at'];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->completed_at = now();
+        });
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
