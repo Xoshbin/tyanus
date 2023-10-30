@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import moment from "moment";
+import { Link } from "@inertiajs/react";
 import { __ } from "@/Libs/Lang";
 
 const ScreenTooltip = ({ screen, exercise, index, locale }) => {
@@ -14,12 +15,9 @@ const ScreenTooltip = ({ screen, exercise, index, locale }) => {
     };
 
     return (
-        <button
-            onClick={() => {
-                if (screen.hasStar) {
-                    goToLesson(screen.id);
-                }
-            }}
+        <Link
+            href={`/lesson/${screen.url}`}
+            as="button"
             className={`flex-auto bg-kblue-500 w-1 h-2 border ${
                 !screen.hasStar ? "disabled:bg-kblue-300" : ""
             }  ${index === 0 ? "rounded-bl-md" : ""} ${
@@ -107,7 +105,7 @@ const ScreenTooltip = ({ screen, exercise, index, locale }) => {
                     </div>
                 )}
             </div>
-        </button>
+        </Link>
     );
 };
 
