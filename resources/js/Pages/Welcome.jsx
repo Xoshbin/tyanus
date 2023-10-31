@@ -10,7 +10,7 @@ export default function Welcome({ locale }) {
     const { auth } = usePage().props;
 
     return (
-        <AppLayout user={auth.user}>
+        <AppLayout locale={locale} user={auth.user}>
             <Hero locale={locale} />
             <Show locale={locale} />
             <Quote locale={locale} />
