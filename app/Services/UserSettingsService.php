@@ -27,6 +27,8 @@ class UserSettingsService
             if ($this->guestUserId) {
                 $settings = session('settings_' . $this->guestUserId, []);
                 return $settings['exercise_lang'] ?? 'ckb';
+            } else {
+                return 'ckb';
             }
         }
     }
@@ -44,6 +46,8 @@ class UserSettingsService
             if ($this->guestUserId) {
                 $settings = session('settings_' . $this->guestUserId, []);
                 return $settings['keyboard_type'] ?? 'windows';
+            } else {
+                return 'windows';
             }
         }
     }
@@ -61,6 +65,8 @@ class UserSettingsService
             if ($this->guestUserId) {
                 $settings = session('settings_' . $this->guestUserId, []);
                 return $settings['show_keyboard'] ?? true;
+            } else {
+                return true;
             }
         }
     }
@@ -78,6 +84,8 @@ class UserSettingsService
             if ($this->guestUserId) {
                 $settings = session('settings_' . $this->guestUserId, []);
                 return $settings['show_hands'] ?? true;
+            } else {
+                return true;
             }
         }
     }
@@ -95,6 +103,8 @@ class UserSettingsService
             if ($this->guestUserId) {
                 $settings = session('settings_' . $this->guestUserId, []);
                 return $settings['enable_sound'] ?? true;
+            } else {
+                return true;
             }
         }
     }
@@ -112,6 +122,8 @@ class UserSettingsService
             if ($this->guestUserId) {
                 $settings = session('settings_' . $this->guestUserId, []);
                 return $settings['daily_time'] ?? 15;
+            } else {
+                return 15;
             }
         }
     }
