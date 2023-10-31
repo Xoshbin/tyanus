@@ -22,6 +22,7 @@ use Illuminate\Support\Str;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
+        'locale' => app()->getLocale(),
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,

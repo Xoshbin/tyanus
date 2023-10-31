@@ -48,6 +48,7 @@ export default function Lessons({
     return (
         <AppLayout
             user={auth ? auth.user : undefined}
+            locale={locale}
             header={
                 <ProgressHeader
                     locale={locale}
