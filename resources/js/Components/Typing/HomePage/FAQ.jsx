@@ -10,7 +10,11 @@ const FAQ = ({ locale }) => {
                 </h2>
                 <div className="grid pt-8 text-left border-t border-gray-200 md:gap-16 md:grid-cols-2">
                     <div>
-                        <div className="mb-10">
+                        <div
+                            className={`mb-10 ${
+                                locale === "ckb" ? "text-right" : ""
+                            }`}
+                        >
                             <h3 className="flex items-center mb-4 text-lg font-medium text-gray-900">
                                 <svg
                                     className="flex-shrink-0 mr-2 w-5 h-5 text-gray-700"
@@ -32,7 +36,11 @@ const FAQ = ({ locale }) => {
                                 )}
                             </p>
                         </div>
-                        <div className="mb-10">
+                        <div
+                            className={`mb-10 ${
+                                locale === "ckb" ? "text-right" : ""
+                            }`}
+                        >
                             <h3 className="flex items-center mb-4 text-lg font-medium text-gray-900">
                                 <svg
                                     className="flex-shrink-0 mr-2 w-5 h-5 text-gray-700"
@@ -96,7 +104,11 @@ const FAQ = ({ locale }) => {
                                 <li>{__("College/Adult: 50 WPM")}</li>
                             </ul>
                         </div>
-                        <div className="mb-10">
+                        <div
+                            className={`mb-10 ${
+                                locale === "ckb" ? "text-right" : ""
+                            }`}
+                        >
                             <h3 className="flex items-center mb-4 text-lg font-medium text-gray-900">
                                 <svg
                                     className="flex-shrink-0 mr-2 w-5 h-5 text-gray-700"
