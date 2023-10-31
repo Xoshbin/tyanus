@@ -61,7 +61,7 @@ const ExerciseSummary = ({
             <div className="mt-4">
                 {auth ? (
                     <Link
-                        href={`/lesson/${nextScreen.url}`}
+                        href={route("lesson", nextScreen.url)}
                         as="button"
                         className={`inline-flex w-full justify-center rounded-md ${
                             starsEarned === 0
@@ -74,7 +74,7 @@ const ExerciseSummary = ({
                     </Link>
                 ) : (
                     <Link
-                        href="login"
+                        href={route("login")}
                         as="button"
                         className={`inline-flex w-full justify-center rounded-md ${
                             starsEarned === 0
