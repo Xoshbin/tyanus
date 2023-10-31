@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Carbon\CarbonInterval;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\App;
 
 class Exercise extends Model
 {
@@ -68,6 +71,12 @@ class Exercise extends Model
         return $userProgress !== null;
     }
 
+
+    /*
+    Get total stars earned per exercise,
+    don't confuse it with the UserProgress service, it's doing calculations for "all" the progresses made by the user
+    but this one is only per exercie for one exercise
+    */
     public function getTotalStarsEarnedAttribute()
     {
         $uniqueScreensPlayed = UserProgress::where('user_id', auth()->id())
@@ -88,5 +97,48 @@ class Exercise extends Model
 
 
         return $uniqueScreensPlayed->sum('stars_earned');
+    }
+
+    /*
+    Get average speed earned per exercise,
+    don't confuse it with the UserProgress service, it's doing calculations for "all" the progresses made by the user
+    but this one is only per exercie for one exercise
+    */
+
+    public function getAvgSpeedAttribute()
+    {
+        $userProgress = UserProgress::where('user_id', auth()->id())
+            ->where('exercise_id', $this->id)->select('typing_speed')->get();
+        $avgSpeed = $userProgress->avg('typing_speed');
+        return $avgSpeed;
+    }
+
+    /*
+    Get average accuracy earned per exercise,
+    don't confuse it with the UserProgress service, it's doing calculations for "all" the progresses made by the user
+    but this one is only per exercie for one exercise
+    */
+
+    public function getAvgAccuracyAttribute()
+    {
+        $userProgress = UserProgress::where('user_id', auth()->id())
+            ->where('exercise_id', $this->id)->select('accuracy_percentage')->get();
+        $avgAccuracy = $userProgress->avg('accuracy_percentage');
+        return $avgAccuracy;
+    }
+
+
+    /*
+    Get summery of time per exercise,
+    don't confuse it with the UserProgress service, it's doing calculations for "all" the progresses made by the user
+    but this one is only per exercie for one exercise
+    */
+    public function getSumTimeAttribute()
+    {
+        $userProgress = UserProgress::where('user_id', auth()->id())
+            ->where('exercise_id', $this->id)->select('time')->get();
+        $sumTime = $userProgress->sum('time');
+        $carbonTime = CarbonInterval::seconds($sumTime)->locale(App::getLocale() == 'ckb' ? 'ckb' : 'en')->cascade()->forHumans();
+        return $carbonTime;
     }
 }

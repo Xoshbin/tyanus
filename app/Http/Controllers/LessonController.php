@@ -20,22 +20,38 @@ class LessonController extends Controller
         // $spaceEnterKUText = "ف ش ↩";
         // $text = "jj ff gg kk ll";
 
-        $totalScreens = Cache::rememberForever('totalExerciseScreens' . $screen->exercise_id, function () use ($screen) {
-            $exercise = Exercise::find($screen->exercise_id);
-            return $exercise->screens->where('content_type', 'letters')->count();
-        });
+        // $totalScreens = Cache::rememberForever('totalExerciseScreens' . $screen->exercise_id, function () use ($screen) {
+        //     $exercise = Exercise::find($screen->exercise_id);
+        //     return $exercise->screens->where('content_type', 'letters')->count();
+        // });
 
         //? each screen have 3 stars that can be earned
-        $exerciseTotalStars = $totalScreens * 3;
+        // $exerciseTotalStars = $totalScreens * 3;
+
+
 
         $nextScreen = Screen::where('id', $screen->id + 1)->first();
 
-        return Inertia::render('Typing/Exercise', [
-            'screen' => $screen,
-            'exerciseTotalStars' => $exerciseTotalStars,
-            'locale' => app()->getLocale(),
-            'nextScreen' => $nextScreen
-        ]);
+        if ($screen->content_type == 'letters') {
+            $exerciseTotalStars = 3;
+            return Inertia::render('Typing/ExercisePage', [
+                'screen' => $screen,
+                'exerciseTotalStars' => $exerciseTotalStars,
+                'locale' => app()->getLocale(),
+                'nextScreen' => $nextScreen
+            ]);
+        } else {
+            $exercise = Exercise::find($screen->exercise_id);
+            return Inertia::render('Typing/BadgePage', [
+                'exerciseName' => $screen->title,
+                'starsEarned' => $exercise->totalStarsEarned,
+                'exerciseTotalStars' => $exercise->exerciseTotalStars,
+                'avgSpeed' => $exercise->avgSpeed,
+                'avgAccuraccy' => $exercise->avgAccuracy,
+                'sumTime' => $exercise->sumTime,
+                'nextScreen' => $nextScreen
+            ]);
+        }
     }
 
     public function test(): Response

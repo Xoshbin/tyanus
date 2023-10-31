@@ -81,7 +81,7 @@ class UserProgressService
         if (Auth::check()) {
             $userProgress = UserProgress::where('user_id', auth()->id())
                 ->where('locale', $userSettings->getExerciseLang())
-                ->select('time', 'typing_speed', 'accuracy_percentage')
+                ->select('time')
                 ->get();
 
             $sumTime = $userProgress->sum('time');
@@ -117,7 +117,7 @@ class UserProgressService
     {
         $userSettings = new UserSettingsService;
         if (Auth::check()) {
-            $userProgress = UserProgress::where('user_id', auth()->id())->where('locale', $userSettings->getExerciseLang())->select('time', 'typing_speed', 'accuracy_percentage')->get();
+            $userProgress = UserProgress::where('user_id', auth()->id())->where('locale', $userSettings->getExerciseLang())->select('typing_speed')->get();
             $avgSpeed = $userProgress->avg('typing_speed');
             return $avgSpeed;
         } else {
@@ -159,7 +159,7 @@ class UserProgressService
         if (Auth::check()) {
             $userProgress = UserProgress::where('user_id', auth()->id())
                 ->where('locale', $userSettings->getExerciseLang())
-                ->select('time', 'typing_speed', 'accuracy_percentage')
+                ->select('accuracy_percentage')
                 ->get();
 
             $avgAccuracy = $userProgress->avg('accuracy_percentage');

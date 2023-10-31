@@ -115,8 +115,10 @@
     "English": "English",
 
     "Keep going!": "Keep going!",
-    "You got stars out of stars": "You got :starsEarned stars out of :exerciseTotalStars stars",
+    "You got": "stars earned",
+    "stars out of": "out of",
     "Your lesson average statistics": "Your lesson average statistics",
-    "Successfully completed the exercise. Congratulations on getting a badge!": "Successfully completed the :exerciseName exercise. Congratulations on getting a badge!",
+    "Successfully completed the exercise": "Successfully completed the exercise",
+    "Congratulations on getting a badge!": "Congratulations on getting a badge!",
     "I can type words per minute, are you faster?": "I can type :wpm words per minute, are you faster?"
 }

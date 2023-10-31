@@ -120,8 +120,10 @@
     "English": "ئینگلیزی",
 
     "Keep going!": "بەردەوام بە!",
-    "You got stars out of stars": ":starsEarned ئەستێرەت بەدەستهێنا لە کۆی :exerciseTotalStars",
+    "You got": "ئەستێرەت بەدەستهێنا",
+    "stars out of": "لە کۆی",
     "Your lesson average statistics": "ئاماری تێکڕای وانەکەت",
-    "Successfully completed the exercise. Congratulations on getting a badge!": "مەشقی :exerciseName تەواو کرد بە سەرکەوتویی. پیرۆزە باجێکت وەرگرت",
+    "Successfully completed the exercise": "سەرکەوتوو بویت لە تەواوکردنی مەشقی",
+    "Congratulations on getting a badge!": "پیرۆزە، باجێکت وەرگرت",
     "I can type words per minute, are you faster?": "ئەتوانم :wpm ووشە بنوسم لە خولەکێکدا، تۆ چەند ئەتوانیت؟"
 }
