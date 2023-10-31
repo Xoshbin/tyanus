@@ -14,7 +14,7 @@ const ExerciseStars = ({ exerciseTotalStars, totalStarsEarned }) => {
                 height="16"
                 viewBox="0 0 24 24"
                 strokeWidth="2"
-                stroke="currentColor"
+                stroke="none"
                 fill="none"
                 strokeLinecap="round"
                 strokeLinejoin="round"
