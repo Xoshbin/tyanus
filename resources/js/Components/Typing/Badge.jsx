@@ -1,5 +1,4 @@
 export default function Badge({ badgeName }) {
-    console.log(badgeName);
     return (
         <div className="inline-flex w-64">
             <svg

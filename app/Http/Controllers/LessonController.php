@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SaveBadge;
 use App\Models\Exercise;
 use App\Models\Screen;
 use App\Services\UserProgressService;
@@ -14,22 +15,6 @@ class LessonController extends Controller
 {
     public function challenge(Screen $screen): Response
     {
-        // $macENtext = 'zxcvbnm,./\';lkjhgfdsaqwertyuiop[]\=-0987654321 ZXCVBNM<>?":LKJHGFDSAQWERTYUIOP{}|+_)(*&^%$#@!~';
-        // $macKUtext = 'زخجڤبنم،.\ع؛لکژهگفدساقوەرتیویۆپ][\\=-٠٩٨٧٦٥٤٣٢١` ضغچ><؟غ:ڵحذشئّێڕثووى}{|+_()ى&^%$#@!~';
-        // $spaceEnterENText = "fF jJ ↩";
-        // $spaceEnterKUText = "ف ش ↩";
-        // $text = "jj ff gg kk ll";
-
-        // $totalScreens = Cache::rememberForever('totalExerciseScreens' . $screen->exercise_id, function () use ($screen) {
-        //     $exercise = Exercise::find($screen->exercise_id);
-        //     return $exercise->screens->where('content_type', 'letters')->count();
-        // });
-
-        //? each screen have 3 stars that can be earned
-        // $exerciseTotalStars = $totalScreens * 3;
-
-
-
         $nextScreen = Screen::where('id', $screen->id + 1)->first();
 
         if ($screen->content_type == 'letters') {
@@ -39,8 +24,12 @@ class LessonController extends Controller
                 'exerciseTotalStars' => $exerciseTotalStars,
                 'nextScreen' => $nextScreen
             ]);
-        } else {
+        } elseif ($screen->content_type == 'badge') {
             $exercise = Exercise::find($screen->exercise_id);
+
+            //save badge
+            SaveBadge::dispatch($screen->title, $screen->locale);
+
             return Inertia::render('Typing/BadgePage', [
                 'exerciseName' => $screen->title,
                 'starsEarned' => $exercise->totalStarsEarned,

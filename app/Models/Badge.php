@@ -18,6 +18,7 @@ class Badge extends Model
      */
     protected $fillable = [
         'name',
+        'locale',
         'user_id',
     ];
 

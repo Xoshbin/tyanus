@@ -72,6 +72,9 @@ export default function Navbar(locale) {
                                         >
                                             {__("Profile")}
                                         </Dropdown.Link>
+                                        <Dropdown.Link href={route("badges")}>
+                                            {__("Badges")}
+                                        </Dropdown.Link>
                                         <Dropdown.Link
                                             href={route("logout")}
                                             method="post"

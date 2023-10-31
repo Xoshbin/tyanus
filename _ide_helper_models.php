@@ -81,9 +81,12 @@ namespace App\Models{
  * @property int $target_speed
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read mixed $avg_accuracy
+ * @property-read mixed $avg_speed
  * @property-read mixed $exercise_total_stars
  * @property-read mixed $is_exercise_finished
  * @property-read mixed $is_halfway_through_exercise
+ * @property-read mixed $sum_time
  * @property-read mixed $total_stars_earned
  * @property-read \App\Models\Lesson $lesson
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Screen> $screens
