@@ -30,10 +30,6 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::get('/lesson/{screen:url}', [LessonController::class, 'challenge'])->name('lesson');
 Route::get('/test', [LessonController::class, 'test'])->name('test');
 Route::get('/lessons', [LessonsController::class, 'index'])->name('lessons');
