@@ -30,7 +30,7 @@ class Exercise extends Model
 
     public function screens(): HasMany
     {
-        return $this->hasMany(Screen::class);
+        return $this->hasMany(Screen::class)->where('content_type', 'letters');
     }
 
     public function userProgress(): HasMany

@@ -242,7 +242,12 @@ export default function Lessons({
                                                                     {exercise.isExerciseFinished ===
                                                                     true ? (
                                                                         <Link
-                                                                            href={`/lesson/${exercise.screens[0].url}`}
+                                                                            href={route(
+                                                                                "lesson",
+                                                                                exercise
+                                                                                    .screens[0]
+                                                                                    .url
+                                                                            )}
                                                                             as="button"
                                                                             className="h-max px-3 py-2 text-sm font-medium text-center space-x-2 inline-flex items-center text-kblue-700 bg-kblue-50 rounded-lg hover:bg-kblue-200 focus:ring-4 focus:outline-none focus:ring-kblue-500"
                                                                         >
@@ -288,7 +293,10 @@ export default function Lessons({
                                                                                             key={
                                                                                                 screen.id
                                                                                             }
-                                                                                            href={`/lesson/${screen.url}`}
+                                                                                            href={route(
+                                                                                                "lesson",
+                                                                                                screen.url
+                                                                                            )}
                                                                                             as="button"
                                                                                             className="h-max px-3 py-2 text-sm font-medium text-center space-x-2 inline-flex items-center text-kblue-900 bg-kyellow-300 rounded-lg hover:bg-kyellow-400 focus:ring-4 focus:outline-none focus:ring-kyellow-50"
                                                                                         >
@@ -328,7 +336,12 @@ export default function Lessons({
                                                                         )
                                                                     ) : (
                                                                         <Link
-                                                                            href={`/lesson/${exercise.screens[0].url}`}
+                                                                            href={route(
+                                                                                "lesson",
+                                                                                exercise
+                                                                                    .screens[0]
+                                                                                    .url
+                                                                            )}
                                                                             as="button"
                                                                             className="h-max px-3 py-2 text-sm font-medium text-center space-x-2 inline-flex items-center text-kblue-900 bg-kyellow-300 rounded-lg hover:bg-kyellow-400 focus:ring-4 focus:outline-none focus:ring-kyellow-50"
                                                                         >
