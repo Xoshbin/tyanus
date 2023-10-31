@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BadgeController;
+use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\LessonsController;
 use App\Http\Controllers\ProfileController;
@@ -54,6 +55,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/badges', [BadgeController::class, 'index'])->name('badges');
+    Route::get('/certificates', [CertificateController::class, 'index'])->name('certificates');
+    Route::get('/certificate/{certificate}', [CertificateController::class, 'certificate'])->name('certificate');
+    Route::get('/lessoncertificate/{lesson}', [CertificateController::class, 'currentLessonCertificate'])->name('lessoncertificate');
 });
 
 require __DIR__ . '/auth.php';

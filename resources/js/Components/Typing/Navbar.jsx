@@ -76,6 +76,11 @@ export default function Navbar(locale) {
                                             {__("badges")}
                                         </Dropdown.Link>
                                         <Dropdown.Link
+                                            href={route("certificates")}
+                                        >
+                                            {__("certificates")}
+                                        </Dropdown.Link>
+                                        <Dropdown.Link
                                             href={route("logout")}
                                             method="post"
                                             as="button"

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\ProcessCertificate;
 use App\Jobs\SaveBadge;
 use App\Models\Exercise;
+use App\Models\Lesson;
 use App\Models\Screen;
 use App\Services\UserProgressService;
 use Illuminate\Http\Request;
@@ -53,5 +55,24 @@ class LessonController extends Controller
         $userProgressService = new UserProgressService;
 
         $userProgressService->setProgress($request);
+
+        // check if user reached last screen in the current exercise
+        $lesson = Lesson::find($request->lesson_id); // Replace $lessonId with the ID of the lesson you're interested in.
+
+
+        $exercise = $lesson->exercises->last();
+
+        $screen = Screen::find($request->screen_id);
+
+        $latestScreenId = $exercise->screens->filter(function ($screen) {
+            return $screen->content_type === 'letters';
+        })->last()->id;
+
+        // check if user reached last screen in the current exercise
+        if ($latestScreenId === $request->screen_id) {
+            // User has reached the last exercise of at least one level
+            //run the job
+            ProcessCertificate::dispatch($screen, $lesson);
+        }
     }
 }

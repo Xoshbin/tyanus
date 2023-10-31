@@ -4,7 +4,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 10.28.0.
+ * Generated for Laravel 10.29.0.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -435,6 +435,18 @@
         {
                         /** @var \Illuminate\Foundation\Application $instance */
                         return $instance->runningInConsole();
+        }
+                    /**
+         * Determine if the application is running any of the given console commands.
+         *
+         * @param string|array $commands
+         * @return bool 
+         * @static 
+         */ 
+        public static function runningConsoleCommand(...$commands)
+        {
+                        /** @var \Illuminate\Foundation\Application $instance */
+                        return $instance->runningConsoleCommand(...$commands);
         }
                     /**
          * Determine if the application is running unit tests.
@@ -18380,7 +18392,488 @@
      
 }
 
-        namespace Intervention\Image\Facades { 
+        namespace Codedge\Fpdf\Facades { 
+            /**
+     * Class Fpdf.
+     *
+     */ 
+        class Fpdf {
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function SetMargins($left, $top, $right = null)
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->SetMargins($left, $top, $right);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function SetLeftMargin($margin)
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->SetLeftMargin($margin);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function SetTopMargin($margin)
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->SetTopMargin($margin);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function SetRightMargin($margin)
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->SetRightMargin($margin);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function SetAutoPageBreak($auto, $margin = 0)
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->SetAutoPageBreak($auto, $margin);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function SetDisplayMode($zoom, $layout = 'default')
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->SetDisplayMode($zoom, $layout);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function SetCompression($compress)
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->SetCompression($compress);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function SetTitle($title, $isUTF8 = false)
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->SetTitle($title, $isUTF8);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function SetAuthor($author, $isUTF8 = false)
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->SetAuthor($author, $isUTF8);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function SetSubject($subject, $isUTF8 = false)
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->SetSubject($subject, $isUTF8);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function SetKeywords($keywords, $isUTF8 = false)
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->SetKeywords($keywords, $isUTF8);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function SetCreator($creator, $isUTF8 = false)
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->SetCreator($creator, $isUTF8);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function AliasNbPages($alias = '{nb}')
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->AliasNbPages($alias);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function Error($msg)
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->Error($msg);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function Close()
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->Close();
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function AddPage($orientation = '', $size = '', $rotation = 0)
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->AddPage($orientation, $size, $rotation);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function Header()
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->Header();
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function Footer()
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->Footer();
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function PageNo()
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->PageNo();
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function SetDrawColor($r, $g = null, $b = null)
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->SetDrawColor($r, $g, $b);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function SetFillColor($r, $g = null, $b = null)
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->SetFillColor($r, $g, $b);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function SetTextColor($r, $g = null, $b = null)
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->SetTextColor($r, $g, $b);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function GetStringWidth($s)
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->GetStringWidth($s);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function SetLineWidth($width)
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->SetLineWidth($width);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function Line($x1, $y1, $x2, $y2)
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->Line($x1, $y1, $x2, $y2);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function Rect($x, $y, $w, $h, $style = '')
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->Rect($x, $y, $w, $h, $style);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function AddFont($family, $style = '', $file = '', $dir = '')
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->AddFont($family, $style, $file, $dir);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function SetFont($family, $style = '', $size = 0)
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->SetFont($family, $style, $size);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function SetFontSize($size)
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->SetFontSize($size);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function AddLink()
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->AddLink();
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function SetLink($link, $y = 0, $page = -1)
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->SetLink($link, $y, $page);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function Link($x, $y, $w, $h, $link)
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->Link($x, $y, $w, $h, $link);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function Text($x, $y, $txt)
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->Text($x, $y, $txt);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function AcceptPageBreak()
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->AcceptPageBreak();
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function Cell($w, $h = 0, $txt = '', $border = 0, $ln = 0, $align = '', $fill = false, $link = '')
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->Cell($w, $h, $txt, $border, $ln, $align, $fill, $link);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function MultiCell($w, $h, $txt, $border = 0, $align = 'J', $fill = false)
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->MultiCell($w, $h, $txt, $border, $align, $fill);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function Write($h, $txt, $link = '')
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->Write($h, $txt, $link);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function Ln($h = null)
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->Ln($h);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function Image($file, $x = null, $y = null, $w = 0, $h = 0, $type = '', $link = '')
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->Image($file, $x, $y, $w, $h, $type, $link);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function GetPageWidth()
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->GetPageWidth();
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function GetPageHeight()
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->GetPageHeight();
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function GetX()
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->GetX();
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function SetX($x)
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->SetX($x);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function GetY()
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->GetY();
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function SetY($y, $resetX = true)
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->SetY($y, $resetX);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function SetXY($x, $y)
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->SetXY($x, $y);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function Output($dest = '', $name = '', $isUTF8 = false)
+        {
+                        /** @var \Codedge\Fpdf\Fpdf\Fpdf $instance */
+                        return $instance->Output($dest, $name, $isUTF8);
+        }
+         
+    }
+     
+}
+
+    namespace Intervention\Image\Facades { 
             /**
      * 
      *
@@ -22949,6 +23442,7 @@ namespace  {
             class Validator extends \Illuminate\Support\Facades\Validator {}
             class View extends \Illuminate\Support\Facades\View {}
             class Vite extends \Illuminate\Support\Facades\Vite {}
+            class Fpdf extends \Codedge\Fpdf\Facades\Fpdf {}
             class Image extends \Intervention\Image\Facades\Image {}
             class Flare extends \Spatie\LaravelIgnition\Facades\Flare {}
      
