@@ -16,12 +16,7 @@ import AppLayout from "@/Layouts/AppLayout";
 import LessonSettings from "@/Components/Typing/ExercisePage/LessonSettings";
 import { router, usePage } from "@inertiajs/react";
 
-export default function Lesson({
-    screen,
-    locale,
-    exerciseTotalStars,
-    nextScreen,
-}) {
+export default function Lesson({ screen, exerciseTotalStars, nextScreen }) {
     const [userInput, setUserInput] = useState("");
     const [isTypingComplete, setIsTypingComplete] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
@@ -31,6 +26,7 @@ export default function Lesson({
     const [currentCharacterIndex, setCurrentCharacterIndex] = useState(0);
     const { auth } = usePage().props;
     const { user_settings } = usePage().props;
+    const { locale } = usePage().props;
     const keySound = "/sound/soft-key.mp3";
     const wrongKeySound = "/sound/wrong.mp3";
 

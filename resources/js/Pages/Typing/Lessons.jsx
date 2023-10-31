@@ -10,7 +10,6 @@ import ExerciseStars from "../../Components/Typing/LessonsPage/ExerciseStars";
 
 export default function Lessons({
     lessons,
-    locale,
     daily_time,
     sumTime,
     avgSpeed,
@@ -20,6 +19,7 @@ export default function Lessons({
     const [activeTab, setActiveTab] = useState("");
     const { auth } = usePage().props;
     const { user_settings } = usePage().props;
+    const { locale } = usePage().props;
 
     useEffect(() => {
         // Define your condition based on the 'locale' and set the 'activeTab' accordingly.

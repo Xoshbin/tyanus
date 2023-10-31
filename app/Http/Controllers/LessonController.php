@@ -37,7 +37,6 @@ class LessonController extends Controller
             return Inertia::render('Typing/ExercisePage', [
                 'screen' => $screen,
                 'exerciseTotalStars' => $exerciseTotalStars,
-                'locale' => app()->getLocale(),
                 'nextScreen' => $nextScreen
             ]);
         } else {

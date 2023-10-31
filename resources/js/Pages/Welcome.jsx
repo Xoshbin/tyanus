@@ -6,8 +6,9 @@ import Quote from "@/Components/Typing/HomePage/Quote";
 import HomeKeyboardSection from "@/Components/Typing/HomePage/HomeKeyboardSection";
 import FAQ from "@/Components/Typing/HomePage/FAQ";
 
-export default function Welcome({ locale }) {
+export default function Welcome() {
     const { auth } = usePage().props;
+    const { locale } = usePage().props;
 
     return (
         <AppLayout locale={locale} user={auth.user}>

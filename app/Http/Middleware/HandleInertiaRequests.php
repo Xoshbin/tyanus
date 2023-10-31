@@ -49,7 +49,8 @@ class HandleInertiaRequests extends Middleware
                 'show_keyboard' => $userSettings->getShowKeyboard(),
                 'show_hands' => $userSettings->getShowHands(),
                 'daily_time' => $userSettings->getDailyTime(),
-            ]
+            ],
+            'locale' => app()->getLocale()
         ];
     }
 }

@@ -70,7 +70,7 @@ export default function Navbar(locale) {
                                         <Dropdown.Link
                                             href={route("profile.edit")}
                                         >
-                                            Profile
+                                            {__("Profile")}
                                         </Dropdown.Link>
                                         <Dropdown.Link
                                             href={route("logout")}

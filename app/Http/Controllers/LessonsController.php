@@ -31,7 +31,6 @@ class LessonsController extends Controller
 
         return Inertia::render('Typing/Lessons', [
             'lessons' => $lessons,
-            'locale' => app()->getLocale(),
             'daily_time' => $daily_time,
             'sumTime' => $sumTime,
             'avgSpeed' => $avgSpeed,
