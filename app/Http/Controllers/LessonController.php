@@ -82,7 +82,7 @@ class LessonController extends Controller
     public function test(): Response
     {
         $testScreen = Screen::where('content_type', 'test')->where('locale', app()->getLocale())->inRandomOrder()->first();
-        return Inertia::render('Typing/TestPage', [
+        return Inertia::render('Typing/ExercisePage', [
             'screen' => $testScreen,
         ]);
     }
