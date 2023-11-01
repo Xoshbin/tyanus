@@ -20,6 +20,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "@material-tailwind/react": "^2.1.4",
         "moment": "^2.29.4",
         "react-canvas-confetti": "^1.4.0"
     }
