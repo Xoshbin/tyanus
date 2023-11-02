@@ -21,8 +21,8 @@ export default function TabsVertical({ exercises, lesson }) {
         desc: (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {exercise.screens.map((screen) => (
-                    <Link href={route("lesson", screen.url)}>
-                        <ExerciseCard key={screen.id} screen={screen} />
+                    <Link key={screen.id} href={route("lesson", screen.url)}>
+                        <ExerciseCard screen={screen} />
                     </Link>
                 ))}
             </div>
@@ -43,23 +43,35 @@ export default function TabsVertical({ exercises, lesson }) {
             orientation="vertical"
             className="py-2 px-1"
         >
-            <TabsHeader className="w-56 p-0">
+            <TabsHeader
+                className="bg-transparent w-56 p-0 space-y-2"
+                indicatorProps={{
+                    className:
+                        "bg-gradient-to-l from-kblue-100 to-kblue-300 border-l-2 transform translate-x-0 border-blue-500",
+                }}
+            >
                 {exerciesData.map(
                     ({ label, value, isExerciseFinished, icon }) => (
-                        <Tab key={value} value={value}>
+                        <Tab
+                            key={value}
+                            value={value}
+                            className={`flex w-48 md:w-56 flex-row lg:w-full justify-between rounded-lg bg-gradient-to-l from-kblue-50 to-kblue-200 px-4 py-2 shadow-md font-black text-kblue-700`}
+                        >
                             <div
-                                className={`flex items-center gap-2 ${
-                                    isExerciseFinished ? "text-kblue-700" : ""
+                                className={`flex items-center gap-6 lg:gap-12 ${
+                                    isExerciseFinished ? "text-kblue-600" : ""
                                 }`}
                             >
-                                {label}
-                                {isExerciseFinished ? (
-                                    React.createElement(icon, {
-                                        className: "w-5 h-5",
-                                    })
-                                ) : (
-                                    <></>
-                                )}
+                                <div>{label}</div>
+                                <div>
+                                    {isExerciseFinished ? (
+                                        React.createElement(icon, {
+                                            className: "w-5 h-5",
+                                        })
+                                    ) : (
+                                        <></>
+                                    )}
+                                </div>
                             </div>
                         </Tab>
                     )
