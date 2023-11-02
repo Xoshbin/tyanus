@@ -1,14 +1,13 @@
+import React from "react";
 import {
     Card,
     CardHeader,
     CardBody,
     Typography,
-    Avatar,
 } from "@material-tailwind/react";
-import { Head, Link, router, usePage } from "@inertiajs/react";
+import { usePage } from "@inertiajs/react";
 import moment from "moment";
 import { __ } from "@/Libs/Lang";
-
 export default function StarIcon({ active }) {
     return (
         <div>
@@ -86,7 +85,7 @@ export function ExerciseCard({ screen }) {
                     </div>
                 </div>
             </CardHeader>
-            <CardBody className="mb-6 p-0">
+            <CardBody className="flex mb-0 p-0 justify-between items-end">
                 <div className={`flex flex-col`}>
                     <Typography variant="h6">
                         {moment

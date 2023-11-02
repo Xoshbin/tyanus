@@ -7,7 +7,7 @@ import {
     TabPanel,
 } from "@material-tailwind/react";
 import { ExerciseCard } from "./ExerciseCard";
-import { usePage, router } from "@inertiajs/react";
+import { usePage, Link } from "@inertiajs/react";
 import { IconDiscountCheckFilled } from "@tabler/icons-react";
 
 export default function TabsVertical({ exercises, lesson }) {
@@ -21,7 +21,9 @@ export default function TabsVertical({ exercises, lesson }) {
         desc: (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {exercise.screens.map((screen) => (
-                    <ExerciseCard key={screen.id} screen={screen} />
+                    <Link href={route("lesson", screen.url)}>
+                        <ExerciseCard key={screen.id} screen={screen} />
+                    </Link>
                 ))}
             </div>
         ),

@@ -1,12 +1,7 @@
 import AppLayout from "@/Layouts/AppLayout";
 import ProgressHeader from "@/Components/Typing/ProgressHeader/ProgressHeader";
-import { Head, Link, router, usePage } from "@inertiajs/react";
-import { useState, useEffect } from "react";
+import { usePage } from "@inertiajs/react";
 import { __ } from "@/Libs/Lang";
-import PrimaryButton from "../../Components/PrimaryButton";
-import moment from "moment";
-import ScreenTooltip from "@/Components/Typing/LessonsPage/ScreenTooltip";
-import ExerciseStars from "../../Components/Typing/LessonsPage/ExerciseStars";
 import TabsHorizontal from "@/Components/MaterialD/TabsHorizontal";
 
 export default function Lessons({
