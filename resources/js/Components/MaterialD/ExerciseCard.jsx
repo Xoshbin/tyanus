@@ -60,7 +60,7 @@ export function ExerciseCard({ screen }) {
         <Card
             color="transparent"
             shadow={false}
-            className={`w-full p-4 min-w-full ${
+            className={`w-60 p-4 ${
                 screen.time >= 1 ? "bg-kblue-400" : "bg-kblue-200"
             }`}
         >
@@ -70,16 +70,10 @@ export function ExerciseCard({ screen }) {
                 shadow={false}
                 className="mx-0 flex items-center gap-4 pt-0 pb-8"
             >
-                <Avatar
-                    size="lg"
-                    variant="circular"
-                    src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
-                    alt={screen.title}
-                />
                 <div className="flex w-full flex-col gap-0.5">
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col items-center justify-between">
                         <Typography variant="h5" color="blue-gray">
-                            {screen.title} {screen.time}
+                            {screen.title}
                         </Typography>
                         <div className="5 flex items-center gap-0">
                             {Array.from({ length: 3 }).map((_, index) => (
@@ -93,25 +87,20 @@ export function ExerciseCard({ screen }) {
                 </div>
             </CardHeader>
             <CardBody className="mb-6 p-0">
-                <div
-                    className={`flex ${
-                        locale === "ckb" ? "flex-row" : ""
-                    } space-x-4 `}
-                >
-                    <Typography>
+                <div className={`flex flex-col`}>
+                    <Typography variant="h6">
                         {moment
                             .duration(screen.time, "milliseconds")
                             .locale("ku")
                             .humanize()}
                     </Typography>
-                    <Typography>
+                    <Typography variant="h6">
                         {locale === "ckb" ? "دروستی" : "Accuracy"}: %{" "}
-                        {screen.accuracyPercentage} /
+                        {screen.accuracyPercentage}
                     </Typography>
-                    <Typography>
+                    <Typography variant="h6">
                         {locale === "ckb" ? "خێرایی" : "Speed"}:{" "}
                         {screen.typingSpeed} {locale === "ckb" ? "ولخ" : "WPM"}{" "}
-                        /
                     </Typography>
                 </div>
             </CardBody>

@@ -6,19 +6,15 @@ import {
     TabPanel,
 } from "@material-tailwind/react";
 import { usePage } from "@inertiajs/react";
-import VerticalTabs from "@/Components/MD/VerticalTabs";
+import TabsVertical from "@/Components/MaterialD/TabsVertical";
 
-export default function TabsDefault({ lessons }) {
+export default function TabsHorizontal({ lessons }) {
     const { locale } = usePage().props;
 
     const lessonsData = lessons.map((lesson) => ({
         label: lesson.title,
         value: lesson.title.toLowerCase(),
-        desc: (
-            <div className="flex flex-row w-full space-x-8 space-x-reverse">
-                <VerticalTabs exercises={lesson.exercises} lesson={lesson} />
-            </div>
-        ),
+        desc: <TabsVertical exercises={lesson.exercises} lesson={lesson} />,
     }));
 
     return (
@@ -35,7 +31,7 @@ export default function TabsDefault({ lessons }) {
             </TabsHeader>
             <TabsBody>
                 {lessonsData.map(({ value, desc }) => (
-                    <TabPanel key={value} value={value}>
+                    <TabPanel key={value} value={value} className="p-0 py-4">
                         {desc}
                     </TabPanel>
                 ))}

@@ -7,7 +7,7 @@ import PrimaryButton from "../../Components/PrimaryButton";
 import moment from "moment";
 import ScreenTooltip from "@/Components/Typing/LessonsPage/ScreenTooltip";
 import ExerciseStars from "../../Components/Typing/LessonsPage/ExerciseStars";
-import Tabs from "@/Components/MD/Tabs";
+import TabsHorizontal from "@/Components/MaterialD/TabsHorizontal";
 
 export default function Lessons({
     lessons,
@@ -42,7 +42,7 @@ export default function Lessons({
                     } max-w-7xl mx-auto sm:px-6 lg:px-8`}
                 >
                     <div className="flex flex-col lg:flex-row lg:container max-w-5xl mx-auto lg:max-w-5xl lg:mx-auto md:space-x-2 justify-center space-y-8">
-                        <Tabs lessons={lessons} />
+                        <TabsHorizontal lessons={lessons} />
                     </div>
                 </div>
             </div>
