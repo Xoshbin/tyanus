@@ -24,6 +24,7 @@
         "@tabler/icons-react": "^2.40.0",
         "humanize-duration": "^3.30.0",
         "moment": "^2.29.4",
-        "react-canvas-confetti": "^1.4.0"
+        "react-canvas-confetti": "^1.4.0",
+        "react-responsive": "^9.0.2"
     }
 }

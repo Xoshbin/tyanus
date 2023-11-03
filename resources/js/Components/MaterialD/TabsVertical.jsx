@@ -9,9 +9,11 @@ import {
 import { ExerciseCard } from "./ExerciseCard";
 import { usePage, Link } from "@inertiajs/react";
 import { IconDiscountCheckFilled } from "@tabler/icons-react";
+import { useMediaQuery } from "react-responsive";
 
 export default function TabsVertical({ exercises, lesson }) {
     const { user_settings } = usePage().props;
+    const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
 
     const exerciesData = exercises.map((exercise) => ({
         label: exercise.title,
@@ -40,13 +42,11 @@ export default function TabsVertical({ exercises, lesson }) {
                     ? "j, f, and space"
                     : "common english words"
             }
-            orientation="vertical"
+            orientation={isTabletOrMobile ? "horizontal" : "vertical"}
             className="py-2 px-1"
         >
             <TabsHeader
-                className={`bg-transparent p-0 space-y-2 ${
-                    user_settings.exercise_lang === "ckb" ? "w-56" : "w-64"
-                }`}
+                className={`bg-transparent p-0 space-x-2 space-x-reverse overflow-x-auto md:space-y-2 mb-4 w-full`}
                 indicatorProps={{
                     className:
                         "bg-gradient-to-l from-kblue-100 to-kblue-300 border-l-2 transform translate-x-0 border-blue-500",
@@ -60,7 +60,7 @@ export default function TabsVertical({ exercises, lesson }) {
                             className={`flex w-48 md:w-56 flex-row lg:w-full justify-between rounded-lg bg-gradient-to-l from-kblue-50 to-kblue-200 px-4 py-2 shadow-md font-black text-kblue-700`}
                         >
                             <div
-                                className={`flex items-center ${
+                                className={`flex items-center w-48 ${
                                     isExerciseFinished ? "text-kblue-600" : ""
                                 } ${
                                     user_settings.exercise_lang === "ckb"
