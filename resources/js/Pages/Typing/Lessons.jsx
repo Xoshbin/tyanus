@@ -4,7 +4,7 @@ import { usePage, router } from "@inertiajs/react";
 import { __ } from "@/Libs/Lang";
 import TabsHorizontal from "@/Components/MaterialD/TabsHorizontal";
 import { Select, Option } from "@material-tailwind/react";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 export default function Lessons({
     lessons,
