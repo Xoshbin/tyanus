@@ -106,6 +106,11 @@ export default function Lesson({ screen, exerciseTotalStars, nextScreen }) {
                 }
             }
 
+            // Check for space key
+            if (key === " ") {
+                e.preventDefault(); // Prevent scrolling when the space key is pressed
+            }
+
             // Check for errors (exclude Shift key)
             if (
                 currentCharacterIndex < screen.content.length &&
