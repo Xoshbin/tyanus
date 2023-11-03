@@ -197,7 +197,7 @@ export default function Lesson({ screen, exerciseTotalStars, nextScreen }) {
     return (
         <AppLayout
             user={auth ? auth.user : undefined}
-            header={<LessonSettings locale={locale}></LessonSettings>}
+            header={<LessonSettings locale={screen.locale}></LessonSettings>}
         >
             <div className="hidden md:flex flex-col w-full max-w-3xl justify-center items-center mx-auto mt-6">
                 <p className="w-full py-4 px-4 text-2xl text-center">
@@ -309,7 +309,7 @@ export default function Lesson({ screen, exerciseTotalStars, nextScreen }) {
                     <></>
                 )}
                 {user_settings.show_keyboard === true ? (
-                    locale === "ckb" ? (
+                    screen.locale === "ckb" ? (
                         user_settings.keyboard_type === "windows" ? (
                             <WindowsKeyboardKu
                                 currentCharacter={currentCharacter}
