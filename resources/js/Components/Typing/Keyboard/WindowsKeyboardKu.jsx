@@ -96,7 +96,7 @@ export default function WindowsKeyboardKu({ currentCharacter }) {
                 </div>
                 <div className="keyboard-row justify-center mb-3 flex">
                     <KeyboardKey
-                        mainKey="\\"
+                        mainKey="\"
                         secondKey="|"
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-center justify-center text-sm"
