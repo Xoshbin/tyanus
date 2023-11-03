@@ -12,6 +12,7 @@ import { IconDiscountCheckFilled } from "@tabler/icons-react";
 
 export default function TabsVertical({ exercises, lesson }) {
     const { locale } = usePage().props;
+    const { user_settings } = usePage().props;
 
     const exerciesData = exercises.map((exercise) => ({
         label: exercise.title,
@@ -32,7 +33,7 @@ export default function TabsVertical({ exercises, lesson }) {
     return (
         <Tabs
             value={
-                locale === "ckb"
+                user_settings.exercise_lang === "ckb"
                     ? lesson.id === 1
                         ? "ف، ژ، لەگەڵ سپەیس"
                         : "ووشە زۆر باوەکان"
