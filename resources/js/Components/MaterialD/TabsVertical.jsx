@@ -46,7 +46,7 @@ export default function TabsVertical({ exercises, lesson }) {
             className="py-2 px-1"
         >
             <TabsHeader
-                className={`bg-transparent p-0 space-x-2 space-x-reverse overflow-x-auto lg:space-y-2 mb-4 w-full`}
+                className={`bg-transparent p-0 space-x-2 lg:space-x-0 space-x-reverse overflow-x-auto lg:space-y-2 mb-4 w-full`}
                 indicatorProps={{
                     className:
                         "bg-gradient-to-l from-kblue-100 to-kblue-300 border-l-2 transform translate-x-0 border-blue-500",
