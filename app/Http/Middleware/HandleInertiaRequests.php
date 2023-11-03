@@ -41,7 +41,7 @@ class HandleInertiaRequests extends Middleware
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
             ],
-            'language' => fn () => translations(base_path('lang/' . app()->getLocale() . '.json')),
+            'language' => fn () => translations(base_path('lang/' . session('locale', app()->getLocale()) . '.json')),
             'user_settings' => [
                 'exercise_lang' => $userSettings->getExerciseLang(),
                 'enable_sound' => $userSettings->getEnableSound(),
@@ -50,7 +50,7 @@ class HandleInertiaRequests extends Middleware
                 'show_hands' => $userSettings->getShowHands(),
                 'daily_time' => $userSettings->getDailyTime(),
             ],
-            'locale' => app()->getLocale()
+            'locale' => session('locale', app()->getLocale())
         ];
     }
 }

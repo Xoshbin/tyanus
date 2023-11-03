@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BadgeController;
 use App\Http\Controllers\CertificateController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -47,6 +48,16 @@ Route::get('/terms', function () {
         'terms' => Str::markdown(file_get_contents(resource_path('markdown/terms.md'))),
     ]);
 })->name('terms');
+
+Route::get('/setlocale/{locale}', function (string $locale) {
+    if (!in_array($locale, ['en', 'ckb'])) {
+        abort(400);
+    }
+
+    App::setLocale($locale);
+    session()->put('locale', $locale);
+    return redirect()->back();
+})->name('setlocale');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

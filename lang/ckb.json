@@ -115,7 +115,7 @@
     "Page title": "تیانوس - نوسینی کوردی",
     "keywords": "باشترکردنی خێرایی تایپکردن، ڕاهێنانی وردی تایپکردن، تەکنیکەکانی تایپکردنی خێرا، شارەزایی وردی تایپکردن، شارەزایی تایپکردن، لێهاتوویی کیبۆرد، ئامۆژگارییەکانی مەشقی تایپکردن، ڕاهێنانی تایپکردنی خێرا، شارەزایی تایپکردنی دەست لێدان، پەرەپێدانی لێهاتووییەکانی کیبۆرد، شێوازی کارامەی تایپکردن، زیادکردنی خێرایی تایپکردن، فێربوونی خێراتر تایپکردن ، تەکنیکەکانی تایپکردنی ورد، ڕێنمایی تایپکردنی پسپۆڕ، بەرزکردنەوەی ئەدای تایپکردن، فێرکاری تایپکردن، ڕاهێنانی کیبۆرد، تایپ وەک پڕۆ، بەرزکردنەوەی تواناکانی تایپکردن",
     "Theme language": "زمانی بەرگ: ",
-    "Exercise language": "زمانی مەشق",
+    "Keyabord type": "جۆری کیبۆرد",
     "Kurdish": "کوردی",
     "English": "ئینگلیزی",
 
@@ -127,5 +127,7 @@
     "Congratulations on getting a badge!": "پیرۆزە، باجێکت وەرگرت",
     "I can type words per minute, are you faster?": "ئەتوانم :wpm ووشە بنوسم لە خولەکێکدا، تۆ چەند ئەتوانیت؟",
     "You haven't earned any badges yet. Please engage in some gameplay and return later.": "تا ئێستا هیچ باجێکت بەدەست نەهێناوە. تکایە بەشداری هەندێک یاری بکەن و دواتر بگەڕێنەوە.",
-    "You haven't earned any certificates yet. Please engage in some gameplay and return later.": "تا ئێستا هیچ بڕوانامەیەکت بەدەست نەهێناوە. تکایە بەشداری هەندێک یاری بکەن و دواتر بگەڕێنەوە."
+    "You haven't earned any certificates yet. Please engage in some gameplay and return later.": "تا ئێستا هیچ بڕوانامەیەکت بەدەست نەهێناوە. تکایە بەشداری هەندێک یاری بکەن و دواتر بگەڕێنەوە.",
+    "Lesson Results": "ئەنجامی وانە",
+    "Sorry, our web app is currently optimized for desktop use and may not work properly on mobile devices. We recommend accessing it on a computer for the best experience.": "ببورە، لە ئێستادا وێب ئەپەکەمان بۆ بەکارهێنانی سەر مێز گەشەپێدراوە و لەسەر ئامێرە مۆبایلەکان بە باشی کار نەکات. پێشنیار دەکەین لە ڕێگەی کۆمپیوتەرەوە بیکەیتەوە بۆ ئەوەی سوودی لێببینیت.."
 }

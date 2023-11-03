@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import MacKeyboardEn from "@/Components/Typing/Keyboard/MacKeyboardEn";
 import MacKeyboardKu from "@/Components/Typing/Keyboard/MacKeyboardKu";
 import WindowsKeyboardKu from "@/Components/Typing/Keyboard/WindowsKeyboardKu";
@@ -9,12 +9,13 @@ import {
     macRightShiftKeys,
     macLeftShiftKeys,
 } from "@/data/keyMappings/macKeyMapping";
-import axios from "axios";
 import Modal from "@/Components/Modal";
 import ExerciseSummary from "@/Components/Typing/ExercisePage/ExerciseSummary";
 import AppLayout from "@/Layouts/AppLayout";
 import LessonSettings from "@/Components/Typing/ExercisePage/LessonSettings";
 import { router, usePage } from "@inertiajs/react";
+import { Alert, Typography } from "@material-tailwind/react";
+import { __ } from "@/Libs/Lang";
 
 export default function Lesson({ screen, exerciseTotalStars, nextScreen }) {
     const [userInput, setUserInput] = useState("");
@@ -183,7 +184,7 @@ export default function Lesson({ screen, exerciseTotalStars, nextScreen }) {
             user={auth ? auth.user : undefined}
             header={<LessonSettings locale={locale}></LessonSettings>}
         >
-            <div className="flex flex-col w-full max-w-3xl justify-center items-center mx-auto mt-6">
+            <div className="hidden md:flex flex-col w-full max-w-3xl justify-center items-center mx-auto mt-6">
                 <p className="w-full py-4 px-4 text-2xl text-center">
                     {screen.content.split("").map((char, i) => {
                         let color = "text-black";
@@ -322,6 +323,15 @@ export default function Lesson({ screen, exerciseTotalStars, nextScreen }) {
                         nextScreen={nextScreen}
                     />
                 </Modal>
+            </div>
+            <div className="flex mx-auto px-1 md:hidden items-center justify-center">
+                <Alert color="blue" className="max-w-screen-md m-0 p-0 py-2">
+                    <Typography color="white" className="font-normal">
+                        {__(
+                            "Sorry, our web app is currently optimized for desktop use and may not work properly on mobile devices. We recommend accessing it on a computer for the best experience."
+                        )}
+                    </Typography>
+                </Alert>
             </div>
         </AppLayout>
     );
