@@ -10,7 +10,7 @@ class UserProgress extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'lesson_id', 'exercise_id', 'screen_id', 'locale', 'typing_speed', 'accuracy_percentage', 'completed_at', 'stars_earned', 'time'];
+    protected $fillable = ['user_id', 'lesson_id', 'exercise_id', 'screen_id', 'locale', 'error_characters', 'typing_speed', 'accuracy_percentage', 'completed_at', 'stars_earned', 'time'];
 
     protected $dates = ['completed_at'];
 

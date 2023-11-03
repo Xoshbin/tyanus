@@ -201,12 +201,12 @@ class UserProgressService
 
     public function setProgress(Request $request)
     {
-
         $data = $request->validate([
             'lesson_id' => 'required',
             'exercise_id' => 'required',
             'screen_id' => 'required',
             'locale' => 'required',
+            'error_characters' => 'required',
             'typing_speed' => 'required',
             'accuracy_percentage' => 'required',
             'stars_earned' => 'required',

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('exercise_id');
             $table->unsignedBigInteger('screen_id');
             $table->string('locale');
+            $table->string('error_characters');
             $table->integer('typing_speed');
             $table->float('accuracy_percentage');
             $table->integer('stars_earned')->default(0);

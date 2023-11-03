@@ -30,6 +30,7 @@ export default function Lesson({ screen, exerciseTotalStars, nextScreen }) {
     const { locale } = usePage().props;
     const keySound = "/sound/soft-key.mp3";
     const wrongKeySound = "/sound/wrong.mp3";
+    const [errors, setErrors] = useState([]);
 
     const playKeySound = () => {
         if (user_settings.enable_sound) {
@@ -84,6 +85,14 @@ export default function Lesson({ screen, exerciseTotalStars, nextScreen }) {
                         setUserInput((prev) => prev + characterToType);
                     } else {
                         setUserInput((prev) => prev + e.key);
+
+                        // Check for errors and store them in the 'errors' array
+                        if (e.key !== screen.content[currentCharacterIndex]) {
+                            setErrors((prevErrors) => [
+                                ...prevErrors,
+                                screen.content[currentCharacterIndex],
+                            ]);
+                        }
                     }
 
                     // Check if typing is complete
@@ -169,6 +178,7 @@ export default function Lesson({ screen, exerciseTotalStars, nextScreen }) {
                 accuracy_percentage: accuracy,
                 stars_earned: starsEarned,
                 time: time,
+                error_characters: errors.join(""), // Join errors into a string
             },
             { preserveState: true }
         );
