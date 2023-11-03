@@ -44,7 +44,9 @@ export default function TabsVertical({ exercises, lesson }) {
             className="py-2 px-1"
         >
             <TabsHeader
-                className="bg-transparent w-56 p-0 space-y-2"
+                className={`bg-transparent p-0 space-y-2 ${
+                    user_settings.exercise_lang === "ckb" ? "w-56" : "w-64"
+                }`}
                 indicatorProps={{
                     className:
                         "bg-gradient-to-l from-kblue-100 to-kblue-300 border-l-2 transform translate-x-0 border-blue-500",
@@ -58,8 +60,12 @@ export default function TabsVertical({ exercises, lesson }) {
                             className={`flex w-48 md:w-56 flex-row lg:w-full justify-between rounded-lg bg-gradient-to-l from-kblue-50 to-kblue-200 px-4 py-2 shadow-md font-black text-kblue-700`}
                         >
                             <div
-                                className={`flex items-center gap-6 lg:gap-12 ${
+                                className={`flex items-center ${
                                     isExerciseFinished ? "text-kblue-600" : ""
+                                } ${
+                                    user_settings.exercise_lang === "ckb"
+                                        ? "gap-6 lg:gap-12"
+                                        : ""
                                 }`}
                             >
                                 <div>{label}</div>

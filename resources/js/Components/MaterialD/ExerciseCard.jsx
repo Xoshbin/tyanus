@@ -35,8 +35,10 @@ export function ExerciseCard({ screen }) {
                     <div className="flex flex-col items-center justify-between">
                         <Typography
                             variant="h5"
-                            color={`${
-                                screen.time <= 1 ? "white" : "neutral-600"
+                            className={`${
+                                screen.time <= 1
+                                    ? "text-white"
+                                    : "text-neutral-600"
                             }`}
                         >
                             {screen.title}
@@ -62,7 +64,7 @@ export function ExerciseCard({ screen }) {
                         {humanizeDuration(duration.asMilliseconds(), {
                             units: ["d", "h", "m", "s"],
                             largest: 2,
-                            language: "ku",
+                            language: locale === "ckb" ? "ku" : "en",
                         })}
                     </Typography>
                     <Typography variant="h6">

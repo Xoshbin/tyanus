@@ -118,7 +118,7 @@ const ExerciseSummary = ({
                             {humanizeDuration(duration.asMilliseconds(), {
                                 units: ["d", "h", "m", "s"],
                                 largest: 2,
-                                language: "ku",
+                                language: locale === "ckb" ? "ku" : "en",
                             })}
                         </p>
                     </div>
