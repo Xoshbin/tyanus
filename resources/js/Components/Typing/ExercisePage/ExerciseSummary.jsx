@@ -15,7 +15,7 @@ const ExerciseSummary = ({
     nextScreen,
 }) => {
     const { auth } = usePage().props;
-    moment.locale("ku");
+    const { locale } = usePage().props;
 
     const duration = moment.duration(time, "seconds");
 
