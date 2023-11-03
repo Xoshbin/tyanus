@@ -11,7 +11,6 @@ import { usePage, Link } from "@inertiajs/react";
 import { IconDiscountCheckFilled } from "@tabler/icons-react";
 
 export default function TabsVertical({ exercises, lesson }) {
-    const { locale } = usePage().props;
     const { user_settings } = usePage().props;
 
     const exerciesData = exercises.map((exercise) => ({
@@ -37,9 +36,9 @@ export default function TabsVertical({ exercises, lesson }) {
                     ? lesson.id === 1
                         ? "ف، ژ، لەگەڵ سپەیس"
                         : "ووشە زۆر باوەکان"
-                    : lesson.id === 28
-                    ? "J, F, and Space"
-                    : "Common English Words"
+                    : lesson.id === 9
+                    ? "j, f, and space"
+                    : "common english words"
             }
             orientation="vertical"
             className="py-2 px-1"

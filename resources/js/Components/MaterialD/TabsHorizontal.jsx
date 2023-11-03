@@ -9,7 +9,6 @@ import { usePage } from "@inertiajs/react";
 import TabsVertical from "@/Components/MaterialD/TabsVertical";
 
 export default function TabsHorizontal({ lessons }) {
-    const { locale } = usePage().props;
     const { user_settings } = usePage().props;
 
     const lessonsData = lessons.map((lesson) => ({
