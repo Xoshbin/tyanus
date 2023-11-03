@@ -38,14 +38,14 @@ Route::post('saveprogress', [LessonController::class, 'saveProgress']);
 Route::post('/update-user-settings', [ProfileController::class, 'userSettings'])->name('update-user-settings');
 
 Route::get('/policy', function () {
-    return view('policy', [
-        'policy' => Str::markdown(file_get_contents(resource_path('markdown/policy.md'))),
+    return Inertia::render('Typing/PrivacyPolicy', [
+        'markdownContent' => file_get_contents(resource_path('markdown/policy.md')),
     ]);
 })->name('policy');
 
 Route::get('/terms', function () {
-    return view('terms', [
-        'terms' => Str::markdown(file_get_contents(resource_path('markdown/terms.md'))),
+    return Inertia::render('Typing/PrivacyPolicy', [
+        'markdownContent' => file_get_contents(resource_path('markdown/terms.md')),
     ]);
 })->name('terms');
 
