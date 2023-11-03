@@ -237,7 +237,7 @@ export default function Lesson({ screen, exerciseTotalStars, nextScreen }) {
 
                 {/* start images */}
                 {user_settings.show_hands === true ? (
-                    <div className="flex flex-row justify-center relative w-full">
+                    <div className="flex flex-row justify-center relative w-full opacity-75">
                         {screen.content.split("").map((char, i) => {
                             let fingerClass = "absolute -right-28 -top-7 w-4/5"; // Initialize hand class
 
