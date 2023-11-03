@@ -12,7 +12,7 @@ export default function KeyboardKey({
                     currentCharacter.toLowerCase() ||
                     (secondKey && secondKey.toLowerCase()) ===
                         currentCharacter.toLowerCase())
-                    ? "bg-red-400"
+                    ? "bg-green-400"
                     : ""
             }`}
         >
