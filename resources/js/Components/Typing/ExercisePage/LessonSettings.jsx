@@ -3,7 +3,7 @@ import Modal from "@/Components/Modal";
 import { router, usePage } from "@inertiajs/react";
 import KeyboardSettings from "./KeyboardSettings";
 
-const LessonSettings = ({ locale }) => {
+const LessonSettings = ({ locale, screenlocale }) => {
     const [modalOpen, setModalOpen] = useState(false);
     const { user_settings } = usePage().props;
 
@@ -172,7 +172,7 @@ const LessonSettings = ({ locale }) => {
             </div>
             {/* Include your Inertia components or React components here */}
             <Modal show={modalOpen} onClose={closeModal}>
-                <KeyboardSettings locale={locale} />
+                <KeyboardSettings locale={screenlocale} />
             </Modal>
         </div>
     );

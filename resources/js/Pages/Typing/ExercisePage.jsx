@@ -197,7 +197,12 @@ export default function Lesson({ screen, exerciseTotalStars, nextScreen }) {
     return (
         <AppLayout
             user={auth ? auth.user : undefined}
-            header={<LessonSettings locale={screen.locale}></LessonSettings>}
+            header={
+                <LessonSettings
+                    locale={locale}
+                    screenlocale={screen.locale}
+                ></LessonSettings>
+            }
         >
             <div className="hidden md:flex flex-col w-full max-w-3xl justify-center items-center mx-auto mt-6">
                 <p className="w-full py-4 px-4 text-2xl text-center">
