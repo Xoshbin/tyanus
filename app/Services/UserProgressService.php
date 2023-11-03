@@ -42,17 +42,19 @@ class UserProgressService
                 $totalTimeToday = 0;
 
                 // Loop through the data
-                foreach ($progressData as $outerArray) {
-                    if (is_array($outerArray)) {
-                        foreach ($outerArray as $innerArray) {
-                            if (isset($innerArray['created_at']) && $innerArray['locale'] === $userSettings->getExerciseLang()) {
-                                // Get the date part from the "created_at" timestamp
-                                $entryDate = date('Y-m-d', strtotime($innerArray['created_at']));
+                if ($progressData) {
+                    foreach ($progressData as $outerArray) {
+                        if (is_array($outerArray)) {
+                            foreach ($outerArray as $innerArray) {
+                                if (isset($innerArray['created_at']) && $innerArray['locale'] === $userSettings->getExerciseLang()) {
+                                    // Get the date part from the "created_at" timestamp
+                                    $entryDate = date('Y-m-d', strtotime($innerArray['created_at']));
 
-                                // Check if the entry is from today
-                                if ($entryDate === $currentDate) {
-                                    // Add the "time" value to the total for today
-                                    $totalTimeToday += $innerArray['time'];
+                                    // Check if the entry is from today
+                                    if ($entryDate === $currentDate) {
+                                        // Add the "time" value to the total for today
+                                        $totalTimeToday += $innerArray['time'];
+                                    }
                                 }
                             }
                         }
@@ -94,15 +96,18 @@ class UserProgressService
                 // Initialize a variable to store the sum of time
                 $totalTime = 0;
 
-                // Loop through the outer array
-                foreach ($progressData as $outerArray) {
-                    // Check if the outer array is an array
-                    if (is_array($outerArray)) {
-                        // Loop through the inner arrays
-                        foreach ($outerArray as $innerArray) {
-                            if (isset($innerArray['time']) && $innerArray['locale'] === $userSettings->getExerciseLang()) {
-                                // Add the "time" value to the total time for the specified locale
-                                $totalTime += $innerArray['time'];
+                if ($progressData) {
+
+                    // Loop through the outer array
+                    foreach ($progressData as $outerArray) {
+                        // Check if the outer array is an array
+                        if (is_array($outerArray)) {
+                            // Loop through the inner arrays
+                            foreach ($outerArray as $innerArray) {
+                                if (isset($innerArray['time']) && $innerArray['locale'] === $userSettings->getExerciseLang()) {
+                                    // Add the "time" value to the total time for the specified locale
+                                    $totalTime += $innerArray['time'];
+                                }
                             }
                         }
                     }
@@ -129,13 +134,16 @@ class UserProgressService
                 $typingSpeedSum = 0;
                 $typingSpeedCount = 0;
 
-                foreach ($progressData as $screenData) {
-                    foreach ($screenData as $entry) {
-                        if (isset($entry['typing_speed']) && $entry['locale'] === $userSettings->getExerciseLang()) {
-                            // Add the typing_speed value to the sum
-                            $typingSpeedSum += $entry['typing_speed'];
-                            // Increment the count
-                            $typingSpeedCount++;
+                if ($progressData) {
+
+                    foreach ($progressData as $screenData) {
+                        foreach ($screenData as $entry) {
+                            if (isset($entry['typing_speed']) && $entry['locale'] === $userSettings->getExerciseLang()) {
+                                // Add the typing_speed value to the sum
+                                $typingSpeedSum += $entry['typing_speed'];
+                                // Increment the count
+                                $typingSpeedCount++;
+                            }
                         }
                     }
                 }
@@ -174,13 +182,16 @@ class UserProgressService
                 $typingAccuracySum = 0;
                 $typingAccuracyCount = 0;
 
-                foreach ($progressData as $screenData) {
-                    foreach ($screenData as $entry) {
-                        if (isset($entry['accuracy_percentage']) && $entry['locale'] === $userSettings->getExerciseLang()) {
-                            // Add the accuracy_percentage value to the sum
-                            $typingAccuracySum += $entry['accuracy_percentage'];
-                            // Increment the count
-                            $typingAccuracyCount++;
+                if ($progressData) {
+
+                    foreach ($progressData as $screenData) {
+                        foreach ($screenData as $entry) {
+                            if (isset($entry['accuracy_percentage']) && $entry['locale'] === $userSettings->getExerciseLang()) {
+                                // Add the accuracy_percentage value to the sum
+                                $typingAccuracySum += $entry['accuracy_percentage'];
+                                // Increment the count
+                                $typingAccuracyCount++;
+                            }
                         }
                     }
                 }
