@@ -246,12 +246,27 @@ export default function Lesson({ screen, exerciseTotalStars, nextScreen }) {
                         {screen.content.split("").map((char, i) => {
                             let fingerClass = "absolute -right-28 -top-7 w-4/5"; // Initialize hand class
 
+                            //Attention:: we use these shift variables for rest hands
+                            //Rest hands are the two hands that stay on the keyboard when have no jabos
+                            let shiftFingerClass =
+                                "absolute -right-28 -top-7 w-4/5"; // Initialize hand class
+                            let shiftImage =
+                                "/img/fingers/left-resting-hand.webp";
+
                             if (macLeftKeys.includes(char.toLowerCase())) {
                                 fingerClass = "absolute -left-44 -top-14 w-4/5"; // Assign left-hand class
+                                shiftFingerClass =
+                                    "absolute -right-28 -top-7 w-4/5";
+                                shiftImage =
+                                    "/img/fingers/right-resting-hand.webp";
                             } else if (
                                 macRightKeys.includes(char.toLowerCase())
                             ) {
                                 fingerClass = "absolute -right-28 -top-7 w-4/5"; // Assign right-hand class
+                                shiftFingerClass =
+                                    "absolute -left-44 -top-14 w-4/5";
+                                shiftImage =
+                                    "/img/fingers/left-resting-hand.webp";
                             }
 
                             if (char === " ") {
@@ -271,9 +286,6 @@ export default function Lesson({ screen, exerciseTotalStars, nextScreen }) {
                             }
 
                             const fingerImage = macFingerMapping[char] || ""; // Get the finger image
-                            let shiftImage = null;
-                            let shiftFingerClass =
-                                "absolute -right-28 -top-7 w-4/5"; // Initialize hand class
 
                             // Handle characters that require the Shift key
                             if (macRightShiftKeys.includes(char)) {
@@ -300,11 +312,18 @@ export default function Lesson({ screen, exerciseTotalStars, nextScreen }) {
                                         />
                                     )}
                                     {char === currentCharacter && (
-                                        <img
-                                            src={fingerImage}
-                                            alt=""
-                                            className={fingerClass} // Apply your styling for the finger image here
-                                        />
+                                        <div>
+                                            <img
+                                                src={fingerImage}
+                                                alt=""
+                                                className={fingerClass} // Apply your styling for the finger image here
+                                            />
+                                            <img
+                                                src={shiftImage}
+                                                alt=""
+                                                className={shiftFingerClass} // Apply your styling for the finger image here
+                                            />
+                                        </div>
                                     )}
                                 </span>
                             );
