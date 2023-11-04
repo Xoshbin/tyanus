@@ -18937,6 +18937,17 @@
      
 }
 
+    namespace Laravel\Horizon { 
+            /**
+     * 
+     *
+     */ 
+        class Horizon {
+         
+    }
+     
+}
+
     namespace Spatie\LaravelIgnition\Facades { 
             /**
      * 
@@ -23444,6 +23455,7 @@ namespace  {
             class Vite extends \Illuminate\Support\Facades\Vite {}
             class Image extends \Intervention\Image\Facades\Image {}
             class Fpdf extends \Codedge\Fpdf\Facades\Fpdf {}
+            class Horizon extends \Laravel\Horizon\Horizon {}
             class Flare extends \Spatie\LaravelIgnition\Facades\Flare {}
      
 }
