@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('locale');
             $table->enum('content_type', ['letters', 'words', 'sentences', 'video', 'game', 'badge', 'intro', 'test']);
             $table->text('content');
-            $table->integer('target_speed');
+            $table->integer('extra');
             $table->integer('order');
             $table->timestamps();
 
