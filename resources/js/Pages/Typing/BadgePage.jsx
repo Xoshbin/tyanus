@@ -117,7 +117,6 @@ const BadgePage = ({
                             href={route("lesson", nextScreen.url)}
                             as="button"
                             className="inline-flex w-full mt-8 justify-center rounded-md text-kblue-50 disabled:bg-kblue-100 bg-kblue-600 hover:bg-kblue-500 px-3 py-2 text-sm font-semibold text-kblue shadow-sm sm:ml-3 sm:w-auto"
-                            disabled={starsEarned === 0}
                         >
                             {__("Next")}
                         </Link>
