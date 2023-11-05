@@ -46,12 +46,13 @@ class LessonController extends Controller
     public function challenge(Screen $screen): Response
     {
         $nextScreen = Screen::where('id', $screen->id + 1)->first();
-
         if ($screen->content_type == 'letters') {
+            $prevScreen = Screen::where('id', $screen->id - 1)->first();
             $exerciseTotalStars = 3;
             return Inertia::render('Typing/ExercisePage', [
                 'screen' => $screen,
                 'exerciseTotalStars' => $exerciseTotalStars,
+                'prevScreen' => $prevScreen,
                 'nextScreen' => $nextScreen
             ]);
         } elseif ($screen->content_type == 'badge') {
@@ -70,11 +71,19 @@ class LessonController extends Controller
                 'nextScreen' => $nextScreen
             ]);
         } else {
+            //if we reached here it means the screen is intro
+            // then we need to show next screen instead of current screen
+            //and for the next screen we plus it by 2
+            //and for the prev screen we show current screen
+            //it's very complicated just don't touch it 😊
+            $nextScreenPlusTwo = Screen::where('id', $screen->id + 2)->first();
+            $prevScreen = Screen::where('id', $screen->id - 1)->first();
             $exerciseTotalStars = 3;
             return Inertia::render('Typing/ExercisePage', [
-                'screen' => $screen,
+                'screen' => $nextScreen,
                 'exerciseTotalStars' => $exerciseTotalStars,
-                'nextScreen' => $nextScreen
+                'prevScreen' => $screen,
+                'nextScreen' => $nextScreenPlusTwo
             ]);
         }
     }
