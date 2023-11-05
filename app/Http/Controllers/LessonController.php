@@ -58,10 +58,8 @@ class LessonController extends Controller
         } elseif ($screen->content_type == 'badge') {
             $exercise = Exercise::find($screen->exercise_id);
 
-            if (auth()->check()) {
-                //save badge
-                SaveBadge::dispatch($screen->title, $screen->locale);
-            }
+            //save badge
+            SaveBadge::dispatch($screen->title, $screen->locale);
 
             return Inertia::render('Typing/BadgePage', [
                 'exerciseName' => $screen->title,
