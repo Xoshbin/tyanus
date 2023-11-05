@@ -36,10 +36,11 @@ export default function Lesson({
     const keySound = "/sound/soft-key.mp3";
     const wrongKeySound = "/sound/wrong.mp3";
     const [errors, setErrors] = useState([]);
+    //start setting current screen by prev screen content type
+    const [currentScreen, setCurrentScreen] = useState(prevScreen.content_type);
 
-    const [currentScreen, setCurrentScreen] = useState("intro");
-
-    // Modify this function to handle the screen transition
+    // this function is changing the current screen to letters if it's intro screen
+    // by changing I mean the interface below not the data
     const handleScreenTransition = () => {
         // Reset the variables and states
         setCurrentScreen("letters");
@@ -115,6 +116,9 @@ export default function Lesson({
                         }
                     }
 
+                    // Check if typing is complete
+                    // check the complete based on the content of the shown screen (intro, letters)
+                    // otherwise it's counting the characters length with different text on the screen
                     if (currentScreen === "intro") {
                         // Check if typing is complete
                         if (
@@ -164,7 +168,6 @@ export default function Lesson({
         document.addEventListener("keydown", handleKeyDown);
 
         if (isTypingComplete) {
-            console.log("isTypingComplete");
             // Call handleLessonCompletion with the required parameters.
             handleLessonCompletion(
                 netWPM.toFixed(2),
@@ -205,6 +208,8 @@ export default function Lesson({
         time,
         starsEarned
     ) => {
+        //if current screen is intro
+        //change it to letters after typing the intro letter
         if (currentScreen === "intro") {
             handleScreenTransition();
         } else {
@@ -242,6 +247,7 @@ export default function Lesson({
                 ></LessonSettings>
             }
         >
+            {/* show different interface based on the screen type */}
             {currentScreen === "intro" ? (
                 <div className="hidden md:flex flex-col w-full max-w-3xl justify-center items-center mx-auto mt-6">
                     <p className="w-full p-4 text-2xl text-center">
