@@ -16,6 +16,7 @@ import LessonSettings from "@/Components/Typing/ExercisePage/LessonSettings";
 import { router, usePage } from "@inertiajs/react";
 import { Alert, Typography } from "@material-tailwind/react";
 import { __ } from "@/Libs/Lang";
+import { Spinner } from "@material-tailwind/react";
 
 export default function Lesson({
     screen,
@@ -38,6 +39,7 @@ export default function Lesson({
     const [errors, setErrors] = useState([]);
     //start setting current screen by prev screen content type
     const [currentScreen, setCurrentScreen] = useState(prevScreen.content_type);
+    const [showFoundKeyMessage, setShowFoundKeyMessage] = useState(false);
 
     // this function is changing the current screen to letters if it's intro screen
     // by changing I mean the interface below not the data
@@ -211,7 +213,10 @@ export default function Lesson({
         //if current screen is intro
         //change it to letters after typing the intro letter
         if (currentScreen === "intro") {
-            handleScreenTransition();
+            setShowFoundKeyMessage(true);
+            const timeout = setTimeout(() => {
+                handleScreenTransition();
+            }, 5000);
         } else {
             router.post(
                 "/saveprogress",
@@ -250,44 +255,60 @@ export default function Lesson({
             {/* show different interface based on the screen type */}
             {currentScreen === "intro" ? (
                 <div className="hidden md:flex flex-col w-full max-w-3xl justify-center items-center mx-auto mt-6">
-                    <p className="w-full p-4 text-2xl text-center">
-                        Put both of your hands on the keyboard and use the
-                        highlighted finger
-                    </p>
-                    <p className="p-4 text-center bg-kblue-600 rounded-md">
-                        {prevScreen.content.split("").map((char, i) => {
-                            let color = "text-white text-5xl font-extrabold";
+                    {showFoundKeyMessage ? (
+                        <div className="flex flex-col justify-center items-center">
+                            <p className="w-full p-4 text-2xl text-center">
+                                {__(
+                                    "Great, you found it. Now, let's start practicing."
+                                )}
+                            </p>
+                            <Spinner color="blue" className="h-12 w-12" />
+                        </div>
+                    ) : (
+                        <p className="w-full p-4 text-2xl text-center">
+                            {__(
+                                "Put both of your hands on the keyboard and use the highlighted finger"
+                            )}
+                        </p>
+                    )}
 
-                            if (i < userInput.length) {
-                                color =
-                                    char === userInput[i]
-                                        ? "text-green-400"
-                                        : "text-red-400"; // Remove underline when user types correctly
-                            }
+                    {showFoundKeyMessage === false && (
+                        <p className="p-4 text-center bg-kblue-600 rounded-md">
+                            {prevScreen.content.split("").map((char, i) => {
+                                let color =
+                                    "text-white text-5xl font-extrabold";
 
-                            if (char === " ") {
+                                if (i < userInput.length) {
+                                    color =
+                                        char === userInput[i]
+                                            ? "text-green-400"
+                                            : "text-red-400"; // Remove underline when user types correctly
+                                }
+
+                                if (char === " ") {
+                                    return (
+                                        <span key={i}>
+                                            <span
+                                                className={`text-2xl font-naskh underline ${color}`}
+                                            >
+                                                {char}
+                                            </span>
+                                        </span>
+                                    );
+                                }
+
                                 return (
                                     <span key={i}>
                                         <span
-                                            className={`text-2xl font-naskh underline ${color}`}
+                                            className={`text-2xl font-naskh ${color}`}
                                         >
                                             {char}
                                         </span>
                                     </span>
                                 );
-                            }
-
-                            return (
-                                <span key={i}>
-                                    <span
-                                        className={`text-2xl font-naskh ${color}`}
-                                    >
-                                        {char}
-                                    </span>
-                                </span>
-                            );
-                        })}
-                    </p>
+                            })}
+                        </p>
+                    )}
 
                     {/* start images */}
                     {user_settings.show_hands === true ? (

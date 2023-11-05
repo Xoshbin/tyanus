@@ -20,6 +20,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "@inertiajs/progress": "^0.2.7",
         "@material-tailwind/react": "^2.1.4",
         "@tabler/icons-react": "^2.40.0",
         "humanize-duration": "^3.30.0",
