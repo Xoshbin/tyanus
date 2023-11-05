@@ -102,7 +102,7 @@ export default function Login({ status, canResetPassword }) {
                         Log in
                     </PrimaryButton>
                 </div>
-                <div
+                {/* <div
                     className="flex flex-col md:flex-row items-center justify-center space-x-4 mt-4"
                     dir={` ${locale === "ckb" ? "ltr" : "rtl"}`}
                 >
@@ -139,7 +139,7 @@ export default function Login({ status, canResetPassword }) {
                         />
                         <div className="flex">{__("Sign in with Google")}</div>
                     </a>
-                </div>
+                </div> */}
             </form>
         </GuestLayout>
     );
