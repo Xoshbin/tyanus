@@ -5,6 +5,7 @@ use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SocialController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -48,6 +49,10 @@ Route::get('/terms', function () {
         'markdownContent' => file_get_contents(resource_path('markdown/terms.md')),
     ]);
 })->name('terms');
+
+//for other providers
+Route::get('/auth/{provider}/callback', [SocialController::class, 'handleProviderCallback']);
+Route::get('/auth/{provider}', [SocialController::class, 'redirectToProvider']);
 
 Route::get('/setlocale/{locale}', function (string $locale) {
     if (!in_array($locale, ['en', 'ckb'])) {
