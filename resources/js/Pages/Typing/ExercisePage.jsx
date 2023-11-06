@@ -311,7 +311,8 @@ export default function Lesson({
                     )}
 
                     {/* start images */}
-                    {user_settings.show_hands === true ? (
+                    {/* commenting for now */}
+                    {/* {user_settings.show_hands === true ? (
                         <div className="flex flex-row justify-center relative w-full opacity-75">
                             {prevScreen.content.split("").map((char, i) => {
                                 let fingerClass =
@@ -403,7 +404,8 @@ export default function Lesson({
                         </div>
                     ) : (
                         <></>
-                    )}
+                    )} */}
+
                     {user_settings.show_keyboard === true ? (
                         prevScreen.locale === "ckb" ? (
                             user_settings.keyboard_type === "windows" ? (
@@ -465,7 +467,7 @@ export default function Lesson({
                     </p>
 
                     {/* start images */}
-                    {user_settings.show_hands === true ? (
+                    {/* {user_settings.show_hands === true ? (
                         <div className="flex flex-row justify-center relative w-full opacity-75">
                             {screen.content.split("").map((char, i) => {
                                 let fingerClass =
@@ -560,7 +562,8 @@ export default function Lesson({
                         </div>
                     ) : (
                         <></>
-                    )}
+                    )} */}
+
                     {user_settings.show_keyboard === true ? (
                         screen.locale === "ckb" ? (
                             user_settings.keyboard_type === "windows" ? (
