@@ -31,7 +31,11 @@ export default function Lesson({
     const wrongKeySound = "/sound/wrong.mp3";
     const [errors, setErrors] = useState([]);
     //start setting current screen by prev screen content type
-    const [currentScreen, setCurrentScreen] = useState(prevScreen.content_type);
+    const [currentScreen, setCurrentScreen] = useState(
+        prevScreen && prevScreen.content_type
+            ? prevScreen.content_type
+            : screen.content_type
+    );
     const [showFoundKeyMessage, setShowFoundKeyMessage] = useState(false);
     const [visibleCharacterCount, setVisibleCharacterCount] = useState(8);
     const [startVisibleCharacterCount, setstartVisibleCharacterCount] =
@@ -331,6 +335,13 @@ export default function Lesson({
                     currentCharacter={currentCharacter}
                     userInputForHighlight={userInputForHighlight}
                     flipped={flipped}
+                />
+            ) : currentScreen === "test" ? (
+                <SentencesScreen
+                    screen={screen}
+                    user_settings={user_settings}
+                    currentCharacter={currentCharacter}
+                    userInput={userInput}
                 />
             ) : (
                 <SentencesScreen
