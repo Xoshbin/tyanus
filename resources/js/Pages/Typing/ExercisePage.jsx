@@ -179,12 +179,22 @@ export default function Lesson({
                         }
                     } else {
                         // Check if typing is complete
-                        if (
-                            currentCharacterIndex + 1 ===
-                            prevScreen.content.length
-                        ) {
-                            setEndTime(Date.now());
-                            setIsTypingComplete(true);
+                        if (prevScreen && prevScreen.content) {
+                            if (
+                                currentCharacterIndex + 1 ===
+                                prevScreen.content.length
+                            ) {
+                                setEndTime(Date.now());
+                                setIsTypingComplete(true);
+                            }
+                        } else {
+                            if (
+                                currentCharacterIndex + 1 ===
+                                screen.content.length
+                            ) {
+                                setEndTime(Date.now());
+                                setIsTypingComplete(true);
+                            }
                         }
                     }
 
@@ -650,38 +660,71 @@ export default function Lesson({
             ) : (
                 <div className="hidden md:flex flex-col w-full max-w-3xl justify-center items-center mx-auto mt-6">
                     <p className="w-full py-4 px-4 text-2xl text-center">
-                        {prevScreen.content.split("").map((char, i) => {
-                            let color = "text-black";
+                        {prevScreen && prevScreen.content
+                            ? prevScreen.content.split("").map((char, i) => {
+                                  let color = "text-black";
 
-                            if (i < userInput.length) {
-                                color =
-                                    char === userInput[i]
-                                        ? "text-green-400"
-                                        : "text-red-400"; // Remove underline when user types correctly
-                            }
+                                  if (i < userInput.length) {
+                                      color =
+                                          char === userInput[i]
+                                              ? "text-green-400"
+                                              : "text-red-400"; // Remove underline when user types correctly
+                                  }
 
-                            if (char === " ") {
-                                return (
-                                    <span key={i}>
-                                        <span
-                                            className={`text-2xl font-naskh underline ${color}`}
-                                        >
-                                            {char}
-                                        </span>
-                                    </span>
-                                );
-                            }
+                                  if (char === " ") {
+                                      return (
+                                          <span key={i}>
+                                              <span
+                                                  className={`text-2xl font-naskh underline ${color}`}
+                                              >
+                                                  {char}
+                                              </span>
+                                          </span>
+                                      );
+                                  }
 
-                            return (
-                                <span key={i}>
-                                    <span
-                                        className={`text-2xl font-naskh ${color}`}
-                                    >
-                                        {char}
-                                    </span>
-                                </span>
-                            );
-                        })}
+                                  return (
+                                      <span key={i}>
+                                          <span
+                                              className={`text-2xl font-naskh ${color}`}
+                                          >
+                                              {char}
+                                          </span>
+                                      </span>
+                                  );
+                              })
+                            : screen.content.split("").map((char, i) => {
+                                  let color = "text-black";
+
+                                  if (i < userInput.length) {
+                                      color =
+                                          char === userInput[i]
+                                              ? "text-green-400"
+                                              : "text-red-400"; // Remove underline when user types correctly
+                                  }
+
+                                  if (char === " ") {
+                                      return (
+                                          <span key={i}>
+                                              <span
+                                                  className={`text-2xl font-naskh underline ${color}`}
+                                              >
+                                                  {char}
+                                              </span>
+                                          </span>
+                                      );
+                                  }
+
+                                  return (
+                                      <span key={i}>
+                                          <span
+                                              className={`text-2xl font-naskh ${color}`}
+                                          >
+                                              {char}
+                                          </span>
+                                      </span>
+                                  );
+                              })}
                     </p>
 
                     {/* start images */}
