@@ -17,7 +17,9 @@ class ScreenSeederBeginnerKU extends Seeder
     {
         $converter = new LetterConverter();
         $screens = [
+            ['lesson_id' => 1, 'order' => 1, 'exercise_id' => 1, 'title' => 'ناساندنی ژ', 'content_type' => 'intro', 'content' => 'ژ',  'extra' => "ژ", 'locale' => 'ckb'],
             ['lesson_id' => 1, 'order' => 1, 'exercise_id' => 1, 'title' => 'ف، ژ، لەگەڵ سپەیس - ١', 'content_type' => 'letters', 'content' => $converter->convertToKurdish('jjjjjjjj'),  'extra' => 60, 'locale' => 'ckb'],
+            ['lesson_id' => 1, 'order' => 1, 'exercise_id' => 1, 'title' => 'ناساندنی ف', 'content_type' => 'intro', 'content' => 'ف',  'extra' => "ف", 'locale' => 'ckb'],
             ['lesson_id' => 1, 'order' => 2, 'exercise_id' => 1, 'title' => 'ف، ژ، لەگەڵ سپەیس - ٢', 'content_type' => 'letters', 'content' => $converter->convertToKurdish('fffjfffjfffjfffj'),  'extra' => 60, 'locale' => 'ckb'],
             ['lesson_id' => 1, 'order' => 3, 'exercise_id' => 1, 'title' => 'ف، ژ، لەگەڵ سپەیس - ٣', 'content_type' => 'letters', 'content' => $converter->convertToKurdish('jjffjjffjjjfffjfjffjjfjfjfffjjffjjfffjjjjffjfjffjfjff'),  'extra' => 60, 'locale' => 'ckb'],
             ['lesson_id' => 1, 'order' => 4, 'exercise_id' => 1, 'title' => 'ف، ژ، لەگەڵ سپەیس - ٤', 'content_type' => 'letters', 'content' => $converter->convertToKurdish('j j j j j j j j j'),  'extra' => 60, 'locale' => 'ckb'],
