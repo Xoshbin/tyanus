@@ -1,14 +1,4 @@
 import React, { useEffect, useState } from "react";
-import MacKeyboardEn from "@/Components/Typing/Keyboard/MacKeyboardEn";
-import MacKeyboardKu from "@/Components/Typing/Keyboard/MacKeyboardKu";
-import WindowsKeyboardKu from "@/Components/Typing/Keyboard/WindowsKeyboardKu";
-import {
-    macFingerMapping,
-    macLeftKeys,
-    macRightKeys,
-    macRightShiftKeys,
-    macLeftShiftKeys,
-} from "@/data/keyMappings/macKeyMapping";
 import Modal from "@/Components/Modal";
 import ExerciseSummary from "@/Components/Typing/ExercisePage/ExerciseSummary";
 import AppLayout from "@/Layouts/AppLayout";
@@ -16,7 +6,9 @@ import LessonSettings from "@/Components/Typing/ExercisePage/LessonSettings";
 import { router, usePage } from "@inertiajs/react";
 import { Alert, Typography } from "@material-tailwind/react";
 import { __ } from "@/Libs/Lang";
-import { Spinner } from "@material-tailwind/react";
+import IntroScreen from "@/Components/Typing/ExercisePage/IntroScreen";
+import LettersScreen from "@/Components/Typing/ExercisePage/LettersScreen";
+import SentencesScreen from "@/Components/Typing/ExercisePage/SentencesScreen";
 
 export default function Lesson({
     screen,
@@ -25,6 +17,7 @@ export default function Lesson({
     nextScreen,
 }) {
     const [userInput, setUserInput] = useState("");
+    const [userInputForHighlight, setUserInputForHighlight] = useState("");
     const [isTypingComplete, setIsTypingComplete] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
     const [startTime, setStartTime] = useState(null);
@@ -40,6 +33,10 @@ export default function Lesson({
     //start setting current screen by prev screen content type
     const [currentScreen, setCurrentScreen] = useState(prevScreen.content_type);
     const [showFoundKeyMessage, setShowFoundKeyMessage] = useState(false);
+    const [visibleCharacterCount, setVisibleCharacterCount] = useState(8);
+    const [startVisibleCharacterCount, setstartVisibleCharacterCount] =
+        useState(0);
+    const [flipped, setFlipped] = useState(false);
 
     // this function is changing the current screen to letters if it's intro screen
     // by changing I mean the interface below not the data
@@ -76,7 +73,34 @@ export default function Lesson({
         }
     };
 
+    const resetHighlightColor = () => {
+        setUserInputForHighlight("");
+        setFlipped(!flipped);
+    };
+
     useEffect(() => {
+        setFlipped(true);
+        // Trigger flip on visibleChars change
+        if (!isTypingComplete) {
+            if (currentCharacterIndex >= visibleCharacterCount) {
+                const chunkSize = 8;
+
+                for (
+                    let i = chunkSize;
+                    i < screen.content.length;
+                    i += chunkSize
+                ) {
+                    if (visibleCharacterCount >= i) {
+                        setFlipped(!flipped);
+                        setVisibleCharacterCount(
+                            visibleCharacterCount + chunkSize
+                        );
+                        setstartVisibleCharacterCount(i);
+                        resetHighlightColor();
+                    }
+                }
+            }
+        }
         const handleKeyDown = (e) => {
             const key = e.key;
 
@@ -103,11 +127,18 @@ export default function Lesson({
                         characterToType
                     ) {
                         setUserInput((prev) => prev + characterToType);
+                        setUserInputForHighlight(
+                            (prev) => prev + characterToType
+                        );
                     } else if (characterToType === "↩") {
                         // Check if the entered character is not "↩"
                         setUserInput((prev) => prev + characterToType);
+                        setUserInputForHighlight(
+                            (prev) => prev + characterToType
+                        );
                     } else {
                         setUserInput((prev) => prev + e.key);
+                        setUserInputForHighlight((prev) => prev + e.key);
 
                         // Check for errors and store them in the 'errors' array
                         if (e.key !== screen.content[currentCharacterIndex]) {
@@ -129,14 +160,33 @@ export default function Lesson({
                         ) {
                             setIsTypingComplete(true);
                         }
-                    } else {
-                        // Check if typing is complete
+                    }
+                    if (currentScreen === "letters") {
                         if (
                             currentCharacterIndex + 1 ===
                             screen.content.length
                         ) {
                             setEndTime(Date.now());
                             setIsTypingComplete(true);
+                        }
+                    } else {
+                        // Check if typing is complete
+                        if (prevScreen && prevScreen.content) {
+                            if (
+                                currentCharacterIndex + 1 ===
+                                prevScreen.content.length
+                            ) {
+                                setEndTime(Date.now());
+                                setIsTypingComplete(true);
+                            }
+                        } else {
+                            if (
+                                currentCharacterIndex + 1 ===
+                                screen.content.length
+                            ) {
+                                setEndTime(Date.now());
+                                setIsTypingComplete(true);
+                            }
                         }
                     }
 
@@ -182,7 +232,19 @@ export default function Lesson({
         return () => {
             document.removeEventListener("keydown", handleKeyDown);
         };
-    }, [userInput, screen.content, currentCharacterIndex, isTypingComplete]);
+    }, [
+        userInput,
+        userInputForHighlight,
+        screen.content,
+        currentCharacterIndex,
+        isTypingComplete,
+    ]);
+
+    // Create a subarray of characters to display based on the visibleCharacterCount.
+    const visibleCharacters = screen.content.slice(
+        startVisibleCharacterCount,
+        visibleCharacterCount
+    );
 
     // Calculate Net WPM and Accuracy
     const elapsedTime = endTime && startTime ? (endTime - startTime) / 1000 : 0; // Prevent division by zero
@@ -254,350 +316,43 @@ export default function Lesson({
         >
             {/* show different interface based on the screen type */}
             {currentScreen === "intro" ? (
-                <div className="hidden md:flex flex-col w-full max-w-3xl justify-center items-center mx-auto mt-6">
-                    {showFoundKeyMessage ? (
-                        <div className="flex flex-col justify-center items-center">
-                            <p className="w-full p-4 text-2xl text-center">
-                                {__(
-                                    "Great, you found it. Now, let's start practicing."
-                                )}
-                            </p>
-                            <Spinner color="blue" className="h-12 w-12" />
-                        </div>
-                    ) : (
-                        <p className="w-full p-4 text-2xl text-center">
-                            {__(
-                                "Put both of your hands on the keyboard and use the highlighted finger"
-                            )}
-                        </p>
-                    )}
-
-                    {showFoundKeyMessage === false && (
-                        <p className="p-4 text-center bg-kblue-600 rounded-md">
-                            {prevScreen.content.split("").map((char, i) => {
-                                let color =
-                                    "text-white text-5xl font-extrabold";
-
-                                if (i < userInput.length) {
-                                    color =
-                                        char === userInput[i]
-                                            ? "text-green-400"
-                                            : "text-red-400"; // Remove underline when user types correctly
-                                }
-
-                                if (char === " ") {
-                                    return (
-                                        <span key={i}>
-                                            <span
-                                                className={`text-2xl font-naskh underline ${color}`}
-                                            >
-                                                {char}
-                                            </span>
-                                        </span>
-                                    );
-                                }
-
-                                return (
-                                    <span key={i}>
-                                        <span
-                                            className={`text-2xl font-naskh ${color}`}
-                                        >
-                                            {char}
-                                        </span>
-                                    </span>
-                                );
-                            })}
-                        </p>
-                    )}
-
-                    {/* start images */}
-                    {/* commenting for now */}
-                    {/* {user_settings.show_hands === true ? (
-                        <div className="flex flex-row justify-center relative w-full opacity-75">
-                            {prevScreen.content.split("").map((char, i) => {
-                                let fingerClass =
-                                    "absolute -right-28 -top-7 w-4/5"; // Initialize hand class
-                                let shiftFingerClass =
-                                    "absolute -right-28 -top-7 w-4/5"; // Initialize hand class
-                                let shiftImage =
-                                    "/img/fingers/left-resting-hand.webp";
-
-                                if (macLeftKeys.includes(char.toLowerCase())) {
-                                    fingerClass =
-                                        "absolute -left-44 -top-14 w-4/5"; // Assign left-hand class
-                                    shiftFingerClass =
-                                        "absolute -right-28 -top-7 w-4/5";
-                                    shiftImage =
-                                        "/img/fingers/right-resting-hand.webp";
-                                } else if (
-                                    macRightKeys.includes(char.toLowerCase())
-                                ) {
-                                    fingerClass =
-                                        "absolute -right-28 -top-7 w-4/5"; // Assign right-hand class
-                                    shiftFingerClass =
-                                        "absolute -left-44 -top-14 w-4/5";
-                                    shiftImage =
-                                        "/img/fingers/left-resting-hand.webp";
-                                }
-
-                                if (char === " ") {
-                                    const fingerImage =
-                                        macFingerMapping[char] || ""; // Get the finger image
-                                    return (
-                                        <span key={i}>
-                                            {char === currentCharacter && (
-                                                <img
-                                                    src={fingerImage}
-                                                    alt=""
-                                                    className={fingerClass} // Apply your styling for the finger image here
-                                                />
-                                            )}
-                                        </span>
-                                    );
-                                }
-
-                                const fingerImage =
-                                    macFingerMapping[char] || ""; // Get the finger image
-
-                                // Handle characters that require the Shift key
-                                if (macRightShiftKeys.includes(char)) {
-                                    shiftImage =
-                                        "/img/fingers/right-shift.webp"; // Set the image for the right Shift key
-                                    shiftFingerClass =
-                                        "absolute -right-28 -top-7 w-4/5";
-                                } else if (macLeftShiftKeys.includes(char)) {
-                                    shiftImage = "/img/fingers/left-shift.webp"; // Set the image for the left Shift key
-                                    shiftFingerClass =
-                                        "absolute -left-44 -top-14 w-4/5";
-                                }
-
-                                // Determine if the shiftImage should be shown
-                                const shouldDisplayShiftImage =
-                                    shiftImage && char === currentCharacter;
-
-                                return (
-                                    <span key={i}>
-                                        {shouldDisplayShiftImage && (
-                                            <img
-                                                src={shiftImage}
-                                                alt=""
-                                                className={shiftFingerClass} // Apply your styling for the finger image here
-                                            />
-                                        )}
-                                        {char === currentCharacter && (
-                                            <div>
-                                                <img
-                                                    src={fingerImage}
-                                                    alt=""
-                                                    className={fingerClass} // Apply your styling for the finger image here
-                                                />
-                                                <img
-                                                    src={shiftImage}
-                                                    alt=""
-                                                    className={shiftFingerClass} // Apply your styling for the finger image here
-                                                />
-                                            </div>
-                                        )}
-                                    </span>
-                                );
-                            })}
-                        </div>
-                    ) : (
-                        <></>
-                    )} */}
-
-                    {user_settings.show_keyboard === true ? (
-                        prevScreen.locale === "ckb" ? (
-                            user_settings.keyboard_type === "windows" ? (
-                                <WindowsKeyboardKu
-                                    screenType={prevScreen.content_type}
-                                    currentCharacter={currentCharacter}
-                                />
-                            ) : (
-                                <MacKeyboardKu
-                                    screenType={prevScreen.content_type}
-                                    currentCharacter={currentCharacter}
-                                />
-                            )
-                        ) : (
-                            <MacKeyboardEn
-                                screenType={prevScreen.content_type}
-                                currentCharacter={currentCharacter}
-                            />
-                        )
-                    ) : (
-                        <></>
-                    )}
-                </div>
+                <IntroScreen
+                    screen={prevScreen}
+                    showFoundKeyMessage={showFoundKeyMessage}
+                    user_settings={user_settings}
+                    userInput={userInput}
+                    currentCharacter={currentCharacter}
+                />
+            ) : currentScreen === "letters" ? (
+                <LettersScreen
+                    screen={prevScreen}
+                    visibleCharacters={visibleCharacters}
+                    user_settings={user_settings}
+                    currentCharacter={currentCharacter}
+                    userInputForHighlight={userInputForHighlight}
+                    flipped={flipped}
+                />
             ) : (
-                <div className="hidden md:flex flex-col w-full max-w-3xl justify-center items-center mx-auto mt-6">
-                    <p className="w-full py-4 px-4 text-2xl text-center">
-                        {screen.content.split("").map((char, i) => {
-                            let color = "text-black";
-
-                            if (i < userInput.length) {
-                                color =
-                                    char === userInput[i]
-                                        ? "text-green-400"
-                                        : "text-red-400"; // Remove underline when user types correctly
-                            }
-
-                            if (char === " ") {
-                                return (
-                                    <span key={i}>
-                                        <span
-                                            className={`text-2xl font-naskh underline ${color}`}
-                                        >
-                                            {char}
-                                        </span>
-                                    </span>
-                                );
-                            }
-
-                            return (
-                                <span key={i}>
-                                    <span
-                                        className={`text-2xl font-naskh ${color}`}
-                                    >
-                                        {char}
-                                    </span>
-                                </span>
-                            );
-                        })}
-                    </p>
-
-                    {/* start images */}
-                    {/* {user_settings.show_hands === true ? (
-                        <div className="flex flex-row justify-center relative w-full opacity-75">
-                            {screen.content.split("").map((char, i) => {
-                                let fingerClass =
-                                    "absolute -right-28 -top-7 w-4/5"; // Initialize hand class
-
-                                //Attention:: we use these shift variables for rest hands
-                                //Rest hands are the two hands that stay on the keyboard when have no jabos
-                                let shiftFingerClass =
-                                    "absolute -right-28 -top-7 w-4/5"; // Initialize hand class
-                                let shiftImage =
-                                    "/img/fingers/left-resting-hand.webp";
-
-                                if (macLeftKeys.includes(char.toLowerCase())) {
-                                    fingerClass =
-                                        "absolute -left-44 -top-14 w-4/5"; // Assign left-hand class
-                                    shiftFingerClass =
-                                        "absolute -right-28 -top-7 w-4/5";
-                                    shiftImage =
-                                        "/img/fingers/right-resting-hand.webp";
-                                } else if (
-                                    macRightKeys.includes(char.toLowerCase())
-                                ) {
-                                    fingerClass =
-                                        "absolute -right-28 -top-7 w-4/5"; // Assign right-hand class
-                                    shiftFingerClass =
-                                        "absolute -left-44 -top-14 w-4/5";
-                                    shiftImage =
-                                        "/img/fingers/left-resting-hand.webp";
-                                }
-
-                                if (char === " ") {
-                                    const fingerImage =
-                                        macFingerMapping[char] || ""; // Get the finger image
-                                    return (
-                                        <span key={i}>
-                                            {char === currentCharacter && (
-                                                <img
-                                                    src={fingerImage}
-                                                    alt=""
-                                                    className={fingerClass} // Apply your styling for the finger image here
-                                                />
-                                            )}
-                                        </span>
-                                    );
-                                }
-
-                                const fingerImage =
-                                    macFingerMapping[char] || ""; // Get the finger image
-
-                                // Handle characters that require the Shift key
-                                if (macRightShiftKeys.includes(char)) {
-                                    shiftImage =
-                                        "/img/fingers/right-shift.webp"; // Set the image for the right Shift key
-                                    shiftFingerClass =
-                                        "absolute -right-28 -top-7 w-4/5";
-                                } else if (macLeftShiftKeys.includes(char)) {
-                                    shiftImage = "/img/fingers/left-shift.webp"; // Set the image for the left Shift key
-                                    shiftFingerClass =
-                                        "absolute -left-44 -top-14 w-4/5";
-                                }
-
-                                // Determine if the shiftImage should be shown
-                                const shouldDisplayShiftImage =
-                                    shiftImage && char === currentCharacter;
-
-                                return (
-                                    <span key={i}>
-                                        {shouldDisplayShiftImage && (
-                                            <img
-                                                src={shiftImage}
-                                                alt=""
-                                                className={shiftFingerClass} // Apply your styling for the finger image here
-                                            />
-                                        )}
-                                        {char === currentCharacter && (
-                                            <div>
-                                                <img
-                                                    src={fingerImage}
-                                                    alt=""
-                                                    className={fingerClass} // Apply your styling for the finger image here
-                                                />
-                                                <img
-                                                    src={shiftImage}
-                                                    alt=""
-                                                    className={shiftFingerClass} // Apply your styling for the finger image here
-                                                />
-                                            </div>
-                                        )}
-                                    </span>
-                                );
-                            })}
-                        </div>
-                    ) : (
-                        <></>
-                    )} */}
-
-                    {user_settings.show_keyboard === true ? (
-                        screen.locale === "ckb" ? (
-                            user_settings.keyboard_type === "windows" ? (
-                                <WindowsKeyboardKu
-                                    currentCharacter={currentCharacter}
-                                />
-                            ) : (
-                                <MacKeyboardKu
-                                    currentCharacter={currentCharacter}
-                                />
-                            )
-                        ) : (
-                            <MacKeyboardEn
-                                currentCharacter={currentCharacter}
-                            />
-                        )
-                    ) : (
-                        <></>
-                    )}
-
-                    <Modal show={modalOpen} onClose={closeModal}>
-                        <ExerciseSummary
-                            totalStars={exerciseTotalStars}
-                            starsEarned={starsEarned.toFixed(2)}
-                            finishedTyping={isTypingComplete}
-                            speed={netWPM.toFixed(2)}
-                            accuracy={accuracy.toFixed(2)}
-                            time={elapsedTime.toFixed(2)}
-                            screen={screen}
-                            nextScreen={nextScreen}
-                        />
-                    </Modal>
-                </div>
+                <SentencesScreen
+                    screen={prevScreen}
+                    user_settings={user_settings}
+                    currentCharacter={currentCharacter}
+                    userInput={userInput}
+                />
             )}
+
+            <Modal show={modalOpen} onClose={closeModal}>
+                <ExerciseSummary
+                    totalStars={exerciseTotalStars}
+                    starsEarned={starsEarned.toFixed(2)}
+                    finishedTyping={isTypingComplete}
+                    speed={netWPM.toFixed(2)}
+                    accuracy={accuracy.toFixed(2)}
+                    time={elapsedTime.toFixed(2)}
+                    screen={screen}
+                    nextScreen={nextScreen}
+                />
+            </Modal>
 
             <div className="flex mx-auto px-1 md:hidden items-center justify-center">
                 <Alert color="blue" className="max-w-screen-md m-0 p-0 py-2">
