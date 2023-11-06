@@ -14,3 +14,11 @@
     font-weight: normal;
     font-style: normal;
 }
+
+/*  flip the letters when changeing the letters in the exercise page
+    when the screen is letters
+*/
+.flip {
+    transform: rotateX(360deg);
+    transition: transform 0.5s;
+}

@@ -44,6 +44,7 @@ export default function Lesson({
     const [visibleCharacterCount, setVisibleCharacterCount] = useState(8);
     const [startVisibleCharacterCount, setstartVisibleCharacterCount] =
         useState(0);
+    const [flipped, setFlipped] = useState(false);
 
     // this function is changing the current screen to letters if it's intro screen
     // by changing I mean the interface below not the data
@@ -82,9 +83,12 @@ export default function Lesson({
 
     const resetHighlightColor = () => {
         setUserInputForHighlight("");
+        setFlipped(!flipped);
     };
 
     useEffect(() => {
+        setFlipped(true);
+        // Trigger flip on visibleChars change
         if (!isTypingComplete) {
             if (currentCharacterIndex >= visibleCharacterCount) {
                 const chunkSize = 8;
@@ -95,6 +99,7 @@ export default function Lesson({
                     i += chunkSize
                 ) {
                     if (visibleCharacterCount >= i) {
+                        setFlipped(!flipped);
                         setVisibleCharacterCount(
                             visibleCharacterCount + chunkSize
                         );
@@ -500,7 +505,9 @@ export default function Lesson({
                             return (
                                 <div key={i} className=" space-y-4">
                                     <div
-                                        className={`w-20 h-16 mx-1 py-2 px-2 text-5xl text-center border rounded-md font-naskh ${color}`}
+                                        className={`w-20 h-16 mx-1 py-2 px-2 text-5xl text-center border rounded-md font-naskh ${color} ${
+                                            flipped ? "flip" : ""
+                                        }`}
                                     >
                                         {char}
                                     </div>
