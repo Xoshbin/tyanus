@@ -659,73 +659,67 @@ export default function Lesson({
                 </div>
             ) : (
                 <div className="hidden md:flex flex-col w-full max-w-3xl justify-center items-center mx-auto mt-6">
-                    <p className="w-full py-4 px-4 text-2xl text-center">
-                        {prevScreen && prevScreen.content
-                            ? prevScreen.content.split("").map((char, i) => {
-                                  let color = "text-black";
+                    {prevScreen && prevScreen.content ? (
+                        <p className="w-full py-4 px-4 text-2xl text-center">
+                            {prevScreen.content.split("").map((char, i) => {
+                                let color = "text-black";
 
-                                  if (i < userInput.length) {
-                                      color =
-                                          char === userInput[i]
-                                              ? "text-green-400"
-                                              : "text-red-400"; // Remove underline when user types correctly
-                                  }
+                                if (i < userInput.length) {
+                                    color =
+                                        char === userInput[i]
+                                            ? "text-green-400"
+                                            : "text-red-400"; // Remove underline when user types correctly
+                                }
 
-                                  if (char === " ") {
-                                      return (
-                                          <span key={i}>
-                                              <span
-                                                  className={`text-2xl font-naskh underline ${color}`}
-                                              >
-                                                  {char}
-                                              </span>
-                                          </span>
-                                      );
-                                  }
+                                if (char === " ") {
+                                    return (
+                                        <span key={i}>
+                                            <span
+                                                className={`text-2xl font-naskh underline ${color}`}
+                                            >
+                                                {char}
+                                            </span>
+                                        </span>
+                                    );
+                                }
 
-                                  return (
-                                      <span key={i}>
-                                          <span
-                                              className={`text-2xl font-naskh ${color}`}
-                                          >
-                                              {char}
-                                          </span>
-                                      </span>
-                                  );
-                              })
-                            : screen.content.split("").map((char, i) => {
-                                  let color = "text-black";
+                                return (
+                                    <span key={i}>
+                                        <span
+                                            className={`text-2xl font-naskh ${color}`}
+                                        >
+                                            {char}
+                                        </span>
+                                    </span>
+                                );
+                            })}
+                        </p>
+                    ) : (
+                        <div className="flex">
+                            {visibleCharacters.split("").map((char, i) => {
+                                let color = "bg-white";
 
-                                  if (i < userInput.length) {
-                                      color =
-                                          char === userInput[i]
-                                              ? "text-green-400"
-                                              : "text-red-400"; // Remove underline when user types correctly
-                                  }
+                                if (i < userInputForHighlight.length) {
+                                    color =
+                                        char === userInputForHighlight[i]
+                                            ? "bg-green-400"
+                                            : "bg-red-400"; // Remove underline when user types correctly
+                                }
 
-                                  if (char === " ") {
-                                      return (
-                                          <span key={i}>
-                                              <span
-                                                  className={`text-2xl font-naskh underline ${color}`}
-                                              >
-                                                  {char}
-                                              </span>
-                                          </span>
-                                      );
-                                  }
-
-                                  return (
-                                      <span key={i}>
-                                          <span
-                                              className={`text-2xl font-naskh ${color}`}
-                                          >
-                                              {char}
-                                          </span>
-                                      </span>
-                                  );
-                              })}
-                    </p>
+                                return (
+                                    <div key={i} className=" space-y-4">
+                                        <div
+                                            className={`w-20 h-16 mx-1 py-2 px-2 text-5xl text-center border rounded-md font-naskh ${color} ${
+                                                flipped ? "flip" : ""
+                                            }`}
+                                        >
+                                            {char}
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    )}
 
                     {/* start images */}
                     {/* {user_settings.show_hands === true ? (
