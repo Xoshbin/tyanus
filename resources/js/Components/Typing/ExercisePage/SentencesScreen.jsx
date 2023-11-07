@@ -35,7 +35,11 @@ const SentencesScreen = ({
                             return (
                                 <span key={i}>
                                     <span
-                                        className={`text-2xl font-naskh underline ${color}`}
+                                        className={`text-2xl font-naskh underline ${
+                                            color === "text-black"
+                                                ? "text-transparent"
+                                                : color
+                                        }`}
                                     >
                                         {char}
                                     </span>
