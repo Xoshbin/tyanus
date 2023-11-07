@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import MacKeyboardEn from "@/Components/Typing/Keyboard/MacKeyboardEn";
 import MacKeyboardKu from "@/Components/Typing/Keyboard/MacKeyboardKu";
 import WindowsKeyboardKu from "@/Components/Typing/Keyboard/WindowsKeyboardKu";
 import { __ } from "@/Libs/Lang";
 import "moment/locale/ku"; // Import the Kurdish locale
+
 import {
     macFingerMapping,
     macLeftKeys,
@@ -13,15 +14,34 @@ import {
 } from "@/data/keyMappings/macKeyMapping";
 const SentencesScreen = ({
     screen,
+    visibleCharacters,
     user_settings,
     currentCharacter,
     userInput,
 }) => {
+    const containerRef = useRef(null);
+
+    // Function to scroll to the bottom of the container with a smooth transition
+    const scrollToBottom = () => {
+        if (containerRef.current) {
+            containerRef.current.style.transition = "scroll-behavior 5s ease"; // Add a smooth scroll transition
+            containerRef.current.scrollTop = containerRef.current.scrollHeight;
+        }
+    };
+
+    useEffect(() => {
+        // Call scrollToBottom whenever visibleCharacters changes
+        scrollToBottom();
+    }, [visibleCharacters]);
+
     return (
         <div className="hidden md:flex flex-col w-full max-w-3xl justify-center items-center mx-auto mt-6">
             {screen && screen.content ? (
-                <p className="w-full py-4 px-4 text-2xl text-center">
-                    {screen.content.split("").map((char, i) => {
+                <div
+                    ref={containerRef}
+                    className="w-full py-4 px-4 text-3xl text-center max-h-48 overflow-y-scroll transform flex-col-reverse justify-end scroll-smooth tracking-widest leading-loose"
+                >
+                    {visibleCharacters.split("").map((char, i) => {
                         let color = "text-black";
 
                         if (i < userInput.length) {
@@ -57,7 +77,7 @@ const SentencesScreen = ({
                             </span>
                         );
                     })}
-                </p>
+                </div>
             ) : (
                 <div className="flex">
                     <LettersScreen

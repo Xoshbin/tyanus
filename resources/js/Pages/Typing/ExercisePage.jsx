@@ -37,7 +37,9 @@ export default function Lesson({
             : screen.content_type
     );
     const [showFoundKeyMessage, setShowFoundKeyMessage] = useState(false);
-    const [visibleCharacterCount, setVisibleCharacterCount] = useState(8);
+    const [visibleCharacterCount, setVisibleCharacterCount] = useState(
+        currentScreen === "letters" ? 8 : 75
+    );
     const [startVisibleCharacterCount, setstartVisibleCharacterCount] =
         useState(0);
     const [flipped, setFlipped] = useState(false);
@@ -86,22 +88,28 @@ export default function Lesson({
         setFlipped(true);
         // Trigger flip on visibleChars change
         if (!isTypingComplete) {
-            if (currentCharacterIndex >= visibleCharacterCount) {
-                const chunkSize = 8;
+            if (currentScreen === "letters") {
+                if (currentCharacterIndex >= visibleCharacterCount) {
+                    const chunkSize = 8;
 
-                for (
-                    let i = chunkSize;
-                    i < screen.content.length;
-                    i += chunkSize
-                ) {
-                    if (visibleCharacterCount >= i) {
-                        setFlipped(!flipped);
-                        setVisibleCharacterCount(
-                            visibleCharacterCount + chunkSize
-                        );
-                        setstartVisibleCharacterCount(i);
-                        resetHighlightColor();
+                    for (
+                        let i = chunkSize;
+                        i < screen.content.length;
+                        i += chunkSize
+                    ) {
+                        if (visibleCharacterCount >= i) {
+                            setFlipped(!flipped);
+                            setVisibleCharacterCount(
+                                visibleCharacterCount + chunkSize
+                            );
+                            setstartVisibleCharacterCount(i);
+                            resetHighlightColor();
+                        }
                     }
+                }
+            } else {
+                if (currentCharacterIndex >= visibleCharacterCount - 8) {
+                    setVisibleCharacterCount(visibleCharacterCount + 75);
                 }
             }
         }
@@ -245,7 +253,7 @@ export default function Lesson({
     ]);
 
     // Create a subarray of characters to display based on the visibleCharacterCount.
-    const visibleCharacters = screen.content.slice(
+    const visibleCharacters = screen.content.substr(
         startVisibleCharacterCount,
         visibleCharacterCount
     );
@@ -339,6 +347,7 @@ export default function Lesson({
             ) : currentScreen === "test" ? (
                 <SentencesScreen
                     screen={screen}
+                    visibleCharacters={visibleCharacters}
                     user_settings={user_settings}
                     currentCharacter={currentCharacter}
                     userInput={userInput}
@@ -346,6 +355,7 @@ export default function Lesson({
             ) : (
                 <SentencesScreen
                     screen={prevScreen}
+                    visibleCharacters={visibleCharacters}
                     user_settings={user_settings}
                     currentCharacter={currentCharacter}
                     userInput={userInput}
