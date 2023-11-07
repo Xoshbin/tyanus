@@ -4,7 +4,6 @@ import MacKeyboardKu from "@/Components/Typing/Keyboard/MacKeyboardKu";
 import WindowsKeyboardKu from "@/Components/Typing/Keyboard/WindowsKeyboardKu";
 import { __ } from "@/Libs/Lang";
 import "moment/locale/ku"; // Import the Kurdish locale
-import { Spinner } from "@material-tailwind/react";
 import {
     macFingerMapping,
     macLeftKeys,
@@ -12,7 +11,14 @@ import {
     macRightShiftKeys,
     macLeftShiftKeys,
 } from "@/data/keyMappings/macKeyMapping";
-
+import {
+    Collapse,
+    Button,
+    Card,
+    Typography,
+    CardBody,
+    Spinner,
+} from "@material-tailwind/react";
 const IntroScreen = ({
     screen,
     showFoundKeyMessage,
@@ -20,65 +26,76 @@ const IntroScreen = ({
     userInput,
     currentCharacter,
 }) => {
+    const [open, setOpen] = React.useState(false);
+
+    const toggleOpen = () => setOpen((cur) => !cur);
     return (
-        <div className="hidden md:flex flex-col w-full max-w-3xl justify-center items-center mx-auto mt-6">
-            {showFoundKeyMessage ? (
-                <div className="flex flex-col justify-center items-center">
+        <>
+            <Collapse open={showFoundKeyMessage}>
+                <Card className="my-4 mx-auto w-6/12">
+                    <CardBody>
+                        <Typography className="justify-center items-center flex space-x-2">
+                            <p>
+                                {__(
+                                    "Great, you found it. Now, let's start practicing."
+                                )}
+                            </p>
+                            <Spinner color="blue" className="h-8 w-8" />
+                        </Typography>
+                    </CardBody>
+                </Card>
+            </Collapse>
+            <div className="hidden md:flex flex-col w-full max-w-3xl justify-center items-center mx-auto mt-6">
+                {showFoundKeyMessage ? (
+                    <></>
+                ) : (
                     <p className="w-full p-4 text-2xl text-center">
                         {__(
-                            "Great, you found it. Now, let's start practicing."
+                            "Put both of your hands on the keyboard and use the highlighted finger"
                         )}
                     </p>
-                    <Spinner color="blue" className="h-12 w-12" />
-                </div>
-            ) : (
-                <p className="w-full p-4 text-2xl text-center">
-                    {__(
-                        "Put both of your hands on the keyboard and use the highlighted finger"
-                    )}
-                </p>
-            )}
+                )}
 
-            {showFoundKeyMessage === false && (
-                <p className="p-4 text-center bg-kblue-600 rounded-md">
-                    {screen.content.split("").map((char, i) => {
-                        let color = "text-white text-5xl font-extrabold";
+                {showFoundKeyMessage === false && (
+                    <p className="p-4 text-center bg-kblue-600 rounded-md">
+                        {screen.content.split("").map((char, i) => {
+                            let color = "text-white text-5xl font-extrabold";
 
-                        if (i < userInput.length) {
-                            color =
-                                char === userInput[i]
-                                    ? "text-green-400"
-                                    : "text-red-400"; // Remove underline when user types correctly
-                        }
+                            if (i < userInput.length) {
+                                color =
+                                    char === userInput[i]
+                                        ? "text-green-400"
+                                        : "text-red-400"; // Remove underline when user types correctly
+                            }
 
-                        if (char === " ") {
+                            if (char === " ") {
+                                return (
+                                    <span key={i}>
+                                        <span
+                                            className={`text-2xl font-naskh underline ${color}`}
+                                        >
+                                            {char}
+                                        </span>
+                                    </span>
+                                );
+                            }
+
                             return (
                                 <span key={i}>
                                     <span
-                                        className={`text-2xl font-naskh underline ${color}`}
+                                        className={`text-2xl font-naskh ${color}`}
                                     >
                                         {char}
                                     </span>
                                 </span>
                             );
-                        }
+                        })}
+                    </p>
+                )}
 
-                        return (
-                            <span key={i}>
-                                <span
-                                    className={`text-2xl font-naskh ${color}`}
-                                >
-                                    {char}
-                                </span>
-                            </span>
-                        );
-                    })}
-                </p>
-            )}
-
-            {/* start images */}
-            {/* commenting for now */}
-            {/* {user_settings.show_hands === true ? (
+                {/* start images */}
+                {/* commenting for now */}
+                {/* {user_settings.show_hands === true ? (
                         <div className="flex flex-row justify-center relative w-full opacity-75">
                             {screen.content.split("").map((char, i) => {
                                 let fingerClass =
@@ -172,29 +189,30 @@ const IntroScreen = ({
                         <></>
                     )} */}
 
-            {user_settings.show_keyboard === true ? (
-                screen.locale === "ckb" ? (
-                    user_settings.keyboard_type === "windows" ? (
-                        <WindowsKeyboardKu
-                            screenType={screen.content_type}
-                            currentCharacter={currentCharacter}
-                        />
+                {user_settings.show_keyboard === true ? (
+                    screen.locale === "ckb" ? (
+                        user_settings.keyboard_type === "windows" ? (
+                            <WindowsKeyboardKu
+                                screenType={screen.content_type}
+                                currentCharacter={currentCharacter}
+                            />
+                        ) : (
+                            <MacKeyboardKu
+                                screenType={screen.content_type}
+                                currentCharacter={currentCharacter}
+                            />
+                        )
                     ) : (
-                        <MacKeyboardKu
+                        <MacKeyboardEn
                             screenType={screen.content_type}
                             currentCharacter={currentCharacter}
                         />
                     )
                 ) : (
-                    <MacKeyboardEn
-                        screenType={screen.content_type}
-                        currentCharacter={currentCharacter}
-                    />
-                )
-            ) : (
-                <></>
-            )}
-        </div>
+                    <></>
+                )}
+            </div>
+        </>
     );
 };
 
