@@ -20,6 +20,7 @@ const SentencesScreen = ({
     userInput,
 }) => {
     const containerRef = useRef(null);
+    let encounteredCurrentChar = false; // Initialize a variable to track encountering 'currentCharacter'
 
     // Function to scroll to the bottom of the container with a smooth transition
     const scrollToBottom = () => {
@@ -28,6 +29,9 @@ const SentencesScreen = ({
             containerRef.current.scrollTop = containerRef.current.scrollHeight;
         }
     };
+
+    // Calculate the index of the next upcoming character
+    const nextCharIndex = userInput.length;
 
     useEffect(() => {
         // Call scrollToBottom whenever visibleCharacters changes
@@ -42,6 +46,7 @@ const SentencesScreen = ({
                     className="w-full py-4 px-4 text-3xl text-center max-h-48 overflow-y-scroll transform flex-col-reverse justify-end scroll-smooth tracking-widest leading-loose"
                 >
                     {visibleCharacters.split("").map((char, i) => {
+                        console.log(i);
                         let color = "text-black";
 
                         if (i < userInput.length) {
@@ -61,6 +66,17 @@ const SentencesScreen = ({
                                                 : color
                                         }`}
                                     >
+                                        {char}
+                                    </span>
+                                </span>
+                            );
+                        }
+
+                        /// i want to animate the next upcoming character
+                        if (i === nextCharIndex) {
+                            return (
+                                <span key={i}>
+                                    <span className="inline-flex animate-pulse text-2xl font-naskh font-black">
                                         {char}
                                     </span>
                                 </span>
