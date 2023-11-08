@@ -148,7 +148,7 @@ namespace App\Models{
  * @property string $locale
  * @property string $content_type
  * @property string $content
- * @property int $target_speed
+ * @property int $extra
  * @property int $order
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -170,11 +170,11 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Screen whereContentType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Screen whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Screen whereExerciseId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Screen whereExtra($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Screen whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Screen whereLessonId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Screen whereLocale($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Screen whereOrder($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Screen whereTargetSpeed($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Screen whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Screen whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Screen whereUrl($value)
@@ -247,7 +247,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereSettings($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  */
-	class User extends \Eloquent {}
+	class User extends \Eloquent implements \Filament\Models\Contracts\FilamentUser {}
 }
 
 namespace App\Models{
@@ -259,6 +259,7 @@ namespace App\Models{
  * @property int $exercise_id
  * @property int $screen_id
  * @property string $locale
+ * @property string $error_characters
  * @property int $typing_speed
  * @property float $accuracy_percentage
  * @property int $stars_earned
@@ -275,6 +276,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|UserProgress whereAccuracyPercentage($value)
  * @method static \Illuminate\Database\Eloquent\Builder|UserProgress whereCompletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|UserProgress whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|UserProgress whereErrorCharacters($value)
  * @method static \Illuminate\Database\Eloquent\Builder|UserProgress whereExerciseId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|UserProgress whereLessonId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|UserProgress whereLocale($value)

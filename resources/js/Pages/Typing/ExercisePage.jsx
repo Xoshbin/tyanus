@@ -88,28 +88,22 @@ export default function Lesson({
         setFlipped(true);
         // Trigger flip on visibleChars change
         if (!isTypingComplete) {
-            if (currentScreen === "letters") {
-                if (currentCharacterIndex >= visibleCharacterCount) {
-                    const chunkSize = 8;
+            if (currentCharacterIndex >= visibleCharacterCount) {
+                const chunkSize = 8;
 
-                    for (
-                        let i = chunkSize;
-                        i < screen.content.length;
-                        i += chunkSize
-                    ) {
-                        if (visibleCharacterCount >= i) {
-                            setFlipped(!flipped);
-                            setVisibleCharacterCount(
-                                visibleCharacterCount + chunkSize
-                            );
-                            setstartVisibleCharacterCount(i);
-                            resetHighlightColor();
-                        }
+                for (
+                    let i = chunkSize;
+                    i < screen.content.length;
+                    i += chunkSize
+                ) {
+                    if (visibleCharacterCount >= i) {
+                        setFlipped(!flipped);
+                        setVisibleCharacterCount(
+                            visibleCharacterCount + chunkSize
+                        );
+                        setstartVisibleCharacterCount(i);
+                        resetHighlightColor();
                     }
-                }
-            } else {
-                if (currentCharacterIndex >= visibleCharacterCount - 8) {
-                    setVisibleCharacterCount(visibleCharacterCount + 75);
                 }
             }
         }
