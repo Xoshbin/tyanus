@@ -28,25 +28,6 @@ class ScreenSeederTestEN extends Seeder
             ['lesson_id' => 18, 'order' => 9, 'exercise_id' => 54, 'title' => 'test - 9', 'content_type' => 'test', 'content' => 'In a bustling market square, where the aroma of spices and the chatter of vendors filled the air, there was a young girl named Maya. With a twinkle in her eye and a basket in her hand, she weaved through the crowds, selling the juiciest fruits her family had grown. Her smile was as bright as the sun, and her laughter was a melody that echoed through the square.',  'extra' => 60, 'locale' => 'en'],
             ['lesson_id' => 18, 'order' => 10, 'exercise_id' => 54, 'title' => 'test - 10', 'content_type' => 'test', 'content' => 'In a quiet village, nestled among emerald hills and beside a glistening river, there lived a skilled potter named Emma. With hands that molded clay into works of art, she created pottery that told stories of the land and its people. Her creations adorned the homes of villagers and travelers alike, carrying the essence of the tranquil village',  'extra' => 60, 'locale' => 'en'],
             ['lesson_id' => 18, 'order' => 11, 'exercise_id' => 54, 'title' => 'test - 11', 'content_type' => 'test', 'content' => 'In a quaint, seaside town, where seashells and sunsets were the treasures of the day, there lived a lighthouse keeper named Oliver. With dedication in his heart and a lantern in hand, he climbed the spiraling staircase each evening to tend to the beacon that guided ships safely home. His vigilance ensured the safety of countless voyagers.',  'extra' => 60, 'locale' => 'en'],
-
-            //? Removed the enter key in the exercises since it's not possible to catch it
-
-            // ['lesson_id' => 9, 'order' => 2, 'exercise_id' => 17, 'title' => 'ز - 2', 'content_type' => 'letters', 'content' => '↵↵↵↵↵↵↵↵;;;;↵↵↵↵;;↵↵;;↵↵;↵;↵;↵;↵',  'extra' => 60, 'locale' => 'en'],
-            // ['lesson_id' => 9, 'order' => 3, 'exercise_id' => 17, 'title' => 'ز - 3', 'content_type' => 'letters', 'content' => 'zzzaaa↵↵;;zzaa↵;zzzaaa↵↵z↵↵zz↵↵zzaa↵↵;;↵;↵;zaza',  'extra' => 60, 'locale' => 'en'],
-            // ['lesson_id' => 9, 'order' => 4, 'exercise_id' => 17, 'title' => 'ز - 4', 'content_type' => 'letters', 'content' => 'azzzzzzazzzazzzazzzazzz;;;↵↵;;↵;↵↵;;↵;↵',  'extra' => 60, 'locale' => 'en'],
-
-            // ['lesson_id' => 9, 'order' => 1, 'exercise_id' => 32, 'title' => 'O, B, and A Keys - 1', 'content_type' => 'letters', 'content' => '',  'extra' => 60, 'locale' => 'en'],
-            // ['lesson_id' => 9, 'order' => 2, 'exercise_id' => 32, 'title' => 'O, B, and A Keys - 2', 'content_type' => 'letters', 'content' => '',  'extra' => 60, 'locale' => 'en'],
-            // ['lesson_id' => 9, 'order' => 3, 'exercise_id' => 32, 'title' => 'O, B, and A Keys - 3', 'content_type' => 'letters', 'content' => '',  'extra' => 60, 'locale' => 'en'],
-            // ['lesson_id' => 9, 'order' => 4, 'exercise_id' => 32, 'title' => 'O, B, and A Keys - 4', 'content_type' => 'letters', 'content' => '',  'extra' => 60, 'locale' => 'en'],
-            // ['lesson_id' => 9, 'order' => 5, 'exercise_id' => 32, 'title' => 'O, B, and A Keys - 5', 'content_type' => 'letters', 'content' => '',  'extra' => 60, 'locale' => 'en'],
-            // ['lesson_id' => 9, 'order' => 6, 'exercise_id' => 32, 'title' => 'O, B, and A Keys - 6', 'content_type' => 'letters', 'content' => '',  'extra' => 60, 'locale' => 'en'],
-            // ['lesson_id' => 9, 'order' => 7, 'exercise_id' => 32, 'title' => 'O, B, and A Keys - 7', 'content_type' => 'letters', 'content' => '',  'extra' => 60, 'locale' => 'en'],
-            // ['lesson_id' => 9, 'order' => 8, 'exercise_id' => 32, 'title' => 'O, B, and A Keys - 8', 'content_type' => 'letters', 'content' => '',  'extra' => 60, 'locale' => 'en'],
-            // ['lesson_id' => 9, 'order' => 9, 'exercise_id' => 32, 'title' => 'O, B, and A Keys - 9', 'content_type' => 'letters', 'content' => '',  'extra' => 60, 'locale' => 'en'],
-            // ['lesson_id' => 9, 'order' => 10, 'exercise_id' => 32, 'title' => 'O, B, and A Keys - 10', 'content_type' => 'letters', 'content' => '',  'extra' => 60, 'locale' => 'en'],
-            // ['lesson_id' => 9, 'order' => 11, 'exercise_id' => 32, 'title' => 'O, B, and A Keys - 11', 'content_type' => 'letters', 'content' => '',  'extra' => 60, 'locale' => 'en'],
-            // ['lesson_id' => 9, 'order' => 12, 'exercise_id' => 32, 'title' => 'O, B, and A Keys - 12', 'content_type' => 'letters', 'content' => '',  'extra' => 60, 'locale' => 'en'],
         ];
 
         foreach ($screens as $screenData) {

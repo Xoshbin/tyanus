@@ -28,26 +28,6 @@ class ScreenSeederTestKU extends Seeder
             // ['lesson_id' => 17, 'order' => 9, 'exercise_id' => 52, 'title' => 'تاقیکردنەوە - ٩', 'content_type' => 'test', 'content' => '',  'extra' => 60, 'locale' => 'ckb'],
             // ['lesson_id' => 17, 'order' => 10, 'exercise_id' => 52, 'title' => 'تاقیکردنەوە - ١٠', 'content_type' => 'test', 'content' => '',  'extra' => 60, 'locale' => 'ckb'],
             // ['lesson_id' => 17, 'order' => 11, 'exercise_id' => 52, 'title' => 'تاقیکردنەوە - ١١', 'content_type' => 'test', 'content' => '',  'extra' => 60, 'locale' => 'ckb'],
-            // ['lesson_id' => 17, 'order' => 12, 'exercise_id' => 52, 'title' => 'تاقیکردنەوە', 'content_type' => 'badge', 'content' => '',  'extra' => 0, 'locale' => 'ckb'],
-
-            //? Removed the enter key in the exercises since it's not possible to catch it
-
-            // ['lesson_id' => 1, 'order' => 2, 'exercise_id' => 17, 'title' => 'ز - ٢', 'content_type' => 'letters', 'content' => $converter->convertToKurdish('↵↵↵↵↵↵↵↵;;;;↵↵↵↵;;↵↵;;↵↵;↵;↵;↵;↵'),  'extra' => 60, 'locale' => 'ckb'],
-            // ['lesson_id' => 1, 'order' => 3, 'exercise_id' => 17, 'title' => 'ز - ٣', 'content_type' => 'letters', 'content' => $converter->convertToKurdish('zzzaaa↵↵;;zzaa↵;zzzaaa↵↵z↵↵zz↵↵zzaa↵↵;;↵;↵;zaza'),  'extra' => 60, 'locale' => 'ckb'],
-            // ['lesson_id' => 1, 'order' => 4, 'exercise_id' => 17, 'title' => 'ز - ٤', 'content_type' => 'letters', 'content' => $converter->convertToKurdish('azzzzzzazzzazzzazzzazzz;;;↵↵;;↵;↵↵;;↵;↵'),  'extra' => 60, 'locale' => 'ckb'],
-
-            // ['lesson_id' => 1, 'order' => 1, 'exercise_id' => 5, 'title' => 'ۆ، ب لەگەڵ ا - ١', 'content_type' => 'letters', 'content' => $converter->convertToKurdish(''),  'extra' => 60, 'locale' => 'ckb'],
-            // ['lesson_id' => 1, 'order' => 2, 'exercise_id' => 5, 'title' => 'ۆ، ب لەگەڵ ا - ٢', 'content_type' => 'letters', 'content' => $converter->convertToKurdish(''),  'extra' => 60, 'locale' => 'ckb'],
-            // ['lesson_id' => 1, 'order' => 3, 'exercise_id' => 5, 'title' => 'ۆ، ب لەگەڵ ا - ٣', 'content_type' => 'letters', 'content' => $converter->convertToKurdish(''),  'extra' => 60, 'locale' => 'ckb'],
-            // ['lesson_id' => 1, 'order' => 4, 'exercise_id' => 5, 'title' => 'ۆ، ب لەگەڵ ا - ٤', 'content_type' => 'letters', 'content' => $converter->convertToKurdish(''),  'extra' => 60, 'locale' => 'ckb'],
-            // ['lesson_id' => 1, 'order' => 5, 'exercise_id' => 5, 'title' => 'ۆ، ب لەگەڵ ا - ٥', 'content_type' => 'letters', 'content' => $converter->convertToKurdish(''),  'extra' => 60, 'locale' => 'ckb'],
-            // ['lesson_id' => 1, 'order' => 6, 'exercise_id' => 5, 'title' => 'ۆ، ب لەگەڵ ا - ٦', 'content_type' => 'letters', 'content' => $converter->convertToKurdish(''),  'extra' => 60, 'locale' => 'ckb'],
-            // ['lesson_id' => 1, 'order' => 7, 'exercise_id' => 5, 'title' => 'ۆ، ب لەگەڵ ا - ٧', 'content_type' => 'letters', 'content' => $converter->convertToKurdish(''),  'extra' => 60, 'locale' => 'ckb'],
-            // ['lesson_id' => 1, 'order' => 8, 'exercise_id' => 5, 'title' => 'ۆ، ب لەگەڵ ا - ٨', 'content_type' => 'letters', 'content' => $converter->convertToKurdish(''),  'extra' => 60, 'locale' => 'ckb'],
-            // ['lesson_id' => 1, 'order' => 9, 'exercise_id' => 5, 'title' => 'ۆ، ب لەگەڵ ا - ٩', 'content_type' => 'letters', 'content' => $converter->convertToKurdish(''),  'extra' => 60, 'locale' => 'ckb'],
-            // ['lesson_id' => 1, 'order' => 10, 'exercise_id' => 5, 'title' => 'ۆ، ب لەگەڵ ا - ١٠', 'content_type' => 'letters', 'content' => $converter->convertToKurdish(''),  'extra' => 60, 'locale' => 'ckb'],
-            // ['lesson_id' => 1, 'order' => 11, 'exercise_id' => 5, 'title' => 'ۆ، ب لەگەڵ ا - ١١', 'content_type' => 'letters', 'content' => $converter->convertToKurdish(''),  'extra' => 60, 'locale' => 'ckb'],
-            // ['lesson_id' => 1, 'order' => 12, 'exercise_id' => 5, 'title' => 'ۆ، ب لەگەڵ ا - ١٢', 'content_type' => 'letters', 'content' => $converter->convertToKurdish(''),  'extra' => 60, 'locale' => 'ckb'],
         ];
 
         foreach ($screens as $screenData) {
