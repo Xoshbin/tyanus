@@ -30,7 +30,7 @@ class Exercise extends Model
 
     public function screens(): HasMany
     {
-        return $this->hasMany(Screen::class)->where('content_type', 'letters');
+        return $this->hasMany(Screen::class)->whereIn('content_type', ['letters', 'sentences']);
     }
 
     public function userProgress(): HasMany
@@ -55,7 +55,7 @@ class Exercise extends Model
     public function getExerciseTotalStarsAttribute()
     {
         // Assuming you want to check if all screens in the exercise are completed by the user.
-        $totalScreens = $this->screens->where('content_type', 'letters')->count();
+        $totalScreens = $this->screens->whereIn('content_type', ['letters', 'sentences'])->count();
 
         return $totalScreens * 3;
     }
