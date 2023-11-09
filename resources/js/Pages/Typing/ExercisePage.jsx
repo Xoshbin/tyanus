@@ -253,7 +253,7 @@ export default function Lesson({
     ]);
 
     // Create a subarray of characters to display based on the visibleCharacterCount.
-    const visibleCharacters = screen.content.substr(
+    const visibleCharacters = screen.content.slice(
         startVisibleCharacterCount,
         visibleCharacterCount
     );

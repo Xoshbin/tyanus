@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
                 'name' => 'Khoshbin',
                 'email' => 'xoshbin@tyanus.com',
                 'email_verified_at' => now(),
-                'password' => '$2y$10$sa/o8/a7Yxhc7kMOT9yp3OvU.GK6HPtFwWMtal5LuSpNMvO.mg7/S', // password
+                'password' => '$2y$10$67RtM6nAM5/.gvEgc4p0gePYajsmcV5sRXMYTjPDDTfG0AJFyTPgG', // password
                 'remember_token' => Str::random(10),
             ]
         ];
