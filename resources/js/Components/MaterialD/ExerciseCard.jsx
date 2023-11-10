@@ -64,7 +64,8 @@ export function ExerciseCard({ screen }) {
                         {humanizeDuration(duration.asMilliseconds(), {
                             units: ["d", "h", "m", "s"],
                             largest: 2,
-                            language: locale === "ckb" ? "ku" : "en",
+                            language: locale === "ckb" ? "ckb" : "en",
+                            fallbacks: locale === "ckb" ? ["ku"] : ["en"],
                         })}
                     </Typography>
                     <Typography variant="h6">
