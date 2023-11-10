@@ -38,7 +38,11 @@ export default function Lesson({
     );
     const [showFoundKeyMessage, setShowFoundKeyMessage] = useState(false);
     const [visibleCharacterCount, setVisibleCharacterCount] = useState(
-        currentScreen === "letters" ? 8 : 75
+        currentScreen === "letters" ||
+            currentScreen === "badge" ||
+            currentScreen === "badge"
+            ? 8
+            : 75
     );
     const [startVisibleCharacterCount, setstartVisibleCharacterCount] =
         useState(0);
@@ -88,7 +92,11 @@ export default function Lesson({
         setFlipped(true);
         // Trigger flip on visibleChars change
         if (!isTypingComplete) {
-            if (currentScreen === "letters") {
+            if (
+                currentScreen === "letters" ||
+                currentScreen === "badge" ||
+                currentScreen === "badge"
+            ) {
                 if (currentCharacterIndex >= visibleCharacterCount) {
                     const chunkSize = 8;
 
@@ -173,7 +181,10 @@ export default function Lesson({
                             setIsTypingComplete(true);
                         }
                     }
-                    if (currentScreen === "letters") {
+                    if (
+                        currentScreen === "letters" ||
+                        currentScreen === "badge"
+                    ) {
                         if (
                             currentCharacterIndex + 1 ===
                             screen.content.length
@@ -335,9 +346,9 @@ export default function Lesson({
                     userInput={userInput}
                     currentCharacter={currentCharacter}
                 />
-            ) : currentScreen === "letters" ? (
+            ) : currentScreen === "letters" || currentScreen === "badge" ? (
                 <LettersScreen
-                    screen={prevScreen}
+                    screen={currentScreen === "letters" ? prevScreen : screen}
                     visibleCharacters={visibleCharacters}
                     user_settings={user_settings}
                     currentCharacter={currentCharacter}
