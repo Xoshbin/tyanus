@@ -19,8 +19,6 @@ export default function LessonCard({ lessonId, exerciseId }) {
             });
     }, []);
 
-    console.log(data.isExerciseFinished);
-
     return (
         <div
             className="lg:container max-w-7xl mx-auto block rounded-lg @if ($isExerciseFinished) bg-gradient-to-r from-kblue-700 to-kblue-400 text-kblue-100 @else text-kblue-800 bg-gradient-to-r from-kblue-200

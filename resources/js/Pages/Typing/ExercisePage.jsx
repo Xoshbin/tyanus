@@ -321,9 +321,6 @@ export default function Lesson({
         setModalOpen(false);
     };
 
-    console.log(currentScreen);
-    console.log(visibleCharacters);
-
     return (
         <AppLayout
             user={auth ? auth.user : undefined}

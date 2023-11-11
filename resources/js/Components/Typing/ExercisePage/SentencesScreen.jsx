@@ -46,7 +46,6 @@ const SentencesScreen = ({
                     className="w-full py-4 px-4 text-3xl text-center max-h-48 overflow-y-scroll transform flex-col-reverse justify-end scroll-smooth leading-loose"
                 >
                     {visibleCharacters.split("").map((char, i) => {
-                        console.log(i);
                         let color = "text-black";
 
                         if (i < userInput.length) {
