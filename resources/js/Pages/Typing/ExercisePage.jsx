@@ -38,11 +38,7 @@ export default function Lesson({
     );
     const [showFoundKeyMessage, setShowFoundKeyMessage] = useState(false);
     const [visibleCharacterCount, setVisibleCharacterCount] = useState(
-        currentScreen === "letters" ||
-            currentScreen === "badge" ||
-            currentScreen === "badge"
-            ? 8
-            : 75
+        currentScreen === "letters" || currentScreen === "badge" ? 8 : 75
     );
     const [startVisibleCharacterCount, setstartVisibleCharacterCount] =
         useState(0);
@@ -60,6 +56,8 @@ export default function Lesson({
         setStartTime(null); // Reset the start time
         setEndTime(null); // Reset the end time
         setErrorCount(0); // Reset the error count
+        setVisibleCharacterCount(8);
+        setUserInputForHighlight("");
     };
 
     const playKeySound = () => {
@@ -92,11 +90,7 @@ export default function Lesson({
         setFlipped(true);
         // Trigger flip on visibleChars change
         if (!isTypingComplete) {
-            if (
-                currentScreen === "letters" ||
-                currentScreen === "badge" ||
-                currentScreen === "badge"
-            ) {
+            if (currentScreen === "letters" || currentScreen === "badge") {
                 if (currentCharacterIndex >= visibleCharacterCount) {
                     const chunkSize = 8;
 
@@ -326,6 +320,9 @@ export default function Lesson({
     const closeModal = () => {
         setModalOpen(false);
     };
+
+    console.log(currentScreen);
+    console.log(visibleCharacters);
 
     return (
         <AppLayout
