@@ -35,11 +35,9 @@ const IntroScreen = ({
                 <Card className="my-4 mx-auto w-6/12">
                     <CardBody>
                         <Typography className="justify-center items-center flex space-x-2">
-                            <p>
-                                {__(
-                                    "Great, you found it. Now, let's start practicing."
-                                )}
-                            </p>
+                            {__(
+                                "Great, you found it. Now, let's start practicing."
+                            )}
                             <Spinner color="blue" className="h-8 w-8" />
                         </Typography>
                     </CardBody>
