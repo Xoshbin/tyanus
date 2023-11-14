@@ -188,22 +188,12 @@ export default function Lesson({
                         }
                     } else {
                         // Check if typing is complete
-                        if (prevScreen && prevScreen.content) {
-                            if (
-                                currentCharacterIndex + 1 ===
-                                prevScreen.content.length
-                            ) {
-                                setEndTime(Date.now());
-                                setIsTypingComplete(true);
-                            }
-                        } else {
-                            if (
-                                currentCharacterIndex + 1 ===
-                                screen.content.length
-                            ) {
-                                setEndTime(Date.now());
-                                setIsTypingComplete(true);
-                            }
+                        if (
+                            currentCharacterIndex + 1 ===
+                            screen.content.length
+                        ) {
+                            setEndTime(Date.now());
+                            setIsTypingComplete(true);
                         }
                     }
 
