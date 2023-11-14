@@ -22,13 +22,13 @@ class UserSettingsService
     public function getExerciseLang(): string
     {
         if (Auth::check()) {
-            return auth()->user()->settings['exercise_lang'] ?? 'en';
+            return auth()->user()->settings['exercise_lang'] ?? 'ckb';
         } else {
             if ($this->guestUserId) {
                 $settings = session('settings_' . $this->guestUserId, []);
-                return $settings['exercise_lang'] ?? 'en';
+                return $settings['exercise_lang'] ?? 'ckb';
             } else {
-                return 'en';
+                return 'ckb';
             }
         }
     }

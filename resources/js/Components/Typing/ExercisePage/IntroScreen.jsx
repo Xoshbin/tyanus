@@ -92,100 +92,94 @@ const IntroScreen = ({
                 )}
 
                 {/* start images */}
-                {/* commenting for now */}
-                {/* {user_settings.show_hands === true ? (
-                        <div className="flex flex-row justify-center relative w-full opacity-75">
-                            {screen.content.split("").map((char, i) => {
-                                let fingerClass =
-                                    "absolute -right-28 -top-7 w-4/5"; // Initialize hand class
-                                let shiftFingerClass =
-                                    "absolute -right-28 -top-7 w-4/5"; // Initialize hand class
-                                let shiftImage =
+                {user_settings.show_hands === true ? (
+                    <div className="flex flex-row justify-center relative w-full opacity-75">
+                        {screen.content.split("").map((char, i) => {
+                            let fingerClass = "absolute -right-28 -top-7 w-4/5"; // Initialize hand class
+                            let shiftFingerClass =
+                                "absolute -right-28 -top-7 w-4/5"; // Initialize hand class
+                            let shiftImage =
+                                "/img/fingers/left-resting-hand.webp";
+
+                            if (macLeftKeys.includes(char.toLowerCase())) {
+                                fingerClass = "absolute -left-44 -top-14 w-4/5"; // Assign left-hand class
+                                shiftFingerClass =
+                                    "absolute -right-28 -top-7 w-4/5";
+                                shiftImage =
+                                    "/img/fingers/right-resting-hand.webp";
+                            } else if (
+                                macRightKeys.includes(char.toLowerCase())
+                            ) {
+                                fingerClass = "absolute -right-28 -top-7 w-4/5"; // Assign right-hand class
+                                shiftFingerClass =
+                                    "absolute -left-44 -top-14 w-4/5";
+                                shiftImage =
                                     "/img/fingers/left-resting-hand.webp";
+                            }
 
-                                if (macLeftKeys.includes(char.toLowerCase())) {
-                                    fingerClass =
-                                        "absolute -left-44 -top-14 w-4/5"; // Assign left-hand class
-                                    shiftFingerClass =
-                                        "absolute -right-28 -top-7 w-4/5";
-                                    shiftImage =
-                                        "/img/fingers/right-resting-hand.webp";
-                                } else if (
-                                    macRightKeys.includes(char.toLowerCase())
-                                ) {
-                                    fingerClass =
-                                        "absolute -right-28 -top-7 w-4/5"; // Assign right-hand class
-                                    shiftFingerClass =
-                                        "absolute -left-44 -top-14 w-4/5";
-                                    shiftImage =
-                                        "/img/fingers/left-resting-hand.webp";
-                                }
-
-                                if (char === " ") {
-                                    const fingerImage =
-                                        macFingerMapping[char] || ""; // Get the finger image
-                                    return (
-                                        <span key={i}>
-                                            {char === currentCharacter && (
-                                                <img
-                                                    src={fingerImage}
-                                                    alt=""
-                                                    className={fingerClass} // Apply your styling for the finger image here
-                                                />
-                                            )}
-                                        </span>
-                                    );
-                                }
-
+                            if (char === " ") {
                                 const fingerImage =
                                     macFingerMapping[char] || ""; // Get the finger image
-
-                                // Handle characters that require the Shift key
-                                if (macRightShiftKeys.includes(char)) {
-                                    shiftImage =
-                                        "/img/fingers/right-shift.webp"; // Set the image for the right Shift key
-                                    shiftFingerClass =
-                                        "absolute -right-28 -top-7 w-4/5";
-                                } else if (macLeftShiftKeys.includes(char)) {
-                                    shiftImage = "/img/fingers/left-shift.webp"; // Set the image for the left Shift key
-                                    shiftFingerClass =
-                                        "absolute -left-44 -top-14 w-4/5";
-                                }
-
-                                // Determine if the shiftImage should be shown
-                                const shouldDisplayShiftImage =
-                                    shiftImage && char === currentCharacter;
-
                                 return (
                                     <span key={i}>
-                                        {shouldDisplayShiftImage && (
+                                        {char === currentCharacter && (
+                                            <img
+                                                src={fingerImage}
+                                                alt=""
+                                                className={fingerClass} // Apply your styling for the finger image here
+                                            />
+                                        )}
+                                    </span>
+                                );
+                            }
+
+                            const fingerImage = macFingerMapping[char] || ""; // Get the finger image
+
+                            // Handle characters that require the Shift key
+                            if (macRightShiftKeys.includes(char)) {
+                                shiftImage = "/img/fingers/right-shift.webp"; // Set the image for the right Shift key
+                                shiftFingerClass =
+                                    "absolute -right-28 -top-7 w-4/5";
+                            } else if (macLeftShiftKeys.includes(char)) {
+                                shiftImage = "/img/fingers/left-shift.webp"; // Set the image for the left Shift key
+                                shiftFingerClass =
+                                    "absolute -left-44 -top-14 w-4/5";
+                            }
+
+                            // Determine if the shiftImage should be shown
+                            const shouldDisplayShiftImage =
+                                shiftImage && char === currentCharacter;
+
+                            return (
+                                <span key={i}>
+                                    {shouldDisplayShiftImage && (
+                                        <img
+                                            src={shiftImage}
+                                            alt=""
+                                            className={shiftFingerClass} // Apply your styling for the finger image here
+                                        />
+                                    )}
+                                    {char === currentCharacter && (
+                                        <div>
+                                            <img
+                                                src={fingerImage}
+                                                alt=""
+                                                className={fingerClass} // Apply your styling for the finger image here
+                                            />
                                             <img
                                                 src={shiftImage}
                                                 alt=""
                                                 className={shiftFingerClass} // Apply your styling for the finger image here
                                             />
-                                        )}
-                                        {char === currentCharacter && (
-                                            <div>
-                                                <img
-                                                    src={fingerImage}
-                                                    alt=""
-                                                    className={fingerClass} // Apply your styling for the finger image here
-                                                />
-                                                <img
-                                                    src={shiftImage}
-                                                    alt=""
-                                                    className={shiftFingerClass} // Apply your styling for the finger image here
-                                                />
-                                            </div>
-                                        )}
-                                    </span>
-                                );
-                            })}
-                        </div>
-                    ) : (
-                        <></>
-                    )} */}
+                                        </div>
+                                    )}
+                                </span>
+                            );
+                        })}
+                    </div>
+                ) : (
+                    <></>
+                )}
 
                 {user_settings.show_keyboard === true ? (
                     screen.locale === "ckb" ? (

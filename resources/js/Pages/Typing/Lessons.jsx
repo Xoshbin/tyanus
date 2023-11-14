@@ -62,7 +62,7 @@ export default function Lessons({
                     } max-w-7xl mx-auto sm:px-6 lg:px-8`}
                 >
                     <div className="flex flex-col max-w-5xl mx-auto justify-center space-y-4">
-                        <div className="px-1">
+                        {/* <div className="px-1">
                             <Select
                                 value={user_settings.exercise_lang}
                                 label={__("Keyabord type")}
@@ -72,7 +72,7 @@ export default function Lessons({
                                 <Option value="ckb">{__("Kurdish")}</Option>
                                 <Option value="en">{__("English")}</Option>
                             </Select>
-                        </div>
+                        </div> */}
                         <TabsHorizontal lessons={lessons} />
                     </div>
                 </div>

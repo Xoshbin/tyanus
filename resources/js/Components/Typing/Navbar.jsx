@@ -38,7 +38,7 @@ export default function Navbar({ locale }) {
                             >
                                 {__("Test")}
                             </NavLink>
-                            <Dropdown>
+                            {/* <Dropdown>
                                 <Dropdown.Trigger>
                                     <span className="inline-flex rounded-md">
                                         <button
@@ -75,7 +75,7 @@ export default function Navbar({ locale }) {
                                         {__("EN")}
                                     </Dropdown.Link>
                                 </Dropdown.Content>
-                            </Dropdown>
+                            </Dropdown> */}
                         </div>
                         <div className="ml-3 relative">
                             {auth.user ? (
