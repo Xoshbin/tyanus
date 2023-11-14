@@ -9,6 +9,7 @@ import { __ } from "@/Libs/Lang";
 import IntroScreen from "@/Components/Typing/ExercisePage/IntroScreen";
 import LettersScreen from "@/Components/Typing/ExercisePage/LettersScreen";
 import SentencesScreen from "@/Components/Typing/ExercisePage/SentencesScreen";
+import { Head } from "@inertiajs/react";
 
 export default function Lesson({
     screen,
@@ -321,6 +322,13 @@ export default function Lesson({
                 ></LessonSettings>
             }
         >
+            <Head
+                title={
+                    currentScreen === "letters"
+                        ? prevScreen.title
+                        : screen.title
+                }
+            />
             {/* show different interface based on the screen type */}
             {currentScreen === "intro" ? (
                 <IntroScreen

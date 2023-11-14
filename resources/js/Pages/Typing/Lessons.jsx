@@ -5,6 +5,7 @@ import { __ } from "@/Libs/Lang";
 import TabsHorizontal from "@/Components/MaterialD/TabsHorizontal";
 import { Select, Option } from "@material-tailwind/react";
 import { useEffect } from "react";
+import { Head } from "@inertiajs/react";
 
 export default function Lessons({
     lessons,
@@ -55,6 +56,7 @@ export default function Lessons({
                 ></ProgressHeader>
             }
         >
+            <Head title={__("Lessons")} />
             <div className="py-12">
                 <div
                     className={` ${

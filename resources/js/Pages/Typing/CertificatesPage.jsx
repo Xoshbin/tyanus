@@ -3,10 +3,12 @@ import Badge from "@/Components/Typing/Badge";
 import AppLayout from "@/Layouts/AppLayout";
 import { __ } from "@/Libs/Lang";
 import { Link } from "@inertiajs/react";
+import { Head } from "@inertiajs/react";
 
 const CertificatesPage = ({ certificates }) => {
     return (
         <AppLayout>
+            <Head title={__("Certificates")} />
             <div className="flex w-full mx-1 md:max-w-7xl md:mx-auto md:space-x-2 mt-4 max-h-screen justify-center">
                 <div>
                     {Object.keys(certificates).length !== 0 ? (
