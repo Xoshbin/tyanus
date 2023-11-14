@@ -54,6 +54,7 @@ export const windowsFingerMapping = {
     Z: "/img/fingers/z.webp",
 
     //Kurdish characters
+    ئ: "/img/fingers/u.webp",
     ا: "/img/fingers/a.webp",
     آ: "/img/fingers/a.webp",
     ب: "/img/fingers/b.webp",

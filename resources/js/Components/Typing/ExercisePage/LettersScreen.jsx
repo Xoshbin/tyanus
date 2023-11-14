@@ -66,18 +66,20 @@ const LettersScreen = ({
                         let shiftImage = "/img/fingers/left-resting-hand.webp";
 
                         if (
-                            user_settings.keyboard_type === "mac"
-                                ? macLeftKeys.includes(char.toLowerCase())
-                                : windowsLeftKeys.includes(char.toLowerCase())
+                            (user_settings.keyboard_type === "mac" &&
+                                macLeftKeys.includes(char.toLowerCase())) ||
+                            (user_settings.keyboard_type === "windows" &&
+                                windowsLeftKeys.includes(char.toLowerCase()))
                         ) {
                             fingerClass = "absolute -left-44 -top-14 w-4/5"; // Assign left-hand class
                             shiftFingerClass =
                                 "absolute -right-28 -top-7 w-4/5";
                             shiftImage = "/img/fingers/right-resting-hand.webp";
                         } else if (
-                            user_settings.keyboard_type === "mac"
-                                ? macRightKeys.includes(char.toLowerCase())
-                                : windowsRightKeys.includes(char.toLowerCase())
+                            (user_settings.keyboard_type === "mac" &&
+                                macRightKeys.includes(char.toLowerCase())) ||
+                            (user_settings.keyboard_type === "windows" &&
+                                windowsRightKeys.includes(char.toLowerCase()))
                         ) {
                             fingerClass = "absolute -right-28 -top-7 w-4/5"; // Assign right-hand class
                             shiftFingerClass =
@@ -110,17 +112,27 @@ const LettersScreen = ({
 
                         // Handle characters that require the Shift key
                         if (
-                            user_settings.keyboard_type === "mac"
-                                ? macRightShiftKeys.includes(char)
-                                : windowsRightShiftKeys.includes(char)
+                            (user_settings.keyboard_type === "mac" &&
+                                macRightShiftKeys.includes(
+                                    char.toLowerCase()
+                                )) ||
+                            (user_settings.keyboard_type === "windows" &&
+                                windowsRightShiftKeys.includes(
+                                    char.toLowerCase()
+                                ))
                         ) {
                             shiftImage = "/img/fingers/right-shift.webp"; // Set the image for the right Shift key
                             shiftFingerClass =
                                 "absolute -right-28 -top-7 w-4/5";
                         } else if (
-                            macRightShiftKeys.includes(char)
-                                ? macLeftShiftKeys.includes(char)
-                                : windowsLeftShiftKeys.includes(char)
+                            (user_settings.keyboard_type === "mac" &&
+                                macLeftShiftKeys.includes(
+                                    char.toLowerCase()
+                                )) ||
+                            (user_settings.keyboard_type === "windows" &&
+                                windowsLeftShiftKeys.includes(
+                                    char.toLowerCase()
+                                ))
                         ) {
                             shiftImage = "/img/fingers/left-shift.webp"; // Set the image for the left Shift key
                             shiftFingerClass =
