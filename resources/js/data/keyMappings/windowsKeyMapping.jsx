@@ -54,6 +54,7 @@ export const windowsFingerMapping = {
     Z: "/img/fingers/z.webp",
 
     //Kurdish characters
+    ئ: "/img/fingers/u.webp",
     ا: "/img/fingers/a.webp",
     آ: "/img/fingers/a.webp",
     ب: "/img/fingers/b.webp",
@@ -158,7 +159,6 @@ export const windowsLeftKeys = [
     "g",
     "b",
     "6",
-    " ",
 
     //English Shift keys
     "~",
@@ -191,6 +191,7 @@ export const windowsLeftKeys = [
     "گ",
     "ب",
     "٦",
+    "ی",
 
     //Kurdish shift keys
     "آ",
@@ -205,7 +206,6 @@ export const windowsLeftKeys = [
     "ظ",
     "ط",
     "غ",
-    "ى",
 ];
 export const windowsRightKeys = [
     //English keys
@@ -235,6 +235,7 @@ export const windowsRightKeys = [
     "b",
     "y",
     "g",
+    " ",
 
     //English Shift keys
     "|",
@@ -279,6 +280,7 @@ export const windowsRightKeys = [
     "أ",
     "ة",
     "ء",
+    "ێ",
 ];
 
 export const windowsRightShiftKeys = [
@@ -327,4 +329,5 @@ export const windowsLeftShiftKeys = [
     ")",
     "(",
     "*",
+    "ێ",
 ];

@@ -12,7 +12,7 @@ class LetterConverter
         'y' => 'ی', 'z' => 'ز', ' ' => ' ', ',' => '،', '.' => '.', ';' => '؛'
     ];
 
-    function __cحnstruct()
+    function __construct()
     {
     }
 
