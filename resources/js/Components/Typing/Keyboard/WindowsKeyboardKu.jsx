@@ -425,7 +425,7 @@ export default function WindowsKeyboardKu({ currentCharacter, screenType }) {
                     />
                     <KeyboardKey
                         screenType={screenType}
-                        mainKey=""
+                        mainKey=" "
                         className="w-12 h-10 items-end text-xs px-2 flex-none grow"
                         data-key="Space"
                     />
