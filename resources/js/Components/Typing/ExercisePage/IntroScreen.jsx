@@ -60,9 +60,7 @@ const IntroScreen = ({
                 <Card className="my-4 mx-auto w-6/12">
                     <CardBody>
                         <Typography className="justify-center items-center flex space-x-2">
-                            {__(
-                                "Great, you found it. Now, let's start practicing."
-                            )}
+                            {__("Don't forget to never look at the keyboard")}
                             <Spinner color="blue" className="h-8 w-8" />
                         </Typography>
                     </CardBody>
