@@ -1,5 +1,7 @@
 import Footer from "@/Components/Typing/Footer";
 import Navbar from "@/Components/Typing/Navbar";
+import { Alert } from "@material-tailwind/react";
+import { __ } from "@/Libs/Lang";
 
 export default function App({ locale, header, children }) {
     return (
@@ -13,6 +15,14 @@ export default function App({ locale, header, children }) {
                     </div>
                 </header>
             )}
+
+            <div className="md:hidden mx-4 my-2">
+                <Alert color="blue" className="text-right">
+                    {__(
+                        "Desktop is Ideal: For the optimal typing experience, switch to a desktop for this app!"
+                    )}
+                </Alert>
+            </div>
 
             <main>{children}</main>
 
