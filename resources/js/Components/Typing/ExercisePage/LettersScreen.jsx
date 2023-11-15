@@ -97,10 +97,13 @@ const LettersScreen = ({
                                     {char === currentCharacter && (
                                         <img
                                             src={fingerImage}
-                                            alt=""
                                             className={fingerClass} // Apply your styling for the finger image here
                                         />
                                     )}
+                                    <img
+                                        src={shiftImage}
+                                        className={shiftFingerClass} // Apply your styling for the finger image here
+                                    />
                                 </span>
                             );
                         }
@@ -148,7 +151,6 @@ const LettersScreen = ({
                                 {shouldDisplayShiftImage && (
                                     <img
                                         src={shiftImage}
-                                        alt=""
                                         className={shiftFingerClass} // Apply your styling for the finger image here
                                     />
                                 )}
@@ -156,12 +158,10 @@ const LettersScreen = ({
                                     <div>
                                         <img
                                             src={fingerImage}
-                                            alt=""
                                             className={fingerClass} // Apply your styling for the finger image here
                                         />
                                         <img
                                             src={shiftImage}
-                                            alt=""
                                             className={shiftFingerClass} // Apply your styling for the finger image here
                                         />
                                     </div>
