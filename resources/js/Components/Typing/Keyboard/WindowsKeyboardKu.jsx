@@ -2,6 +2,25 @@ import KeyboardKey from "@/Components/Typing/Keyboard/KeyboardKey";
 import { useEffect } from "react";
 
 export default function WindowsKeyboardKu({ currentCharacter, screenType }) {
+    const windowsIcon = (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-brand-windows"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M17.8 20l-12 -1.5c-1 -.1 -1.8 -.9 -1.8 -1.9v-9.2c0 -1 .8 -1.8 1.8 -1.9l12 -1.5c1.2 -.1 2.2 .8 2.2 1.9v12.1c0 1.2 -1.1 2.1 -2.2 1.9z" />
+            <path d="M12 5l0 14" />
+            <path d="M4 12l16 0" />
+        </svg>
+    );
     return (
         <div
             className="bg-zinc-200 px-2 py-4 rounded-lg shadow-md w-full max-w-3xl select-none"
@@ -212,7 +231,7 @@ export default function WindowsKeyboardKu({ currentCharacter, screenType }) {
                     <KeyboardKey
                         screenType={screenType}
                         mainKey="Enter"
-                        secondKey=""
+                        secondKey="↵"
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-end px-2 grow text-xs"
                     />
@@ -396,6 +415,7 @@ export default function WindowsKeyboardKu({ currentCharacter, screenType }) {
                     <KeyboardKey
                         screenType={screenType}
                         mainKey="Win"
+                        secondKey={windowsIcon}
                         className="w-12 h-10 items-end text-xs px-2 flex-none"
                     />
                     <KeyboardKey
@@ -417,6 +437,7 @@ export default function WindowsKeyboardKu({ currentCharacter, screenType }) {
                     <KeyboardKey
                         screenType={screenType}
                         mainKey="Win"
+                        secondKey={windowsIcon}
                         className="w-12 h-10 items-end text-xs px-2 flex-none"
                     />
                     <KeyboardKey

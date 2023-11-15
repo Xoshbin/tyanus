@@ -2,6 +2,23 @@ import KeyboardKey from "@/Components/Typing/Keyboard/KeyboardKey";
 import { useEffect } from "react";
 
 export default function MacKeyboardKu({ currentCharacter, screenType }) {
+    const cmdIcon = (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-command"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M7 9a2 2 0 1 1 2 -2v10a2 2 0 1 1 -2 -2h10a2 2 0 1 1 -2 2v-10a2 2 0 1 1 2 2h-10" />
+        </svg>
+    );
     return (
         <div
             className="bg-zinc-200 px-2 py-4 rounded-lg shadow-md w-full max-w-3xl select-none"
@@ -211,8 +228,8 @@ export default function MacKeyboardKu({ currentCharacter, screenType }) {
                 <div className="keyboard-row justify-center mb-3 flex">
                     <KeyboardKey
                         screenType={screenType}
-                        mainKey="↩"
-                        secondKey=""
+                        mainKey="Enter"
+                        secondKey="↵"
                         currentCharacter={currentCharacter}
                         className="w-12 h-10 items-end px-2 grow text-xs"
                     />
@@ -401,6 +418,7 @@ export default function MacKeyboardKu({ currentCharacter, screenType }) {
                     <KeyboardKey
                         screenType={screenType}
                         mainKey="CMD"
+                        secondKey={cmdIcon}
                         className="w-12 h-10 items-end text-xs px-2 flex-none"
                     />
                     <KeyboardKey
@@ -413,6 +431,7 @@ export default function MacKeyboardKu({ currentCharacter, screenType }) {
                     <KeyboardKey
                         screenType={screenType}
                         mainKey="CMD"
+                        secondKey={cmdIcon}
                         className="w-12 h-10 items-end text-xs px-2 flex-none"
                     />
                     <KeyboardKey
