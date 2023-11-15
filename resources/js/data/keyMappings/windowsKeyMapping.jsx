@@ -191,7 +191,6 @@ export const windowsLeftKeys = [
     "گ",
     "ب",
     "٦",
-    "ی",
 
     //Kurdish shift keys
     "آ",
@@ -268,6 +267,7 @@ export const windowsRightKeys = [
     "٨",
     "ئ",
     "ه",
+    "ی",
 
     //Kurdish Shift keys
     "؟",
