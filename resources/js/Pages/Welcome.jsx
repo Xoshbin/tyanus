@@ -7,13 +7,14 @@ import HomeKeyboardSection from "@/Components/Typing/HomePage/HomeKeyboardSectio
 import FAQ from "@/Components/Typing/HomePage/FAQ";
 import { Head } from "@inertiajs/react";
 import { __ } from "@/Libs/Lang";
+import Footer from "@/Components/Typing/Footer";
 
 export default function Welcome() {
     const { auth } = usePage().props;
     const { locale } = usePage().props;
 
     return (
-        <AppLayout locale={locale} user={auth.user}>
+        <AppLayout locale={locale} user={auth.user} footer={<Footer />}>
             <Head title={__("Page title")} />
             <Hero locale={locale} />
             <Show locale={locale} />

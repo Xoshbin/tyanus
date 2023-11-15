@@ -5,6 +5,7 @@ import ReactCanvasConfetti from "react-canvas-confetti";
 import AppLayout from "@/Layouts/AppLayout";
 import { usePage, Link } from "@inertiajs/react";
 import { Head } from "@inertiajs/react";
+import Footer from "@/Components/Typing/Footer";
 
 const BadgePage = ({
     exerciseName,
@@ -71,7 +72,7 @@ const BadgePage = ({
     }, [intervalId]);
     return (
         <AppLayout user={auth ? auth.user : undefined}>
-            <Head title={exerciseName} />
+            <Head title={exerciseName} footer={<Footer />} />
             <div className="space-y-4 w-7/12 mx-auto">
                 <ReactCanvasConfetti
                     refConfetti={getInstance}

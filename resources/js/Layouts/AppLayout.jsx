@@ -1,9 +1,8 @@
-import Footer from "@/Components/Typing/Footer";
 import Navbar from "@/Components/Typing/Navbar";
 import { Alert } from "@material-tailwind/react";
 import { __ } from "@/Libs/Lang";
 
-export default function App({ locale, header, children }) {
+export default function App({ locale, header, footer, children }) {
     return (
         <div className="min-h-screen bg-kblue-50 bg-blob-blue bg-no-repeat bg-contain">
             <Navbar locale={locale} />
@@ -26,7 +25,13 @@ export default function App({ locale, header, children }) {
 
             <main>{children}</main>
 
-            <Footer />
+            {footer && (
+                <footer className="bg-white shadow">
+                    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                        {footer}
+                    </div>
+                </footer>
+            )}
         </div>
     );
 }

@@ -4,11 +4,12 @@ import AppLayout from "@/Layouts/AppLayout";
 import { __ } from "@/Libs/Lang";
 import { Link } from "@inertiajs/react";
 import { Head } from "@inertiajs/react";
+import Footer from "@/Components/Typing/Footer";
 
 const CertificatesPage = ({ certificates }) => {
     return (
         <AppLayout>
-            <Head title={__("Certificates")} />
+            <Head title={__("Certificates")} footer={<Footer />} />
             <div className="flex w-full mx-1 md:max-w-7xl md:mx-auto md:space-x-2 mt-4 max-h-screen justify-center">
                 <div>
                     {Object.keys(certificates).length !== 0 ? (

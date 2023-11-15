@@ -6,6 +6,7 @@ import TabsHorizontal from "@/Components/MaterialD/TabsHorizontal";
 import { Select, Option } from "@material-tailwind/react";
 import { useEffect } from "react";
 import { Head } from "@inertiajs/react";
+import Footer from "@/Components/Typing/Footer";
 
 export default function Lessons({
     lessons,
@@ -55,6 +56,7 @@ export default function Lessons({
                     todaySumTime={todaySumTime}
                 ></ProgressHeader>
             }
+            footer={<Footer />}
         >
             <Head title={__("Lessons")} />
             <div className="py-12">
