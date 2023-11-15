@@ -270,8 +270,12 @@ export default function Lesson({
 
     const starsEarned = Math.round((accuracy / 100) * 3);
 
+    let currentCharacter = screen.content[currentCharacterIndex];
+
     // Get the current character to be typed
-    const currentCharacter = screen.content[currentCharacterIndex];
+    if (currentScreen === "intro") {
+        currentCharacter = prevScreen.content[currentCharacterIndex];
+    }
 
     //save user progress in the database
     const handleLessonCompletion = async (
