@@ -95,15 +95,17 @@ const LettersScreen = ({
                             return (
                                 <span key={i}>
                                     {char === currentCharacter && (
-                                        <img
-                                            src={fingerImage}
-                                            className={fingerClass} // Apply your styling for the finger image here
-                                        />
+                                        <span>
+                                            <img
+                                                src={fingerImage}
+                                                className={fingerClass} // Apply your styling for the finger image here
+                                            />
+                                            <img
+                                                src={shiftImage}
+                                                className={shiftFingerClass} // Apply your styling for the finger image here
+                                            />
+                                        </span>
                                     )}
-                                    <img
-                                        src={shiftImage}
-                                        className={shiftFingerClass} // Apply your styling for the finger image here
-                                    />
                                 </span>
                             );
                         }
