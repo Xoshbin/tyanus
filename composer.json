@@ -21,6 +21,7 @@
         "laravel/socialite": "^5.10",
         "laravel/tinker": "^2.8",
         "predis/predis": "^2.2",
+        "saade/filament-laravel-log": "^3.0",
         "spatie/laravel-medialibrary": "^10.0.0",
         "tightenco/ziggy": "^1.0"
     },
