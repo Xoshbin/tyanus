@@ -126,7 +126,8 @@ const ExerciseSummary = ({
                 </div>
             )}
             <div className="mt-4">
-                {screen.content_type === "letters" ? (
+                {screen.content_type === "letters" ||
+                screen.content_type === "sentences" ? (
                     auth ? (
                         <Link
                             href={route("lesson", nextScreen.url)}
@@ -149,7 +150,8 @@ const ExerciseSummary = ({
                 ) : (
                     <></>
                 )}
-                {screen.content_type === "letters" ? (
+                {screen.content_type === "letters" ||
+                screen.content_type === "sentences" ? (
                     <button
                         onClick={redoLesson}
                         type="button"
