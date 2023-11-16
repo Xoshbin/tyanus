@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BadgeController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LessonController;
@@ -37,6 +38,11 @@ Route::get('/test', [LessonController::class, 'test'])->name('test');
 Route::get('/lessons', [LessonController::class, 'index'])->name('lessons');
 Route::post('saveprogress', [LessonController::class, 'saveProgress']);
 Route::post('/update-user-settings', [ProfileController::class, 'userSettings'])->name('update-user-settings');
+
+
+Route::get('blog', [BlogController::class, 'index'])->name('blog.index');
+Route::get('blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
+
 
 Route::get('/policy', function () {
     return Inertia::render('Typing/PrivacyPolicy', [

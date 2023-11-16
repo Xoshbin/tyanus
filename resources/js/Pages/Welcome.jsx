@@ -8,6 +8,7 @@ import FAQ from "@/Components/Typing/HomePage/FAQ";
 import { Head } from "@inertiajs/react";
 import { __ } from "@/Libs/Lang";
 import Footer from "@/Components/Typing/Footer";
+import WhatIs from "@/Components/Typing/HomePage/WhatIs";
 
 export default function Welcome() {
     const { auth } = usePage().props;
@@ -19,6 +20,7 @@ export default function Welcome() {
             <Hero locale={locale} />
             <Show locale={locale} />
             <Quote locale={locale} />
+            <WhatIs locale={locale} />
             <HomeKeyboardSection locale={locale} />
             <FAQ locale={locale} />
         </AppLayout>

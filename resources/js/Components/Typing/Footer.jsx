@@ -16,6 +16,21 @@ export default function Footer(props) {
                     <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
                         <div>
                             <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">
+                                {__("Blog")}
+                            </h2>
+                            <ul className="text-gray-500 font-medium">
+                                <li className="mb-4">
+                                    <Link
+                                        href={route("blog.index")}
+                                        className="hover:underline"
+                                    >
+                                        {__("Blog")}
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">
                                 {__("Resources")}
                             </h2>
                             <ul className="text-gray-500 font-medium">
