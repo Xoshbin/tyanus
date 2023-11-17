@@ -1,13 +1,8 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import ReactCanvasConfetti from "react-canvas-confetti";
 import { usePage, Link } from "@inertiajs/react";
 import { Head } from "@inertiajs/react";
 import AppLayout from "@/Layouts/AppLayout";
-import humanizeDuration from "humanize-duration";
 import Footer from "@/Components/Typing/Footer";
 import MarkdownRenderer from "../../Components/Typing/MarkdownRenderer";
-import moment from "moment";
-import "moment/locale/ku"; // Import the Kurdish locale
 
 const PostsPage = ({ posts, title }) => {
     const { auth } = usePage().props;

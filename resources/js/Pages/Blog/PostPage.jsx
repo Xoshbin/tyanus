@@ -1,13 +1,8 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import ReactCanvasConfetti from "react-canvas-confetti";
 import { usePage, Link } from "@inertiajs/react";
 import { Head } from "@inertiajs/react";
 import AppLayout from "@/Layouts/AppLayout";
-import humanizeDuration from "humanize-duration";
 import Footer from "@/Components/Typing/Footer";
 import MarkdownRenderer from "../../Components/Typing/MarkdownRenderer";
-import moment from "moment";
-import "moment/locale/ku"; // Import the Kurdish locale
 
 const PostPage = ({ post }) => {
     const { auth } = usePage().props;
@@ -15,7 +10,13 @@ const PostPage = ({ post }) => {
 
     return (
         <AppLayout user={auth ? auth.user : undefined} footer={<Footer />}>
-            <Head title={post.title} />
+            <Head>
+                <title>{post.title}</title>
+                <meta
+                    name="description"
+                    content={post.body.substring(0, 300)}
+                />
+            </Head>
             <section className="mx-auto max-w-3xl px-4 sm:px-6 xl:max-w-5xl xl:px-0">
                 <article>
                     <div className="xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
