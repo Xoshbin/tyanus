@@ -22,3 +22,17 @@
     transform: rotateX(360deg);
     transition: transform 0.5s;
 }
+
+/* markdown styling */
+
+.markdown-container h1 {
+    @apply mt-8 text-2xl font-black;
+}
+
+.markdown-container h2 {
+    @apply mt-4 text-xl font-extrabold;
+}
+
+.markdown-container a {
+    @apply text-kblue-400;
+}
