@@ -96,7 +96,7 @@ const PostPage = ({ post }) => {
                                     alt={post.title}
                                     className="h-72 max-w-full mt-8"
                                 />
-                                <div className="prose max-w-none pb-8 pt-10 dark:prose-invert">
+                                <div className="prose lg:prose-xl max-w-none pb-8 pt-10 dark:prose-invert">
                                     <MarkdownRenderer
                                         markdownContent={post.body}
                                         className="pt-2 text-xl"
