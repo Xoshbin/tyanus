@@ -25,7 +25,7 @@
 
 /* markdown styling */
 
-.markdown-container h1 {
+/* .markdown-container h1 {
     @apply mt-8 text-2xl font-black;
 }
 
@@ -35,4 +35,4 @@
 
 .markdown-container a {
     @apply text-kblue-400;
-}
+} */
