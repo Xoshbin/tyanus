@@ -26,11 +26,9 @@ export default function App({ locale, header, footer, children }) {
             <main>{children}</main>
 
             {footer && (
-                <footer className="bg-white shadow">
-                    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {footer}
-                    </div>
-                </footer>
+                <div className="max-w-7xl mx-auto py-2 px-4 sm:px-6 lg:px-8 border-t-2">
+                    {footer}
+                </div>
             )}
         </div>
     );
