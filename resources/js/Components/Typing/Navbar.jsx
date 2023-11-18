@@ -91,18 +91,19 @@ export default function Navbar({ locale }) {
                         <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                             <NavLink
                                 className="flex text-xl border-2 border-transparent rounded-full transition text-kblue-600"
-                                href={route("lessons")}
-                                active={route().current("lessons")}
-                            >
-                                {__("Lessons")}
-                            </NavLink>
-                            <NavLink
-                                className="flex text-xl border-2 border-transparent rounded-full transition text-kblue-600"
                                 href={route("test")}
                                 active={route().current("test")}
                             >
                                 {__("Test")}
                             </NavLink>
+                            <NavLink
+                                className="flex text-xl border-2 border-transparent rounded-full transition text-kblue-600"
+                                href={route("lessons")}
+                                active={route().current("lessons")}
+                            >
+                                {__("Lessons")}
+                            </NavLink>
+
                             {/* <Dropdown>
                                 <Dropdown.Trigger>
                                     <span className="inline-flex rounded-md">
