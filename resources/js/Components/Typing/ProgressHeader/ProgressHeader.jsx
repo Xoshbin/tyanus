@@ -1,5 +1,6 @@
 import { __ } from "@/Libs/Lang";
 import moment from "moment";
+import humanizeDuration from "humanize-duration";
 
 export default function ProgressHeader({
     locale,
@@ -10,8 +11,6 @@ export default function ProgressHeader({
     daily_time,
 }) {
     const duration = moment.duration(sumTime, "seconds");
-    moment.updateLocale(locale, null); // To update the locale dynamically
-    const sumTimeHuman = duration.humanize();
 
     /* Determine the locale condition here */
 
@@ -37,7 +36,13 @@ export default function ProgressHeader({
                             {__("Typing Time")}
                         </div>
                         <div className="flex text-base font-bold text-kblue-900">
-                            {sumTimeHuman}
+                            {humanizeDuration(duration, {
+                                units: ["h", "m", "s"],
+                                maxDecimalPoints: 0,
+                                largest: 1,
+                                language: locale === "ckb" ? "ckb" : "en",
+                                fallbacks: locale === "ckb" ? ["ku"] : ["en"],
+                            })}
                         </div>
                     </div>
                     <div className="flex">

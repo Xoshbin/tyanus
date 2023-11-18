@@ -115,9 +115,9 @@ const ExerciseSummary = ({
                             </p>
                         </div>
                         <p className="text-3xl font-bold">
-                            {humanizeDuration(duration.asMilliseconds(), {
-                                units: ["d", "h", "m", "s"],
-                                largest: 2,
+                            {humanizeDuration(duration, {
+                                units: ["h", "m", "s", "ms"],
+                                largest: 1,
                                 language: locale === "ckb" ? "ckb" : "en",
                                 fallbacks: locale === "ckb" ? ["ku"] : ["en"],
                             })}

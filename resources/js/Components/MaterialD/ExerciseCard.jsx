@@ -61,9 +61,10 @@ export function ExerciseCard({ screen }) {
                     } `}
                 >
                     <Typography variant="h6">
-                        {humanizeDuration(duration.asMilliseconds(), {
-                            units: ["d", "h", "m", "s"],
-                            largest: 2,
+                        {humanizeDuration(duration, {
+                            units: ["h", "m", "s"],
+                            maxDecimalPoints: 0,
+                            largest: 1,
                             language: locale === "ckb" ? "ckb" : "en",
                             fallbacks: locale === "ckb" ? ["ku"] : ["en"],
                         })}
