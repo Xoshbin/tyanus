@@ -70,7 +70,7 @@ export default function ProgressHeader({
                             {__("Avg. Acc.")}
                         </div>
                         <div className="flex text-base font-bold text-kblue-900">
-                            %{parseInt(avgAccuracy)}
+                            %{parseInt(avgAccuracy) ? parseInt(avgAccuracy) : 0}
                         </div>
                     </div>
                     <div className="flex">
@@ -104,7 +104,8 @@ export default function ProgressHeader({
                             {__("Avg. Speed")}
                         </div>
                         <div className="flex text-base font-bold text-kblue-900">
-                            {parseInt(avgSpeed)} {__("WPM")}{" "}
+                            {parseInt(avgSpeed) ? parseInt(avgSpeed) : 0}{" "}
+                            {__("WPM")}{" "}
                         </div>
                     </div>
                     <div className="flex">
