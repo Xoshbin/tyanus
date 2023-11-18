@@ -30,8 +30,12 @@ class ScreenResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('title'),
-                Forms\Components\TextInput::make('target_speed')->numeric(),
                 Forms\Components\TextInput::make('order')->numeric(),
+                Forms\Components\Select::make('locale')
+                    ->options([
+                        'ckb' => 'Kurdish',
+                        'en' => 'English',
+                    ]),
                 Forms\Components\Select::make('content_type')
                     ->options([
                         'letters' => 'Letters',
@@ -58,7 +62,11 @@ class ScreenResource extends Resource
                 Forms\Components\Grid::make(1)
                     ->schema([
                         Forms\Components\RichEditor::make('content'),
-                    ])
+                    ]),
+                Forms\Components\Grid::make(1)
+                    ->schema([
+                        Forms\Components\RichEditor::make('extra'),
+                    ]),
             ]);
     }
 
@@ -67,7 +75,7 @@ class ScreenResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title')->searchable()->sortable(),
-                Tables\Columns\TextInputColumn::make('target_speed')->sortable(),
+                Tables\Columns\TextColumn::make('locale')->sortable(),
                 Tables\Columns\TextColumn::make('lesson.title'),
                 Tables\Columns\TextColumn::make('exercise.title'),
                 Tables\Columns\TextColumn::make('content_type')->sortable(),
