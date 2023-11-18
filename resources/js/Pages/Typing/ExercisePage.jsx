@@ -248,8 +248,21 @@ export default function Lesson({
         isTypingComplete,
     ]);
 
-    // Create a subarray of characters to display based on the visibleCharacterCount.
-    const visibleCharacters = screen.content.slice(
+    const extractVisibleCharacters = (content, start, count) => {
+        const visibleCharacters = content.slice(start, start + count);
+        const lastSpaceIndex = visibleCharacters.lastIndexOf(" ");
+
+        if (lastSpaceIndex !== -1) {
+            // Adjust count to the last space
+            count = lastSpaceIndex;
+        }
+
+        return content.slice(start, start + count);
+    };
+
+    // Usage
+    const visibleCharacters = extractVisibleCharacters(
+        screen.content,
         startVisibleCharacterCount,
         visibleCharacterCount
     );
