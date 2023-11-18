@@ -248,24 +248,34 @@ export default function Lesson({
         isTypingComplete,
     ]);
 
-    const extractVisibleCharacters = (content, start, count) => {
-        const visibleCharacters = content.slice(start, start + count);
-        const lastSpaceIndex = visibleCharacters.lastIndexOf(" ");
+    let visibleCharacters;
 
-        if (lastSpaceIndex !== -1) {
-            // Adjust count to the last space
-            count = lastSpaceIndex;
-        }
+    if (currentScreen === "sentences" || currentScreen === "test") {
+        const extractVisibleCharacters = (content, start, count) => {
+            visibleCharacters = content.slice(start, start + count);
+            const lastSpaceIndex = visibleCharacters.lastIndexOf(" ");
 
-        return content.slice(start, start + count);
-    };
+            if (lastSpaceIndex !== -1) {
+                // Adjust count to the last space
+                count = lastSpaceIndex;
+            }
 
-    // Usage
-    const visibleCharacters = extractVisibleCharacters(
-        screen.content,
-        startVisibleCharacterCount,
-        visibleCharacterCount
-    );
+            return content.slice(start, start + count);
+        };
+
+        // Usage
+        visibleCharacters = extractVisibleCharacters(
+            screen.content,
+            startVisibleCharacterCount,
+            visibleCharacterCount
+        );
+    } else {
+        // Create a subarray of characters to display based on the visibleCharacterCount.
+        visibleCharacters = screen.content.slice(
+            startVisibleCharacterCount,
+            visibleCharacterCount
+        );
+    }
 
     // Calculate Net WPM and Accuracy
     const elapsedTime = endTime && startTime ? (endTime - startTime) / 1000 : 0; // Prevent division by zero
