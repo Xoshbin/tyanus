@@ -78,11 +78,11 @@ const SentencesScreen = ({
                             );
                         }
 
-                        /// i want to animate the next upcoming character
+                        /// animate the next upcoming character
                         if (i === nextCharIndex) {
                             return (
                                 <span key={i}>
-                                    <span className="inline-flex animate-pulse text-2xl font-naskh font-black">
+                                    <span className="animate-pulse text-2xl font-naskh font-black">
                                         {char}
                                     </span>
                                 </span>
