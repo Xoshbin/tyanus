@@ -10,20 +10,20 @@ const BadgesPage = ({ badges }) => {
     return (
         <AppLayout>
             <Head title={__("Badges")} footer={<Footer />} />
-            <div class="container mx-auto py-10">
-                <h1 class="text-3xl font-bold mb-5">{__("badges")}</h1>
+            <div className="container mx-auto py-10">
+                <h1 className="text-3xl font-bold mb-5">{__("badges")}</h1>
                 {Object.keys(badges).length !== 0 ? (
-                    <div class="flex flex-wrap -mx-2">
+                    <div className="flex flex-wrap -mx-2">
                         {badges.map((badge) => (
-                            <div class="w-full md:w-1/2 lg:w-1/3 px-2 mb-4">
-                                <div class="bg-kblue-200 rounded-lg shadow-lg p-5">
-                                    <div class="flex items-center justify-between mb-4">
-                                        <h2 class="text-lg font-bold text-gray-800">
+                            <div
+                                className="w-full md:w-1/2 lg:w-1/3 px-2 mb-4"
+                                key={badge.id}
+                            >
+                                <div className="bg-kblue-200 rounded-lg shadow-lg p-5">
+                                    <div className="flex items-center justify-between mb-4">
+                                        <h2 className="text-lg font-bold text-gray-800">
                                             {badge.name}
                                         </h2>
-                                        <span class="bg-blue-500 text-kblue-200 text-sm font-medium px-2 py-1 rounded-full">
-                                            New
-                                        </span>
                                     </div>
                                     <Badge
                                         key={badge.id}
