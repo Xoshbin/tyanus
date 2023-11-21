@@ -228,13 +228,20 @@ export default function Lesson({
         document.addEventListener("keydown", handleKeyDown);
 
         if (isTypingComplete) {
-            // Call handleLessonCompletion with the required parameters.
-            handleLessonCompletion(
-                netWPM.toFixed(2),
-                accuracy.toFixed(2),
-                elapsedTime,
-                starsEarned
-            );
+            if (currentScreen === "intro") {
+                setShowFoundKeyMessage(true);
+                const timeout = setTimeout(() => {
+                    handleScreenTransition();
+                }, 5000);
+            } else {
+                // Call handleLessonCompletion with the required parameters.
+                handleLessonCompletion(
+                    netWPM.toFixed(2),
+                    accuracy.toFixed(2),
+                    elapsedTime,
+                    starsEarned
+                );
+            }
         }
 
         return () => {
@@ -309,30 +316,23 @@ export default function Lesson({
     ) => {
         //if current screen is intro
         //change it to letters after typing the intro letter
-        if (currentScreen === "intro") {
-            setShowFoundKeyMessage(true);
-            const timeout = setTimeout(() => {
-                handleScreenTransition();
-            }, 5000);
-        } else {
-            router.post(
-                "/saveprogress",
-                {
-                    user_id: auth.id,
-                    lesson_id: screen.lesson_id,
-                    exercise_id: screen.exercise_id,
-                    screen_id: screen.id,
-                    locale: screen.locale,
-                    typing_speed: typingSpeed,
-                    accuracy_percentage: accuracy,
-                    stars_earned: starsEarned,
-                    time: time,
-                    error_characters: errors.join(""), // Join errors into a string
-                },
-                { preserveState: true }
-            );
-            setModalOpen(true);
-        }
+        router.post(
+            "/saveprogress",
+            {
+                user_id: auth.id,
+                lesson_id: screen.lesson_id,
+                exercise_id: screen.exercise_id,
+                screen_id: screen.id,
+                locale: screen.locale,
+                typing_speed: typingSpeed,
+                accuracy_percentage: accuracy,
+                stars_earned: starsEarned,
+                time: time,
+                error_characters: errors.join(""), // Join errors into a string
+            },
+            { preserveState: true }
+        );
+        setModalOpen(true);
     };
 
     const closeModal = () => {
