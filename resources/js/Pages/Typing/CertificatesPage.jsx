@@ -1,5 +1,4 @@
 import React from "react";
-import Badge from "@/Components/Typing/Badge";
 import AppLayout from "@/Layouts/AppLayout";
 import { __ } from "@/Libs/Lang";
 import { Link } from "@inertiajs/react";
@@ -10,25 +9,25 @@ const CertificatesPage = ({ certificates }) => {
     return (
         <AppLayout>
             <Head title={__("Certificates")} footer={<Footer />} />
-            <div class="container mx-auto py-10">
-                <h1 class="text-3xl font-bold mb-5">{__("certificates")}</h1>
+            <div className="container mx-auto py-10">
+                <h1 className="text-3xl font-bold mb-5">
+                    {__("certificates")}
+                </h1>
                 {Object.keys(certificates).length !== 0 ? (
-                    <div class="flex flex-wrap -mx-2">
-                        {certificates.map((badge) => (
-                            <div class="w-full md:w-1/2 lg:w-1/3 px-2 mb-4">
-                                <div class="bg-kblue-200 rounded-lg shadow-lg p-5">
-                                    <div class="flex items-center justify-between mb-4">
-                                        <h2 class="text-lg font-bold text-gray-800">
-                                            {badge.name}
-                                        </h2>
-                                        <span class="bg-blue-500 text-kblue-200 text-sm font-medium px-2 py-1 rounded-full">
-                                            New
-                                        </span>
-                                    </div>
-                                    <Badge
-                                        key={badge.id}
-                                        badgeName={badge.name}
-                                    />
+                    <div className="flex flex-wrap -mx-2">
+                        {certificates.map((certificate) => (
+                            <div className="px-2 mb-4" key={certificate.id}>
+                                <div className="bg-kblue-200 rounded-lg shadow-lg p-5">
+                                    <a href="{ route('certificate', $certificate->id) }">
+                                        <div className="flex h-36 w-52 bg-kblue-300 rounded-lg text-center justify-center items-center">
+                                            <img
+                                                src={
+                                                    certificate.media[0]
+                                                        .original_url
+                                                }
+                                            />
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
                         ))}

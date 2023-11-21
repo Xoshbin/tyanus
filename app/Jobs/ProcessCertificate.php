@@ -6,7 +6,6 @@ use App\Models\Certificate;
 use App\Models\UserProgress;
 use App\Services\CertificateGenerator;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -32,7 +31,7 @@ class ProcessCertificate implements ShouldQueue
         //check if user already have a certifcate for the lesson
         // tp prevent duplicate certificates
         if (!auth()->user()->certificates()->where('lesson_id', $this->screen->lesson_id)->exists()) {
-            $userProgress = UserProgress::where('user_id', auth()->id())->select('typing_speed', 'accuracy_percentage')->get();
+            $userProgress = UserProgress::where('user_id', auth()->id())->select(['typing_speed', 'accuracy_percentage'])->get();
             $completedAT = now();
 
             //generate certificate image

@@ -102,6 +102,16 @@ class LessonController extends Controller
 
     public function saveProgress(Request $request)
     {
+        $data = $request->validate([
+            'lesson_id' => 'required',
+            'exercise_id' => 'required',
+            'screen_id' => 'required',
+            'locale' => 'required',
+            'typing_speed' => 'required',
+            'accuracy_percentage' => 'required',
+            'stars_earned' => 'required',
+            'time' => 'required',
+        ]);
         $userProgressService = new UserProgressService;
 
         $userProgressService->setProgress($request);
@@ -109,13 +119,13 @@ class LessonController extends Controller
         // check if user reached last screen in the current exercise
         $screen = Screen::find($request->screen_id);
 
-        if ($screen->content_type == 'letters') {
+        if ($screen->content_type == 'letters' || $screen->content_type == 'sentences') {
             $lesson = Lesson::find($request->lesson_id); // Replace $lessonId with the ID of the lesson you're interested in.
 
             $exercise = $lesson->exercises->last();
 
             $latestScreenId = $exercise->screens->filter(function ($screen) {
-                return $screen->content_type === 'letters';
+                return $screen->content_type === 'letters' || $screen->content_type === 'sentences';
             })->last()->id;
 
             // check if user reached last screen in the current exercise

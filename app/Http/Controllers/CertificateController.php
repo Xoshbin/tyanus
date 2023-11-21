@@ -13,7 +13,7 @@ class CertificateController extends Controller
 {
     function index()
     {
-        $certificates = Certificate::all();
+        $certificates = Certificate::with('media')->get();
         return Inertia::render('Typing/CertificatesPage', [
             'certificates' => $certificates
         ]);

@@ -212,12 +212,12 @@ class UserProgressService
 
     public function setProgress(Request $request)
     {
+        // we need this check here to create the data with the user id
         $data = $request->validate([
             'lesson_id' => 'required',
             'exercise_id' => 'required',
             'screen_id' => 'required',
             'locale' => 'required',
-            'error_characters' => 'required',
             'typing_speed' => 'required',
             'accuracy_percentage' => 'required',
             'stars_earned' => 'required',
@@ -225,9 +225,7 @@ class UserProgressService
         ]);
 
         if (Auth::check()) {
-
             $data['user_id'] = auth()->user()->id;
-
             UserProgress::create($data);
         } else {
             // Check if a guest user ID already exists in the session
