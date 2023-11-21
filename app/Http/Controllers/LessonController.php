@@ -83,7 +83,7 @@ class LessonController extends Controller
             $prevScreen = Screen::where('id', $screen->id - 1)->first();
             $exerciseTotalStars = 3;
             return Inertia::render('Typing/ExercisePage', [
-                'screen' => $nextScreen->content_type == "badge" ? $screen : $nextScreen,
+                'screen' => $screen->content_type == "sentences" ? $screen : $nextScreen,
                 'exerciseTotalStars' => $exerciseTotalStars,
                 'prevScreen' => $screen,
                 'nextScreen' => $nextScreenPlusTwo

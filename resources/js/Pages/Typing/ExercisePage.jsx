@@ -33,7 +33,7 @@ export default function Lesson({
     const [errors, setErrors] = useState([]);
     //start setting current screen by prev screen content type
     const [currentScreen, setCurrentScreen] = useState(
-        prevScreen && prevScreen.content_type
+        prevScreen && prevScreen.content_type == "intro"
             ? prevScreen.content_type
             : screen.content_type
     );
@@ -367,7 +367,7 @@ export default function Lesson({
                 />
             ) : currentScreen === "letters" || currentScreen === "badge" ? (
                 <LettersScreen
-                    screen={currentScreen === "letters" ? prevScreen : screen}
+                    screen={currentScreen === "letters" ? screen : prevScreen}
                     visibleCharacters={visibleCharacters}
                     user_settings={user_settings}
                     currentCharacter={currentCharacter}
