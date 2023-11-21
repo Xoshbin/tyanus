@@ -1,6 +1,6 @@
 export default function Badge({ badgeName }) {
     return (
-        <div className="inline-flex w-64">
+        <div className="contents w-64">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 xmlnsXlink="http://www.w3.org/1999/xlink"
