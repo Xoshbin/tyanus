@@ -57,10 +57,10 @@ export default function TabsVertical({ exercises, lesson }) {
                         <Tab
                             key={value}
                             value={value}
-                            className={`flex w-48 md:w-56 flex-row lg:w-full justify-between rounded-lg bg-gradient-to-l from-kblue-50 to-kblue-200 px-4 py-2 shadow-md font-black text-kblue-700`}
+                            className={`flex w-48 md:w-56 flex-row lg:w-full rounded-lg bg-gradient-to-l from-kblue-50 to-kblue-200 px-4 py-2 shadow-md font-black text-kblue-700`}
                         >
                             <div
-                                className={`flex items-center w-48 ${
+                                className={`flex items-center w-52 ${
                                     isExerciseFinished ? "text-kblue-600" : ""
                                 } ${
                                     user_settings.exercise_lang === "ckb"
@@ -68,8 +68,10 @@ export default function TabsVertical({ exercises, lesson }) {
                                         : ""
                                 }`}
                             >
-                                <div>{label}</div>
-                                <div>
+                                <div className="w-11/12 text-right">
+                                    {label}
+                                </div>
+                                <div className="w-1/12">
                                     {isExerciseFinished ? (
                                         React.createElement(icon, {
                                             className: "w-5 h-5",
