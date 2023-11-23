@@ -12,7 +12,6 @@ use App\Services\UserSettingsService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
-use Illuminate\Support\Facades\Cache;
 
 class LessonController extends Controller
 {
@@ -22,9 +21,7 @@ class LessonController extends Controller
         $userProgressService = new UserProgressService;
         $exerciseLanguage = $userSettings->getExerciseLang();
         // dd($exerciseLanguage);
-        $lessons = Cache::rememberForever('lessons' . $exerciseLanguage, function () use ($exerciseLanguage) {
-            return Lesson::where('locale', $exerciseLanguage)->where('active', true)->with('exercises.screens.userProgress')->get();
-        });
+        $lessons = Lesson::where('locale', $exerciseLanguage)->where('active', true)->with('exercises.screens.userProgress')->get();
 
         $daily_time = $userSettings->getDailyTime();
 
