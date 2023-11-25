@@ -7,6 +7,7 @@ use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SocialController;
+use App\Http\Controllers\StatController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -75,6 +76,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/badges', [BadgeController::class, 'index'])->name('badges');
+    Route::get('/stats', [StatController::class, 'index'])->name('stats');
     Route::get('/certificates', [CertificateController::class, 'index'])->name('certificates');
     Route::get('/certificate/{certificate}', [CertificateController::class, 'certificate'])->name('certificate');
     Route::get('/lessoncertificate/{lesson}', [CertificateController::class, 'currentLessonCertificate'])->name('lessoncertificate');
