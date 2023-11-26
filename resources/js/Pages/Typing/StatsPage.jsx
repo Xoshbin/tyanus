@@ -6,14 +6,7 @@ import { Head } from "@inertiajs/react";
 import Footer from "@/Components/Typing/Footer";
 import BubbleChart from "@/Components/Typing/stats/BubbleChart";
 import LineChart from "../../Components/Typing/Stats/LineChart";
-import {
-    Card,
-    CardHeader,
-    CardBody,
-    CardFooter,
-    Typography,
-    Button,
-} from "@material-tailwind/react";
+import { Card, CardBody, Typography } from "@material-tailwind/react";
 
 const StatsPage = ({ stats }) => {
     return (
