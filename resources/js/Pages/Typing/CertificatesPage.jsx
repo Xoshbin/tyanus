@@ -7,8 +7,8 @@ import Footer from "@/Components/Typing/Footer";
 
 const CertificatesPage = ({ certificates }) => {
     return (
-        <AppLayout>
-            <Head title={__("Certificates")} footer={<Footer />} />
+        <AppLayout footer={<Footer />}>
+            <Head title={__("Certificates")} />
             <div className="container mx-auto py-10">
                 <h1 className="text-3xl font-bold mb-5">
                     {__("certificates")}

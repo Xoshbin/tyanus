@@ -10,8 +10,8 @@ import { __ } from "@/Libs/Lang";
 const PrivacyPolicy = ({ markdownContent }) => {
     const { auth } = usePage().props;
     return (
-        <AppLayout user={auth ? auth.user : undefined}>
-            <Head title={__("Privacy Policy")} footer={<Footer />} />
+        <AppLayout user={auth ? auth.user : undefined} footer={<Footer />}>
+            <Head title={__("Privacy Policy")} />
 
             <MarkdownRenderer
                 markdownContent={markdownContent}

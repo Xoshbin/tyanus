@@ -8,8 +8,8 @@ import Footer from "@/Components/Typing/Footer";
 
 const BadgesPage = ({ badges }) => {
     return (
-        <AppLayout>
-            <Head title={__("Badges")} footer={<Footer />} />
+        <AppLayout footer={<Footer />}>
+            <Head title={__("Badges")} />
             <div className="container mx-auto py-10">
                 <h1 className="text-3xl font-bold mb-5">{__("badges")}</h1>
                 {Object.keys(badges).length !== 0 ? (

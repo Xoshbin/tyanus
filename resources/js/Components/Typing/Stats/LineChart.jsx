@@ -64,13 +64,13 @@ const LineChart = ({ stats }) => {
         labels: labels,
         datasets: [
             {
-                label: "Speed",
+                label: __("Speed"),
                 backgroundColor: "rgb(255, 99, 132)",
                 borderColor: "rgb(255, 99, 132)",
                 data: speedData,
             },
             {
-                label: "Accuracy",
+                label: __("Accuracy"),
                 backgroundColor: "rgb(155, 99, 132)",
                 borderColor: "rgb(155, 99, 132)",
                 data: accuracyData,
@@ -84,21 +84,21 @@ const LineChart = ({ stats }) => {
 
     return (
         <div className="flex flex-col text-right">
-            <Typography variant="h4" color="blue-gray" className="mb-2">
-                {__("badges")}
+            <Typography variant="h6" color="blue-gray" className="mb-2">
+                {__("Progress Overview")}
             </Typography>
             {/* Dropdown for selecting the filter */}
             <div class="flex flex-col items-center space-y-4">
                 <div className="w-72">
                     <Select
                         value={selectedFilter}
-                        label={__("Keyabord type")}
+                        label={__("Select Time Range")}
                         color="blue"
                         onChange={(value) => handleFilterChange(value)}
                     >
-                        <Option value="date">Date</Option>
-                        <Option value="month">Month</Option>
-                        <Option value="year">Year</Option>
+                        <Option value="date">{__("Date")}</Option>
+                        <Option value="month">{__("Month")}</Option>
+                        <Option value="year">{__("Year")}</Option>
                     </Select>
                 </div>
                 {/* Render the Line chart */}

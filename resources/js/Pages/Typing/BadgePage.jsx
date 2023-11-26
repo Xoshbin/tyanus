@@ -71,8 +71,8 @@ const BadgePage = ({
         };
     }, [intervalId]);
     return (
-        <AppLayout user={auth ? auth.user : undefined}>
-            <Head title={exerciseName} footer={<Footer />} />
+        <AppLayout user={auth ? auth.user : undefined} footer={<Footer />}>
+            <Head title={exerciseName} />
             <div className="space-y-4 w-7/12 mx-auto">
                 <ReactCanvasConfetti
                     refConfetti={getInstance}

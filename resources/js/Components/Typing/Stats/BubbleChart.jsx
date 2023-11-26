@@ -4,14 +4,7 @@ import Chart from "chart.js/auto"; // don't delete it it gives error
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import { __ } from "@/Libs/Lang";
-import {
-    Card,
-    CardHeader,
-    CardBody,
-    CardFooter,
-    Typography,
-    Button,
-} from "@material-tailwind/react";
+import { Typography } from "@material-tailwind/react";
 
 const BubbleChart = ({ stats }) => {
     ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
@@ -30,7 +23,7 @@ const BubbleChart = ({ stats }) => {
     const bubbleData = {
         datasets: [
             {
-                label: "Error characters",
+                label: __("Wrong keys"),
                 data: Object.entries(characterCounts).map(([char, count]) => ({
                     x: Math.random(), // Adjust x and y values as needed
                     y: Math.random(),
@@ -44,6 +37,11 @@ const BubbleChart = ({ stats }) => {
     // Configure the datalabels plugin
     const options = {
         plugins: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                },
+            },
             tooltip: {
                 bodyFont: {
                     size: 36,
@@ -72,9 +70,12 @@ const BubbleChart = ({ stats }) => {
     };
     return (
         <div className="flex flex-col">
-            <Typography variant="h4" color="blue-gray" className="mb-2">
-                {__("badges")}
-            </Typography>{" "}
+            <Typography variant="h6" color="blue-gray" className="mb-2">
+                {__("Wrong keys")}
+            </Typography>
+            <Typography>
+                {__("The bigger the bubble, more mistakes you made")}
+            </Typography>
             <Bubble data={bubbleData} options={options} />
         </div>
     );

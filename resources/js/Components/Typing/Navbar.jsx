@@ -88,7 +88,14 @@ export default function Navbar({ locale }) {
 
                     <div className="flex sm:items-center sm:ml-6 sm:space-x-10">
                         {/* Menus */}
-                        <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <div className="hidden space-x-4 sm:-my-px sm:ml-10 sm:flex">
+                            <NavLink
+                                className="flex text-xl border-2 border-transparent rounded-full transition text-kblue-600"
+                                href={route("stats")}
+                                active={route().current("stats")}
+                            >
+                                {__("Stats")}
+                            </NavLink>
                             <NavLink
                                 className="flex text-xl border-2 border-transparent rounded-full transition text-kblue-600"
                                 href={route("test")}

@@ -17,8 +17,8 @@ import {
 
 const StatsPage = ({ stats }) => {
     return (
-        <AppLayout>
-            <Head title={__("Badges")} footer={<Footer />} />
+        <AppLayout footer={<Footer />}>
+            <Head title={__("Badges")} />
             <div className="container mx-auto py-10">
                 <Typography variant="h2" color="blue-gray" className="mb-2">
                     {__("badges")}
