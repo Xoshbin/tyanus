@@ -127,42 +127,4 @@ class UserSettingsService
             }
         }
     }
-
-    /**
-     * Get the user's vertical tab position.
-     *
-     * @return int
-     */
-    public function getVerticalTabPositions(): int
-    {
-        if (Auth::check()) {
-            return auth()->user()->settings['vertical_tab_position'] ?? 15;
-        } else {
-            if ($this->guestUserId) {
-                $settings = session('settings_' . $this->guestUserId, []);
-                return $settings['vertical_tab_position'] ?? 15;
-            } else {
-                return 15;
-            }
-        }
-    }
-
-    /**
-     * Get the user's horizontal tab position.
-     *
-     * @return int
-     */
-    public function getHoriziontalTabPositions(): int
-    {
-        if (Auth::check()) {
-            return auth()->user()->settings['horizontal_tab_position'] ?? 15;
-        } else {
-            if ($this->guestUserId) {
-                $settings = session('settings_' . $this->guestUserId, []);
-                return $settings['horizontal_tab_position'] ?? 15;
-            } else {
-                return 15;
-            }
-        }
-    }
 }
