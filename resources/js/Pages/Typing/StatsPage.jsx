@@ -4,7 +4,7 @@ import { __ } from "@/Libs/Lang";
 import { Link } from "@inertiajs/react";
 import { Head } from "@inertiajs/react";
 import Footer from "@/Components/Typing/Footer";
-import BubbleChart from "@/Components/Typing/stats/BubbleChart";
+import BubbleChart from "@/Components/Typing/Stats/BubbleChart";
 import LineChart from "../../Components/Typing/Stats/LineChart";
 import { Card, CardBody, Typography } from "@material-tailwind/react";
 
