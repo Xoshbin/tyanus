@@ -27,7 +27,7 @@ const BubbleChart = ({ stats }) => {
                 data: Object.entries(characterCounts).map(([char, count]) => ({
                     x: Math.random(), // Adjust x and y values as needed
                     y: Math.random(),
-                    r: count * 5, // Adjust the multiplier to control bubble size
+                    r: count * 2, // Adjust the multiplier to control bubble size
                 })),
                 backgroundColor: "rgba(255, 99, 132, 0.5)",
             },
