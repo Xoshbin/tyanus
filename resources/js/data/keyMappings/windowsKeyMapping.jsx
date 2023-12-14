@@ -109,6 +109,7 @@ export const windowsFingerMapping = {
     '"': "/img/fingers/f.webp",
     "'": "/img/fingers/comma.webp",
     "،": "/img/fingers/comma.webp",
+    ".": "/img/fingers/period.webp",
     ";": "/img/fingers/j.webp",
     ":": "/img/fingers/j.webp",
     "/": "/img/fingers/j.webp",

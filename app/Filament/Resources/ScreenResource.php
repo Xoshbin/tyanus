@@ -61,7 +61,7 @@ class ScreenResource extends Resource
                     ]),
                 Forms\Components\Grid::make(1)
                     ->schema([
-                        Forms\Components\RichEditor::make('content'),
+                        Forms\Components\TextInput::make('content'),
                     ]),
                 Forms\Components\Grid::make(1)
                     ->schema([
