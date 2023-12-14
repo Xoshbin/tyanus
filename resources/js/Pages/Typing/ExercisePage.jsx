@@ -258,23 +258,24 @@ export default function Lesson({
     let visibleCharacters;
 
     if (currentScreen === "sentences" || currentScreen === "test") {
-        const extractVisibleCharacters = (content, start, count) => {
-            visibleCharacters = content.slice(start, start + count);
-            const lastSpaceIndex = visibleCharacters.lastIndexOf(" ");
+        // Find the last space within the visible character range
+        let lastSpaceIndex = startVisibleCharacterCount + visibleCharacterCount;
+        while (
+            lastSpaceIndex < screen.content.length &&
+            screen.content[lastSpaceIndex] !== " "
+        ) {
+            lastSpaceIndex--;
+        }
 
-            if (lastSpaceIndex !== -1) {
-                // Adjust count to the last space
-                count = lastSpaceIndex;
-            }
+        // If a space was found, set the endpoint to the space, otherwise, keep the original endpoint
+        let endPoint =
+            lastSpaceIndex !== -1
+                ? lastSpaceIndex
+                : startVisibleCharacterCount + visibleCharacterCount;
 
-            return content.slice(start, start + count);
-        };
-
-        // Usage
-        visibleCharacters = extractVisibleCharacters(
-            screen.content,
+        visibleCharacters = screen.content.slice(
             startVisibleCharacterCount,
-            visibleCharacterCount
+            endPoint
         );
     } else {
         // Create a subarray of characters to display based on the visibleCharacterCount.
