@@ -134,7 +134,7 @@ export default function Lesson({
                     !e.key.startsWith("Arrow") &&
                     e.key !== "Backspace" // Exclude the Backspace key
                 ) {
-                    const characterToType = e.key === "Enter" ? "↩" : e.key;
+                    const characterToType = e.key === "Enter" ? "↵" : e.key;
 
                     // Check if the character at the current position should match the Enter symbol
                     if (
@@ -145,8 +145,8 @@ export default function Lesson({
                         setUserInputForHighlight(
                             (prev) => prev + characterToType
                         );
-                    } else if (characterToType === "↩") {
-                        // Check if the entered character is not "↩"
+                    } else if (characterToType === "↵") {
+                        // Check if the entered character is not "↵"
                         setUserInput((prev) => prev + characterToType);
                         setUserInputForHighlight(
                             (prev) => prev + characterToType

@@ -134,6 +134,7 @@ export const windowsFingerMapping = {
     "=": "/img/fingers/j.webp",
     "+": "/img/fingers/f.webp",
     enter: "/img/fingers/enter.webp",
+    "↵": "/img/fingers/enter.webp",
     " ": "/img/fingers/space.webp",
     // Add more mappings for other keys as needed
 };
@@ -238,6 +239,7 @@ export const windowsRightKeys = [
     "y",
     "g",
     " ",
+    "↵",
 
     //English Shift keys
     "|",

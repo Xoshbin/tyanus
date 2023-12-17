@@ -160,6 +160,7 @@ export const macFingerMapping = {
     "+": "/img/fingers/0.webp",
 
     enter: "/img/fingers/enter.webp",
+    "↵": "/img/fingers/enter.webp",
     " ": "/img/fingers/space.webp",
     // Add more mappings for other keys as needed
 };
