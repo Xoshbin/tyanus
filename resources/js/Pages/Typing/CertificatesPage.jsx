@@ -18,7 +18,12 @@ const CertificatesPage = ({ certificates }) => {
                         {certificates.map((certificate) => (
                             <div className="px-2 mb-4" key={certificate.id}>
                                 <div className="bg-kblue-200 rounded-lg shadow-lg p-5">
-                                    <a href="{ route('certificate', $certificate->id) }">
+                                    <a
+                                        href={route(
+                                            "certificate",
+                                            $certificate.id
+                                        )}
+                                    >
                                         <div className="flex h-36 w-52 bg-kblue-300 rounded-lg text-center justify-center items-center">
                                             <img
                                                 src={

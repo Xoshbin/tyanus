@@ -4,7 +4,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 10.34.2.
+ * Generated for Laravel 10.33.0.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -13556,7 +13556,6 @@
      * @method static \Illuminate\Routing\RouteRegistrar controller(string $controller)
      * @method static \Illuminate\Routing\RouteRegistrar domain(string $value)
      * @method static \Illuminate\Routing\RouteRegistrar middleware(array|string|null $middleware)
-     * @method static \Illuminate\Routing\RouteRegistrar missing(\Closure $missing)
      * @method static \Illuminate\Routing\RouteRegistrar name(string $value)
      * @method static \Illuminate\Routing\RouteRegistrar namespace(string|null $value)
      * @method static \Illuminate\Routing\RouteRegistrar prefix(string $prefix)
@@ -14565,50 +14564,16 @@
                         return $instance->dropDatabaseIfExists($name);
         }
                     /**
-         * Get the tables for the database.
+         * Determine if the given table exists.
          *
-         * @return array 
+         * @param string $table
+         * @return bool 
          * @static 
          */ 
-        public static function getTables()
+        public static function hasTable($table)
         {
                         /** @var \Illuminate\Database\Schema\MySqlBuilder $instance */
-                        return $instance->getTables();
-        }
-                    /**
-         * Get the views for the database.
-         *
-         * @return array 
-         * @static 
-         */ 
-        public static function getViews()
-        {
-                        /** @var \Illuminate\Database\Schema\MySqlBuilder $instance */
-                        return $instance->getViews();
-        }
-                    /**
-         * Get all of the table names for the database.
-         *
-         * @deprecated Will be removed in a future Laravel version.
-         * @return array 
-         * @static 
-         */ 
-        public static function getAllTables()
-        {
-                        /** @var \Illuminate\Database\Schema\MySqlBuilder $instance */
-                        return $instance->getAllTables();
-        }
-                    /**
-         * Get all of the view names for the database.
-         *
-         * @deprecated Will be removed in a future Laravel version.
-         * @return array 
-         * @static 
-         */ 
-        public static function getAllViews()
-        {
-                        /** @var \Illuminate\Database\Schema\MySqlBuilder $instance */
-                        return $instance->getAllViews();
+                        return $instance->hasTable($table);
         }
                     /**
          * Get the columns for a given table.
@@ -14643,6 +14608,28 @@
         {
                         /** @var \Illuminate\Database\Schema\MySqlBuilder $instance */
                         $instance->dropAllViews();
+        }
+                    /**
+         * Get all of the table names for the database.
+         *
+         * @return array 
+         * @static 
+         */ 
+        public static function getAllTables()
+        {
+                        /** @var \Illuminate\Database\Schema\MySqlBuilder $instance */
+                        return $instance->getAllTables();
+        }
+                    /**
+         * Get all of the view names for the database.
+         *
+         * @return array 
+         * @static 
+         */ 
+        public static function getAllViews()
+        {
+                        /** @var \Illuminate\Database\Schema\MySqlBuilder $instance */
+                        return $instance->getAllViews();
         }
                     /**
          * Set the default string length for migrations.
@@ -14697,18 +14684,6 @@
         public static function useNativeSchemaOperationsIfPossible($value = true)
         {            //Method inherited from \Illuminate\Database\Schema\Builder         
                         \Illuminate\Database\Schema\MySqlBuilder::useNativeSchemaOperationsIfPossible($value);
-        }
-                    /**
-         * Determine if the given table exists.
-         *
-         * @param string $table
-         * @return bool 
-         * @static 
-         */ 
-        public static function hasTable($table)
-        {            //Method inherited from \Illuminate\Database\Schema\Builder         
-                        /** @var \Illuminate\Database\Schema\MySqlBuilder $instance */
-                        return $instance->hasTable($table);
         }
                     /**
          * Determine if the given table has a given column.
@@ -18499,13 +18474,6 @@
      *
      */ 
         class Js {
-         
-    }
-            /**
-     * 
-     *
-     */ 
-        class Number {
          
     }
             /**
@@ -26686,7 +26654,6 @@ namespace  {
             class Log extends \Illuminate\Support\Facades\Log {}
             class Mail extends \Illuminate\Support\Facades\Mail {}
             class Notification extends \Illuminate\Support\Facades\Notification {}
-            class Number extends \Illuminate\Support\Number {}
             class Password extends \Illuminate\Support\Facades\Password {}
             class Process extends \Illuminate\Support\Facades\Process {}
             class Queue extends \Illuminate\Support\Facades\Queue {}
