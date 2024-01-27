@@ -21,7 +21,7 @@ const CertificatesPage = ({ certificates }) => {
                                     <a
                                         href={route(
                                             "certificate",
-                                            $certificate.id
+                                            certificate.id
                                         )}
                                     >
                                         <div className="flex h-36 w-52 bg-kblue-300 rounded-lg text-center justify-center items-center">
