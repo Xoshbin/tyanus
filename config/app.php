@@ -159,7 +159,6 @@ return [
         /*
          * Package Service Providers...
          */
-        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
 
         /*
