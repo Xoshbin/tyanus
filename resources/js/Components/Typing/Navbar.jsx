@@ -111,7 +111,7 @@ export default function Navbar({ locale }) {
                                 {__("Lessons")}
                             </NavLink>
 
-                            {/* <Dropdown>
+                            <Dropdown>
                                 <Dropdown.Trigger>
                                     <span className="inline-flex rounded-md">
                                         <button
@@ -148,7 +148,7 @@ export default function Navbar({ locale }) {
                                         {__("EN")}
                                     </Dropdown.Link>
                                 </Dropdown.Content>
-                            </Dropdown> */}
+                            </Dropdown>
                         </div>
                         {/* Logo */}
                         <div className="flex">

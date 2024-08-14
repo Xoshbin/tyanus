@@ -24,8 +24,8 @@ class Localization
             // You also can set the Carbon locale
             Carbon::setLocale(\Session::get('locale'));
         } else {
-            App::setLocale('ckb');
-            session()->put('locale', 'ckb');
+            App::setLocale('en');
+            session()->put('locale', 'en');
         }
         return $next($request);
     }
