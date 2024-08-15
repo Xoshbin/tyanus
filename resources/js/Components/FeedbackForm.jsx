@@ -69,7 +69,7 @@ export default function FeedbackForm({ onClose }) {
                     </div>
                     <div className="flex items-center justify-between">
                         <PrimaryButton disabled={processing}>Submit</PrimaryButton>
-                        <DangerButton>Close</DangerButton>
+                        <DangerButton type="button" onClick={onClose}>Close</DangerButton>
                     </div>
                 </form>
             </div>
