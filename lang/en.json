@@ -142,5 +142,13 @@
     "Month": "Month",
     "Year": "Year",
     "Wrong keys": "Wrong keys",
-    "The bigger the bubble, more mistakes you made": "The bigger the bubble, more practices you need on that character."
+    "The bigger the bubble, more mistakes you made": "The bigger the bubble, more practices you need on that character.",
+
+    "Feedback": "Feedback",
+    "Feedback From": "Feedback From",
+    "Message": "Message",
+    "Close": "Close",
+    "Submit": "Submit",
+    "Please correct the errors and try again.": "Please correct the errors and try again.",
+    "Feedback submitted successfully!": "Feedback submitted successfully! Thank you"
 }

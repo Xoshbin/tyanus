@@ -6,6 +6,7 @@ import {Textarea} from "@material-tailwind/react";
 import { router } from '@inertiajs/react'
 import { useForm } from '@inertiajs/react'
 import { toast } from 'react-toastify';
+import { __ } from "@/Libs/Lang";
 
 export default function FeedbackForm({ onClose }) {
     const { data, setData, post, processing, errors } = useForm({
@@ -53,23 +54,23 @@ export default function FeedbackForm({ onClose }) {
                 <h2 className="text-2xl font-bold mb-4">Feedback Form</h2>
                 <form onSubmit={submit}>
                     <div className="mb-4">
-                        <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Name</label>
+                        <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">{__("Name")}</label>
                         <TextInput type={'text'} name={'name'} value={data.name} onChange={e => setData('name', e.target.value)}/>
                         {errors.name && <div className="text-red-600 text-sm mt-2">{errors.name}</div>}
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                        <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">{__("Email")}</label>
                         <TextInput type={'email'} name={'email'} value={data.email} onChange={e => setData('email', e.target.value)}/>
                         {errors.email && <div className="text-red-600 text-sm mt-2">{errors.email}</div>}
                     </div>
                     <div className="mb-6">
-                        <label htmlFor="message" className="block text-gray-700 text-sm font-bold mb-2">message</label>
+                        <label htmlFor="message" className="block text-gray-700 text-sm font-bold mb-2">{__("Message")}</label>
                         <Textarea value={data.message} onChange={e => setData('message', e.target.value)}/>
                         {errors.message && <div className="text-red-600 text-sm mt-2">{errors.message}</div>}
                     </div>
                     <div className="flex items-center justify-between">
-                        <PrimaryButton disabled={processing}>Submit</PrimaryButton>
-                        <DangerButton type="button" onClick={onClose}>Close</DangerButton>
+                        <PrimaryButton disabled={processing}>{__("Submit")}</PrimaryButton>
+                        <DangerButton type="button" onClick={onClose}>{__("Close")}</DangerButton>
                     </div>
                 </form>
             </div>

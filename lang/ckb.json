@@ -147,5 +147,13 @@
     "Month": "مانگ",
     "Year": "ساڵ",
     "Wrong keys": "پیتە هەڵەکان",
-    "The bigger the bubble, more mistakes you made": "هەتا بڵقەکە گەورەتر بێت، پێویستت بە مەشقی زیاترە لەو پیتەدا."
+    "The bigger the bubble, more mistakes you made": "هەتا بڵقەکە گەورەتر بێت، پێویستت بە مەشقی زیاترە لەو پیتەدا.",
+
+    "Feedback": "فیدباک",
+    "Feedback From": "فۆڕمی فیدباک",
+    "Message": "پەیام",
+    "Close": "داخستن",
+    "Submit": "ناردن",
+    "Please correct the errors and try again.": "تکایە ئەو هەڵانە چارەسەر بکەو دووبارە هەوڵبدەرەوە.",
+    "Feedback submitted successfully!": "پەیامەکەت بە سەرکەوتویی نێردرا! سوپاس"
 }
