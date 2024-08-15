@@ -48,7 +48,7 @@ export default function FeedbackForm({ onClose }) {
     };
 
     return (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center">
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center z-20">
             <div className="relative p-8 bg-white w-full max-w-md m-auto rounded-md shadow-lg">
                 <h2 className="text-2xl font-bold mb-4">Feedback Form</h2>
                 <form onSubmit={submit}>
