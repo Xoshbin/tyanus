@@ -3,6 +3,7 @@
 use App\Http\Controllers\BadgeController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CertificateController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ProfileController;
@@ -81,5 +82,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/certificate/{certificate}', [CertificateController::class, 'certificate'])->name('certificate');
     Route::get('/lessoncertificate/{lesson}', [CertificateController::class, 'currentLessonCertificate'])->name('lessoncertificate');
 });
+
+Route::post('feedback', [FeedbackController::class, 'store']);
+
 
 require __DIR__ . '/auth.php';

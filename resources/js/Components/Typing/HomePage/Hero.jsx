@@ -22,7 +22,7 @@ export default function Hero({ locale }) {
                             alt=""
                         />
                     </div>
-                    <h2 className="text-3xl text-kyellow-500 font-semibold antialiased writer-text underline">
+                    <h2 className="text-3xl text-kyellow-500 font-semibold antialiased writer-text">
                         {__(
                             "In Kurdish and English"
                         )}
