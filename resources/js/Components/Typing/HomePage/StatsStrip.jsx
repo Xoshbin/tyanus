@@ -27,7 +27,7 @@ function CountUp({ value, duration = 800 }) {
     return <span>{formatNumber(display)}</span>;
 }
 
-const StatCard = ({ label, desc, value, hint, hintColor = "text-green-600", icon }) => (
+const StatCard = ({ label, desc, value }) => (
     <div className="group relative rounded-xl bg-white/90 border border-kblue-100/50 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5">
         <div className="absolute inset-0 rounded-xl ring-1 ring-black/0 group-hover:ring-black/5"></div>
         <div className="p-5 sm:p-6 flex flex-col items-center text-center">
@@ -38,12 +38,6 @@ const StatCard = ({ label, desc, value, hint, hintColor = "text-green-600", icon
             <div className="mt-2 text-3xl sm:text-4xl font-extrabold tracking-tight text-kblue-700">
                 <CountUp value={value} />
             </div>
-            {hint && (
-                <div className={`mt-2 flex items-center gap-2 text-xs sm:text-sm ${hintColor}`}>
-                    {icon}
-                    <span className="whitespace-nowrap">{hint}</span>
-                </div>
-            )}
         </div>
     </div>
 );
@@ -60,22 +54,7 @@ export default function StatsStrip({ stats }) {
     };
 
     const cards = [
-        {
-            label: t("Screens played"),
-            desc: t("Screens played description"),
-            value: stats?.screensPlayed,
-            hint:
-                typeof stats?.screensPlayedChange === "number"
-                    ? `${stats.screensPlayedChange >= 0 ? t("increase") : t("decrease")} ${Math.abs(stats.screensPlayedChange)}%`
-                    : null,
-            hintColor: (stats?.screensPlayedChange ?? 0) >= 0 ? "text-green-600" : "text-red-600",
-            icon: (
-                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                    <path d="M3 17l6-6 4 4 7-7" />
-                    <path d="M14 4h7v7" />
-                </svg>
-            ),
-        },
+        { label: t("Screens played"), desc: t("Screens played description"), value: stats?.screensPlayed },
         { label: t("Exercises"), desc: t("Exercises description"), value: stats?.exercises },
         { label: t("Screens"), desc: t("Screens description"), value: stats?.screens },
         { label: t("Users"), desc: t("Users description"), value: stats?.users },
