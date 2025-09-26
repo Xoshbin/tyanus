@@ -2,11 +2,24 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Schemas\Schema;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Select;
+use Filament\Schemas\Components\Fieldset;
+use Filament\Schemas\Components\Grid;
+use Filament\Forms\Components\RichEditor;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Actions\EditAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\CreateAction;
+use App\Filament\Resources\ScreenResource\Pages\ListScreens;
+use App\Filament\Resources\ScreenResource\Pages\CreateScreen;
+use App\Filament\Resources\ScreenResource\Pages\EditScreen;
 use App\Filament\Resources\ScreenResource\Pages;
 use App\Filament\Resources\ScreenResource\RelationManagers;
 use App\Models\Screen;
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -17,7 +30,7 @@ class ScreenResource extends Resource
 {
     protected static ?string $model = Screen::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-computer-desktop';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-computer-desktop';
 
     protected static ?string $navigationLabel = 'سکرینەکان';
 
@@ -25,18 +38,18 @@ class ScreenResource extends Resource
 
     protected static ?int $navigationSort = 3;
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('title'),
-                Forms\Components\TextInput::make('order')->numeric(),
-                Forms\Components\Select::make('locale')
+        return $schema
+            ->components([
+                TextInput::make('title'),
+                TextInput::make('order')->numeric(),
+                Select::make('locale')
                     ->options([
                         'ckb' => 'Kurdish',
                         'en' => 'English',
                     ]),
-                Forms\Components\Select::make('content_type')
+                Select::make('content_type')
                     ->options([
                         'letters' => 'Letters',
                         'words' => 'Words',
@@ -46,26 +59,26 @@ class ScreenResource extends Resource
                         'badge' => 'Badge',
                         'intro' => 'Intro',
                     ]),
-                Forms\Components\Fieldset::make('Parents')
+                Fieldset::make('Parents')
                     ->schema([
-                        Forms\Components\Select::make('lesson_id')
+                        Select::make('lesson_id')
                             ->relationship('lesson', 'title')
                             ->searchable()
                             ->preload()
                             ->required(),
-                        Forms\Components\Select::make('exercise_id')
+                        Select::make('exercise_id')
                             ->relationship('exercise', 'title')
                             ->searchable()
                             ->preload()
                             ->required(),
                     ]),
-                Forms\Components\Grid::make(1)
+                Grid::make(1)
                     ->schema([
-                        Forms\Components\TextInput::make('content'),
+                        TextInput::make('content'),
                     ]),
-                Forms\Components\Grid::make(1)
+                Grid::make(1)
                     ->schema([
-                        Forms\Components\RichEditor::make('extra'),
+                        RichEditor::make('extra'),
                     ]),
             ]);
     }
@@ -74,27 +87,27 @@ class ScreenResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')->searchable()->sortable(),
-                Tables\Columns\TextColumn::make('locale')->sortable(),
-                Tables\Columns\TextColumn::make('lesson.title'),
-                Tables\Columns\TextColumn::make('exercise.title'),
-                Tables\Columns\TextColumn::make('content_type')->sortable(),
-                Tables\Columns\TextColumn::make('order')->numeric()->sortable(),
+                TextColumn::make('title')->searchable()->sortable(),
+                TextColumn::make('locale')->sortable(),
+                TextColumn::make('lesson.title'),
+                TextColumn::make('exercise.title'),
+                TextColumn::make('content_type')->sortable(),
+                TextColumn::make('order')->numeric()->sortable(),
 
             ])
             ->filters([
                 //
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
+            ->recordActions([
+                EditAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ])
             ->emptyStateActions([
-                Tables\Actions\CreateAction::make(),
+                CreateAction::make(),
             ]);
     }
 
@@ -108,9 +121,9 @@ class ScreenResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListScreens::route('/'),
-            'create' => Pages\CreateScreen::route('/create'),
-            'edit' => Pages\EditScreen::route('/{record}/edit'),
+            'index' => ListScreens::route('/'),
+            'create' => CreateScreen::route('/create'),
+            'edit' => EditScreen::route('/{record}/edit'),
         ];
     }
 }
