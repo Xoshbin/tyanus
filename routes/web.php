@@ -9,10 +9,9 @@ use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\StatController;
-use Illuminate\Foundation\Application;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,15 +24,7 @@ use Illuminate\Support\Str;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'locale' => app()->getLocale(),
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/lesson/{screen:url}', [LessonController::class, 'challenge'])->name('lesson');
 Route::get('/test', [LessonController::class, 'test'])->name('test');
