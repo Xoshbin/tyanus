@@ -150,5 +150,17 @@
     "Close": "Close",
     "Submit": "Submit",
     "Please correct the errors and try again.": "Please correct the errors and try again.",
-    "Feedback submitted successfully!": "Feedback submitted successfully! Thank you"
+    "Feedback submitted successfully!": "Feedback submitted successfully! Thank you",
+
+  "Screens played": "Screens played",
+  "Exercises": "Exercises",
+  "Screens": "Screens",
+  "Users": "Users",
+  "increase": "increase",
+  "decrease": "decrease",
+
+  "Screens played description": "All screens completed by users",
+  "Exercises description": "Distinct exercises available",
+  "Screens description": "Lesson screens available",
+  "Users description": "Registered users"
 }

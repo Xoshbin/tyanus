@@ -2,11 +2,32 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Schemas\Schema;
+use Filament\Schemas\Components\Group;
+use Filament\Schemas\Components\Section;
+use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Utilities\Set;
+use Filament\Forms\Components\MarkdownEditor;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Forms\Components\Placeholder;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
+use Filament\Forms\Components\DatePicker;
+use Filament\Actions\ViewAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Schemas\Components\Flex;
+use Filament\Schemas\Components\Grid;
+use Filament\Infolists\Components\TextEntry;
+use App\Filament\Resources\PostResource\Pages\ListPosts;
+use App\Filament\Resources\PostResource\Pages\CreatePost;
+use App\Filament\Resources\PostResource\Pages\EditPost;
 use App\Filament\Resources\PostResource\Pages;
 use App\Filament\Resources\PostResource\RelationManagers;
 use App\Models\Post;
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -17,7 +38,6 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
 use Filament\Notifications\Notification;
 use Filament\Infolists\Components;
-use Filament\Infolists\Infolist;
 
 class PostResource extends Resource
 {
@@ -25,7 +45,7 @@ class PostResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'title';
 
-    protected static ?string $navigationGroup = 'Blog';
+    protected static string | \UnitEnum | null $navigationGroup = 'Blog';
 
     protected static ?int $navigationSort = 0;
 
@@ -33,36 +53,36 @@ class PostResource extends Resource
 
     protected static ?string $title = 'پۆستەکان';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\Group::make()
+        return $schema
+            ->components([
+                Group::make()
                     ->schema([
-                        Forms\Components\Section::make()
+                        Section::make()
                             ->schema([
-                                Forms\Components\TextInput::make('title')
+                                TextInput::make('title')
                                     ->required()
                                     ->live(onBlur: true)
-                                    ->afterStateUpdated(fn (string $operation, $state, Forms\Set $set) => $operation === 'create' ? $set('slug', Str::slug($state)) : null),
+                                    ->afterStateUpdated(fn (string $operation, $state, Set $set) => $operation === 'create' ? $set('slug', Str::slug($state)) : null),
 
-                                Forms\Components\TextInput::make('slug')
+                                TextInput::make('slug')
                                     ->disabled()
                                     ->dehydrated()
                                     ->required()
                                     ->unique(Post::class, 'slug', ignoreRecord: true),
 
-                                Forms\Components\MarkdownEditor::make('body')
+                                MarkdownEditor::make('body')
                                     ->required()
                                     ->columnSpan('full'),
 
-                                Forms\Components\Select::make('user_id')
+                                Select::make('user_id')
                                     ->relationship('user', 'name')
                                     ->required(),
 
-                                Forms\Components\Select::make('status')
+                                Select::make('status')
                                     ->options([
                                         'draft' => 'Draft',
                                         'published' => 'Published',
@@ -72,9 +92,9 @@ class PostResource extends Resource
                             ])
                             ->columns(2),
 
-                        Forms\Components\Section::make('Image')
+                        Section::make('Image')
                             ->schema([
-                                Forms\Components\SpatieMediaLibraryFileUpload::make('image')
+                                SpatieMediaLibraryFileUpload::make('image')
                                     ->label('Image')
                                     ->image(),
                             ])
@@ -82,13 +102,13 @@ class PostResource extends Resource
                     ])
                     ->columnSpan(['lg' => fn (?Post $record) => $record === null ? 3 : 2]),
 
-                Forms\Components\Section::make()
+                Section::make()
                     ->schema([
-                        Forms\Components\Placeholder::make('created_at')
+                        Placeholder::make('created_at')
                             ->label('Created at')
                             ->content(fn (Post $record): ?string => $record->created_at?->diffForHumans()),
 
-                        Forms\Components\Placeholder::make('updated_at')
+                        Placeholder::make('updated_at')
                             ->label('Last modified at')
                             ->content(fn (Post $record): ?string => $record->updated_at?->diffForHumans()),
                     ])
@@ -107,36 +127,36 @@ class PostResource extends Resource
             ->columns([
                 SpatieMediaLibraryImageColumn::make('Image'),
 
-                Tables\Columns\TextColumn::make('title')
+                TextColumn::make('title')
                     ->searchable()
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('slug')
+                TextColumn::make('slug')
                     ->searchable()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
-                Tables\Columns\TextColumn::make('user.name')
+                TextColumn::make('user.name')
                     ->searchable()
                     ->sortable()
                     ->toggleable(),
 
-                Tables\Columns\TextColumn::make('status')->badge()
+                TextColumn::make('status')->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'draft' => 'gray',
                         'published' => 'success',
                     }),
 
-                Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('created_at')
                     ->label('Published Date')
                     ->date(),
             ])
             ->filters([
-                Tables\Filters\Filter::make('created_at')
-                    ->form([
-                        Forms\Components\DatePicker::make('published_from')
+                Filter::make('created_at')
+                    ->schema([
+                        DatePicker::make('published_from')
                             ->placeholder(fn ($state): string => 'Dec 18, ' . now()->subYear()->format('Y')),
-                        Forms\Components\DatePicker::make('published_until')
+                        DatePicker::make('published_until')
                             ->placeholder(fn ($state): string => now()->format('M d, Y')),
                     ])
                     ->query(function (Builder $query, array $data): Builder {
@@ -162,15 +182,15 @@ class PostResource extends Resource
                         return $indicators;
                     }),
             ])
-            ->actions([
-                Tables\Actions\ViewAction::make(),
+            ->recordActions([
+                ViewAction::make(),
 
-                Tables\Actions\EditAction::make(),
+                EditAction::make(),
 
-                Tables\Actions\DeleteAction::make(),
+                DeleteAction::make(),
             ])
             ->groupedBulkActions([
-                Tables\Actions\DeleteBulkAction::make()
+                DeleteBulkAction::make()
                     ->action(function () {
                         Notification::make()
                             ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
@@ -180,25 +200,25 @@ class PostResource extends Resource
             ]);
     }
 
-    public static function infolist(Infolist $infolist): Infolist
+    public static function infolist(Schema $schema): Schema
     {
-        return $infolist
-            ->schema([
-                Components\Section::make()
+        return $schema
+            ->components([
+                Section::make()
                     ->schema([
-                        Components\Split::make([
-                            Components\Grid::make(2)
+                        Flex::make([
+                            Grid::make(2)
                                 ->schema([
-                                    Components\Group::make([
-                                        Components\TextEntry::make('title'),
-                                        Components\TextEntry::make('slug'),
-                                        Components\TextEntry::make('created_at')
+                                    Group::make([
+                                        TextEntry::make('title'),
+                                        TextEntry::make('slug'),
+                                        TextEntry::make('created_at')
                                             ->badge()
                                             ->date()
                                             ->color('success'),
                                     ]),
-                                    Components\Group::make([
-                                        Components\TextEntry::make('user.name'),
+                                    Group::make([
+                                        TextEntry::make('user.name'),
                                     ]),
                                 ]),
                             // Components\ImageEntry::make('image')
@@ -206,9 +226,9 @@ class PostResource extends Resource
                             //     ->grow(false),
                         ])->from('lg'),
                     ]),
-                Components\Section::make('body')
+                Section::make('body')
                     ->schema([
-                        Components\TextEntry::make('body')
+                        TextEntry::make('body')
                             ->prose()
                             ->markdown()
                             ->hiddenLabel(),
@@ -227,9 +247,9 @@ class PostResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListPosts::route('/'),
-            'create' => Pages\CreatePost::route('/create'),
-            'edit' => Pages\EditPost::route('/{record}/edit'),
+            'index' => ListPosts::route('/'),
+            'create' => CreatePost::route('/create'),
+            'edit' => EditPost::route('/{record}/edit'),
         ];
     }
 }

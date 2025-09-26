@@ -2,11 +2,22 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Schemas\Schema;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Select;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\TextInputColumn;
+use Filament\Actions\EditAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\CreateAction;
+use App\Filament\Resources\ExerciseResource\Pages\ListExercises;
+use App\Filament\Resources\ExerciseResource\Pages\CreateExercise;
+use App\Filament\Resources\ExerciseResource\Pages\EditExercise;
 use App\Filament\Resources\ExerciseResource\Pages;
 use App\Filament\Resources\ExerciseResource\RelationManagers;
 use App\Models\Exercise;
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -17,7 +28,7 @@ class ExerciseResource extends Resource
 {
     protected static ?string $model = Exercise::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-square-3-stack-3d';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-square-3-stack-3d';
 
     protected static ?string $navigationLabel = 'ڕاهێنانەکان';
 
@@ -25,13 +36,13 @@ class ExerciseResource extends Resource
 
     protected static ?int $navigationSort = 2;
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('title'),
-                Forms\Components\TextInput::make('target_speed')->numeric(),
-                Forms\Components\Select::make('lesson_id')
+        return $schema
+            ->components([
+                TextInput::make('title'),
+                TextInput::make('target_speed')->numeric(),
+                Select::make('lesson_id')
                     ->relationship('lesson', 'title')
                     ->searchable()
                     ->preload()
@@ -43,23 +54,23 @@ class ExerciseResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')->searchable()->sortable(),
-                Tables\Columns\TextInputColumn::make('target_speed')->sortable(),
-                Tables\Columns\TextColumn::make('lesson.title'),
+                TextColumn::make('title')->searchable()->sortable(),
+                TextInputColumn::make('target_speed')->sortable(),
+                TextColumn::make('lesson.title'),
             ])
             ->filters([
                 //
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
+            ->recordActions([
+                EditAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ])
             ->emptyStateActions([
-                Tables\Actions\CreateAction::make(),
+                CreateAction::make(),
             ]);
     }
 
@@ -73,9 +84,9 @@ class ExerciseResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListExercises::route('/'),
-            'create' => Pages\CreateExercise::route('/create'),
-            'edit' => Pages\EditExercise::route('/{record}/edit'),
+            'index' => ListExercises::route('/'),
+            'create' => CreateExercise::route('/create'),
+            'edit' => EditExercise::route('/{record}/edit'),
         ];
     }
 }

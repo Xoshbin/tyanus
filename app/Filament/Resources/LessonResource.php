@@ -2,11 +2,25 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Schemas\Schema;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Toggle;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\TextInputColumn;
+use Filament\Tables\Columns\ToggleColumn;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Actions\EditAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\CreateAction;
+use App\Filament\Resources\LessonResource\Pages\ListLessons;
+use App\Filament\Resources\LessonResource\Pages\CreateLesson;
+use App\Filament\Resources\LessonResource\Pages\EditLesson;
 use App\Filament\Resources\LessonResource\Pages;
 use App\Filament\Resources\LessonResource\RelationManagers;
 use App\Models\Lesson;
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -17,7 +31,7 @@ class LessonResource extends Resource
 {
     protected static ?string $model = Lesson::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-rectangle-stack';
 
     protected static ?string $navigationLabel = 'وانەکان';
 
@@ -25,19 +39,19 @@ class LessonResource extends Resource
 
     protected static ?int $navigationSort = 1;
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('title'),
-                Forms\Components\TextInput::make('description'),
-                Forms\Components\Select::make('difficulty')
+        return $schema
+            ->components([
+                TextInput::make('title'),
+                TextInput::make('description'),
+                Select::make('difficulty')
                     ->options([
                         'beginner' => 'Beginner',
                         'intermediate' => 'Intermediate',
                         'advance' => 'Advance',
                     ]),
-                Forms\Components\Toggle::make('active'),
+                Toggle::make('active'),
             ]);
     }
 
@@ -45,29 +59,29 @@ class LessonResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')->searchable(),
-                Tables\Columns\TextInputColumn::make('description')->searchable(),
-                Tables\Columns\TextColumn::make('difficulty')->sortable(),
-                Tables\Columns\ToggleColumn::make('active')->sortable(),
+                TextColumn::make('title')->searchable(),
+                TextInputColumn::make('description')->searchable(),
+                TextColumn::make('difficulty')->sortable(),
+                ToggleColumn::make('active')->sortable(),
             ])
             ->filters([
-                Tables\Filters\SelectFilter::make('difficulty')
+                SelectFilter::make('difficulty')
                     ->options([
                         'beginner' => 'Beginner',
                         'intermediate' => 'Intermediate',
                         'advance' => 'Advance',
                     ]),
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
+            ->recordActions([
+                EditAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ])
             ->emptyStateActions([
-                Tables\Actions\CreateAction::make(),
+                CreateAction::make(),
             ]);
     }
 
@@ -81,9 +95,9 @@ class LessonResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListLessons::route('/'),
-            'create' => Pages\CreateLesson::route('/create'),
-            'edit' => Pages\EditLesson::route('/{record}/edit'),
+            'index' => ListLessons::route('/'),
+            'create' => CreateLesson::route('/create'),
+            'edit' => EditLesson::route('/{record}/edit'),
         ];
     }
 }

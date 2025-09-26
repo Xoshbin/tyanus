@@ -155,5 +155,17 @@
     "Close": "داخستن",
     "Submit": "ناردن",
     "Please correct the errors and try again.": "تکایە ئەو هەڵانە چارەسەر بکەو دووبارە هەوڵبدەرەوە.",
-    "Feedback submitted successfully!": "پەیامەکەت بە سەرکەوتویی نێردرا! سوپاس"
+    "Feedback submitted successfully!": "پەیامەکەت بە سەرکەوتویی نێردرا! سوپاس",
+
+    "Screens played": "یاریکردنەکان",
+    "Exercises": "مەشقەکان",
+    "Screens": "پەڕەکان",
+    "Users": "بەکارهێنەران",
+    "increase": "زیادبوون",
+    "decrease": "کەمبوون",
+
+    "Screens played description": "کۆی یارییە تەواوکراوەکان لەلایەن بەکارهێنەرانەوە",
+    "Exercises description": "ژمارەی مەشقە جیاوازەکان",
+    "Screens description": "ژمارەی وانەکان",
+    "Users description": "ژمارەی بەکارهێنەران"
 }
