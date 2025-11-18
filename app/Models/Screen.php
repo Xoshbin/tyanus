@@ -16,7 +16,7 @@ class Screen extends Model
     protected $fillable = ['exercise_id', 'lesson_id', 'title', 'url', 'locale', 'content_type', 'content', 'target_speed',  'order'];
 
     //in inertia react, you have to load the accessors at the beginning otherwise the accessors not going down to the react or js
-    protected $appends = array('hasStar', 'starsEarned', 'typingSpeed', 'accuracyPercentage', 'time', 'isUserTested', 'uniqueScreensPlayed');
+    protected $appends = ['hasStar', 'starsEarned', 'typingSpeed', 'accuracyPercentage', 'time'];
 
     // protected $with = ['userProgress'];
 
@@ -39,11 +39,20 @@ class Screen extends Model
 
     public function getHasStarAttribute()
     {
-        $userProgress = $this->userProgress()
-            ->where('user_id', auth()->id())
-            ->first();
+        $userId = auth()->id();
 
-        return $userProgress ? true : false;
+        if (!$userId) {
+            return false;
+        }
+
+        // Prefer already-loaded relation to avoid extra queries.
+        if ($this->relationLoaded('userProgress')) {
+            return $this->userProgress->contains('user_id', $userId);
+        }
+
+        return $this->userProgress()
+            ->where('user_id', $userId)
+            ->exists();
     }
 
     public function getStarsEarnedAttribute()

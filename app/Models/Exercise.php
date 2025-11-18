@@ -40,12 +40,36 @@ class Exercise extends Model
 
     public function getIsExerciseFinishedAttribute()
     {
-        // Assuming you want to check if all screens in the exercise are completed by the user.
-        $totalScreens = $this->screens->count();
+        $userId = auth()->id();
 
-        // Instead of querying directly, you can use the userProgress relationship to simplify the logic.
+        if (!$userId) {
+            return false;
+        }
+
+        // When the exercise has its screens and their user progress preloaded,
+        // compute everything in memory to avoid N+1 queries.
+        if ($this->relationLoaded('screens') && $this->screens->every(function ($screen) {
+            return $screen->relationLoaded('userProgress');
+        })) {
+            $screens = $this->screens;
+            $totalScreens = $screens->count();
+
+            if ($totalScreens === 0) {
+                return false;
+            }
+
+            $uniqueScreensPlayedCount = $screens->filter(function ($screen) use ($userId) {
+                return $screen->userProgress->contains('user_id', $userId);
+            })->count();
+
+            return $uniqueScreensPlayedCount >= $totalScreens;
+        }
+
+        // Fallback to the original aggregate query if relations are not loaded.
+        $totalScreens = $this->screens()->count();
+
         $uniqueScreensPlayedCount = $this->userProgress()
-            ->where('user_id', auth()->id())
+            ->where('user_id', $userId)
             ->distinct()
             ->count('screen_id');
 
@@ -62,13 +86,30 @@ class Exercise extends Model
 
     public function getIsHalfwayThroughExerciseAttribute()
     {
-        // Use the userProgress relationship to check if the user has played at least one screen
-        $userProgress = $this->userProgress()
-            ->where('user_id', auth()->id())
-            ->distinct()
-            ->first(); // Get the first matching user progress
+        $userId = auth()->id();
 
-        return $userProgress !== null;
+        if (!$userId) {
+            return false;
+        }
+
+        // If screens and their user progress are already loaded, use them.
+        if ($this->relationLoaded('screens') && $this->screens->every(function ($screen) {
+            return $screen->relationLoaded('userProgress');
+        })) {
+            foreach ($this->screens as $screen) {
+                if ($screen->userProgress->contains('user_id', $userId)) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        // Fallback to the original query.
+        return $this->userProgress()
+            ->where('user_id', $userId)
+            ->distinct()
+            ->exists();
     }
 
 
@@ -79,8 +120,36 @@ class Exercise extends Model
     */
     public function getTotalStarsEarnedAttribute()
     {
-        $uniqueScreensPlayed = UserProgress::where('user_id', auth()->id())
-            ->where('exercise_id', $this->id) // Assuming 'id' is the correct attribute name for the exercise
+        $userId = auth()->id();
+
+        if (!$userId) {
+            return 0;
+        }
+
+        // If screens and their user progress are already loaded, compute in memory
+        // to avoid a per-exercise aggregate query.
+        if ($this->relationLoaded('screens') && $this->screens->every(function ($screen) {
+            return $screen->relationLoaded('userProgress');
+        })) {
+            $total = 0;
+
+            foreach ($this->screens as $screen) {
+                $latestProgress = $screen->userProgress
+                    ->where('user_id', $userId)
+                    ->sortByDesc('completed_at')
+                    ->first();
+
+                if ($latestProgress) {
+                    $total += $latestProgress->stars_earned;
+                }
+            }
+
+            return $total;
+        }
+
+        // Fallback to the original aggregate query when relations are not preloaded.
+        $uniqueScreensPlayed = UserProgress::where('user_id', $userId)
+            ->where('exercise_id', $this->id)
             ->where(function ($query) {
                 // Subquery to get the latest completed_at for each screen_id
                 $query->whereRaw('completed_at = (
@@ -94,7 +163,6 @@ class Exercise extends Model
             })
             ->groupBy('screen_id')
             ->get();
-
 
         return $uniqueScreensPlayed->sum('stars_earned');
     }
