@@ -23,7 +23,6 @@ export default function Lesson({
     const [modalOpen, setModalOpen] = useState(false);
     const [startTime, setStartTime] = useState(null);
     const [endTime, setEndTime] = useState(null);
-    const [errorCount, setErrorCount] = useState(0);
     const [currentCharacterIndex, setCurrentCharacterIndex] = useState(0);
     const { auth } = usePage().props;
     const { user_settings } = usePage().props;
@@ -56,7 +55,6 @@ export default function Lesson({
         setIsTypingComplete(false); // Reset typing completion status
         setStartTime(null); // Reset the start time
         setEndTime(null); // Reset the end time
-        setErrorCount(0); // Reset the error count
         setVisibleCharacterCount(8);
         setUserInputForHighlight("");
     };
@@ -116,10 +114,11 @@ export default function Lesson({
                 }
             }
         }
+
         const handleKeyDown = (e) => {
             const key = e.key;
 
-            playKeySound(); // Add this line to play the sound
+            playKeySound();
 
             // Check if the user has reached the end of the text
             if (currentCharacterIndex < screen.content.length) {
@@ -134,6 +133,10 @@ export default function Lesson({
                     !e.key.startsWith("Arrow") &&
                     e.key !== "Backspace" // Exclude the Backspace key
                 ) {
+                    if (!startTime) {
+                        setStartTime(Date.now());
+                    }
+
                     const characterToType = e.key === "Enter" ? "↵" : e.key;
 
                     // Check if the character at the current position should match the Enter symbol
@@ -146,29 +149,26 @@ export default function Lesson({
                             (prev) => prev + characterToType
                         );
                     } else if (characterToType === "↵") {
-                        // Check if the entered character is not "↵"
+                        // Allow Enter key even if it does not match the expected character
                         setUserInput((prev) => prev + characterToType);
                         setUserInputForHighlight(
                             (prev) => prev + characterToType
                         );
                     } else {
+                        // Wrong character typed - record the error and play the wrong key sound
                         setUserInput((prev) => prev + e.key);
                         setUserInputForHighlight((prev) => prev + e.key);
-
-                        // Check for errors and store them in the 'errors' array
-                        if (e.key !== screen.content[currentCharacterIndex]) {
-                            setErrors((prevErrors) => [
-                                ...prevErrors,
-                                screen.content[currentCharacterIndex],
-                            ]);
-                        }
+                        playWrongKeySound();
+                        setErrors((prevErrors) => [
+                            ...prevErrors,
+                            screen.content[currentCharacterIndex],
+                        ]);
                     }
 
                     // Check if typing is complete
                     // check the complete based on the content of the shown screen (intro, letters)
                     // otherwise it's counting the characters length with different text on the screen
                     if (currentScreen === "intro") {
-                        // Check if typing is complete
                         if (
                             currentCharacterIndex + 1 ===
                             prevScreen.content.length
@@ -188,7 +188,6 @@ export default function Lesson({
                             setIsTypingComplete(true);
                         }
                     } else {
-                        // Check if typing is complete
                         if (
                             currentCharacterIndex + 1 ===
                             screen.content.length
@@ -207,23 +206,7 @@ export default function Lesson({
             if (key === " ") {
                 e.preventDefault(); // Prevent scrolling when the space key is pressed
             }
-
-            // Check for errors (exclude Shift key)
-            if (
-                currentCharacterIndex < screen.content.length &&
-                key !== screen.content[currentCharacterIndex]
-            ) {
-                // Exclude Shift key from errors
-                if (key !== "Shift") {
-                    playWrongKeySound(); // Add this line to play the wrong character sound
-                    setErrorCount((prev) => prev + 1);
-                }
-            }
         };
-
-        if (!startTime && userInput.length === 0) {
-            setStartTime(Date.now());
-        }
 
         document.addEventListener("keydown", handleKeyDown);
 
@@ -234,11 +217,15 @@ export default function Lesson({
                     handleScreenTransition();
                 }, 5000);
             } else {
-                // Call handleLessonCompletion with the required parameters.
+                // Call handleLessonCompletion with standardized Net WPM and accuracy values.
+                const roundedNetWPM = Math.round(netWPM);
+                const accuracyToStore = Number(accuracy.toFixed(2));
+                const timeToStore = Number(elapsedSeconds.toFixed(2));
+
                 handleLessonCompletion(
-                    netWPM.toFixed(2),
-                    accuracy.toFixed(2),
-                    elapsedTime,
+                    roundedNetWPM,
+                    accuracyToStore,
+                    timeToStore,
                     starsEarned
                 );
             }
@@ -285,19 +272,38 @@ export default function Lesson({
         );
     }
 
-    // Calculate Net WPM and Accuracy
-    const elapsedTime = endTime && startTime ? (endTime - startTime) / 1000 : 0; // Prevent division by zero
-    const wordsTyped = Math.ceil(userInput.length / 5); // Every 5 characters is counted as a word
-    const netWPM = elapsedTime
-        ? Math.max((wordsTyped - errorCount) / elapsedTime, 0) * 100
-        : 0;
+    // Calculate timing and typing metrics
+    const elapsedSeconds =
+        endTime && startTime ? (endTime - startTime) / 1000 : 0;
+    const elapsedMinutes = elapsedSeconds / 60;
+
+    const totalCharactersTyped = userInput.length;
+    const errorCharactersCount = errors.length;
+
+    const grossWPM =
+        elapsedMinutes > 0
+            ? (totalCharactersTyped / 5) / elapsedMinutes
+            : 0;
+
+    const netWPM =
+        elapsedMinutes > 0
+            ? Math.max(
+                  (totalCharactersTyped / 5 - errorCharactersCount) /
+                      elapsedMinutes,
+                  0
+              )
+            : 0;
 
     // Calculate accuracy as a percentage
-    const charactersTyped = userInput.length;
-    const accuracy = Math.max(
-        ((charactersTyped - errorCount) / charactersTyped) * 100,
-        0
-    );
+    const accuracy =
+        totalCharactersTyped > 0
+            ? Math.max(
+                  ((totalCharactersTyped - errorCharactersCount) /
+                      totalCharactersTyped) *
+                      100,
+                  0
+              )
+            : 0;
 
     const starsEarned = Math.round((accuracy / 100) * 3);
 
@@ -396,11 +402,12 @@ export default function Lesson({
             <Modal show={modalOpen} onClose={closeModal}>
                 <ExerciseSummary
                     totalStars={exerciseTotalStars}
-                    starsEarned={starsEarned.toFixed(2)}
+                    starsEarned={starsEarned}
                     finishedTyping={isTypingComplete}
-                    speed={netWPM.toFixed(2)}
-                    accuracy={accuracy.toFixed(2)}
-                    time={elapsedTime.toFixed(2)}
+                    speed={Math.round(netWPM)}
+                    grossSpeed={Math.round(grossWPM)}
+                    accuracy={Math.round(accuracy)}
+                    time={elapsedSeconds}
                     screen={screen}
                     nextScreen={nextScreen}
                 />

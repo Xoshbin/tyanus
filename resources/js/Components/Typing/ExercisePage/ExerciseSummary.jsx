@@ -8,7 +8,8 @@ import StarIcon from "@/Components/Typing/StarIcon";
 const ExerciseSummary = ({
     starsEarned,
     finishedTyping,
-    speed,
+    speed, // Net WPM
+    grossSpeed, // Gross WPM
     accuracy,
     time,
     screen,
@@ -62,9 +63,14 @@ const ExerciseSummary = ({
                                 </p>
                             </div>
                             <p className="text-3xl font-bold">
-                                <span>{parseInt(speed)}</span>{" "}
-                                {__("Words per minute")}
+                                <span>{speed}</span>{" "}
+                                {__("Net words per minute")}
                             </p>
+                            {typeof grossSpeed === "number" && (
+                                <p className="text-sm opacity-80 mt-1">
+                                    {__("Gross words per minute")}: {grossSpeed}
+                                </p>
+                            )}
                         </div>
                         <div>
                             <div className="flex items-center space-x-2">
