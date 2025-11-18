@@ -6,9 +6,7 @@ const HomeKeyboardSection = ({ locale }) => {
     return (
         <div className="mx-auto w-full max-w-screen-lg mt-20 lg:px-5">
             <div
-                className={`flex flex-col items-center ${(locale = "ckb"
-                    ? "md:space-x-reverse"
-                    : "")} md:space-x-8 justify-center gap-20 md:flex-row md:gap-10 lg:justify-between`}
+                className={`flex flex-col items-center ${locale === "ckb" ? "md:space-x-reverse" : ""} md:space-x-8 justify-center gap-20 md:flex-row md:gap-10 lg:justify-between`}
             >
                 <div className="text-kblue-600">
                     <div className="text-3xl font-semibold">

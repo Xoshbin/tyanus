@@ -11,7 +11,7 @@ export default function Hero({ locale }) {
 
             <div className="w-full md:w-2/3 self-center space-y-8">
                 <div className="space-y-4 group">
-                    <div className="flex @if (app()->getLocale() == 'ckb') space-x-reverse @endif space-x-4">
+                    <div className={`flex items-center space-x-4 ${locale === "ckb" ? "space-x-reverse" : ""}`}>
                         <h1 className="text-3xl text-kyellow-600 font-semibold antialiased">
                             {__(
                                 "Master the Art of Typing: 300+ Lessons Await!"
@@ -19,7 +19,7 @@ export default function Hero({ locale }) {
                         </h1>
                         <img
                             src="img/homepage/rocket.svg"
-                            className="h-8 @if (app()->getLocale() == 'ckb') scale-x-[-1] @endif"
+                            className={`h-8 ${locale === "ckb" ? "scale-x-[-1]" : ""}`}
                             alt=""
                         />
                     </div>
@@ -54,7 +54,7 @@ export default function Hero({ locale }) {
                         className="relative z-10 block px-5 py-3 overflow-hidden font-medium leading-tight text-gray-800 transition-colors duration-300 ease-out border-2 border-gray-900 rounded-lg group-hover:text-white">
                         <span className="absolute inset-0 w-full h-full px-5 py-3 rounded-lg bg-kyellow-50"></span>
                         <span className="absolute left-0 w-48 h-48 -ml-2 transition-all duration-300 origin-top-right -rotate-90 -translate-x-full translate-y-12 bg-kyellow-400 group-hover:-rotate-180 ease"></span>
-                        <span className="relative flex items-center @if (app()->getLocale() == 'ckb') space-x-reverse @endif space-x-4">
+                        <span className={`relative flex items-center space-x-4 ${locale === "ckb" ? "space-x-reverse" : ""}`}>
                             <span className="">{__("Start now")}</span>
                             <span className="p-1 rounded-md bg-yellow-400 mr-4">
                                 {locale === "ckb" ? (
