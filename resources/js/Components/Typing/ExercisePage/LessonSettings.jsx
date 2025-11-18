@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Modal from "@/Components/Modal";
 import { router, usePage } from "@inertiajs/react";
 import KeyboardSettings from "./KeyboardSettings";
+import { __ } from "@/Libs/Lang";
 
 const LessonSettings = ({ locale, screenlocale }) => {
     const [modalOpen, setModalOpen] = useState(false);
@@ -37,14 +38,14 @@ const LessonSettings = ({ locale, screenlocale }) => {
 
     return (
         <div
-            className={`flex justify-end h-0 ${
+            className={`flex justify-end items-center ${
                 locale === "ckb" ? "flex-row-reverse" : ""
             }`}
         >
             <div
-                className={`hidden sm:flex ${
+                className={`hidden sm:flex items-center justify-end gap-4 rounded-full bg-surface border border-subtle shadow-soft px-3 py-1.5 ${
                     locale === "ckb" ? "flex-row-reverse" : ""
-                } space-x-8 justify-end mr-40`}
+                }`}
             >
                 {/* redoLesson */}
                 <div
@@ -55,7 +56,8 @@ const LessonSettings = ({ locale, screenlocale }) => {
                     <button
                         onClick={redoLesson}
                         type="button"
-                        className="inline-flex w-full justify-center cursor-pointer"
+                        className="inline-flex items-center justify-center rounded-full p-2 text-primary-600 hover:bg-primary-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                        aria-label={__("Restart lesson")}
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -84,7 +86,8 @@ const LessonSettings = ({ locale, screenlocale }) => {
                     <button
                         onClick={toggleKeyboardSound}
                         type="button"
-                        className="inline-flex w-full justify-center cursor-pointer"
+                        className="inline-flex items-center justify-center rounded-full p-2 text-primary-600 hover:bg-primary-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                        aria-label={__("Toggle keyboard sound")}
                     >
                         {user_settings.enable_sound === true ? (
                             <svg
@@ -143,7 +146,8 @@ const LessonSettings = ({ locale, screenlocale }) => {
                     <button
                         onClick={openKeyboardSettings}
                         type="button"
-                        className="inline-flex w-full justify-center cursor-pointer"
+                        className="inline-flex items-center justify-center rounded-full p-2 text-primary-600 hover:bg-primary-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                        aria-label={__("Keyboard settings")}
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
