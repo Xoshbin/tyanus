@@ -175,10 +175,38 @@ class Exercise extends Model
 
     public function getAvgSpeedAttribute()
     {
-        $userProgress = UserProgress::where('user_id', auth()->id())
-            ->where('exercise_id', $this->id)->select('typing_speed')->get();
-        $avgSpeed = $userProgress->avg('typing_speed');
-        return $avgSpeed;
+        $userId = auth()->id();
+
+        if (!$userId) {
+            return null;
+        }
+
+        // If screens and their user progress are already loaded, compute in memory
+        // to avoid additional queries per exercise.
+        if ($this->relationLoaded('screens') && $this->screens->every(function ($screen) {
+            return $screen->relationLoaded('userProgress');
+        })) {
+            $total = 0;
+            $count = 0;
+
+            foreach ($this->screens as $screen) {
+                foreach ($screen->userProgress as $progress) {
+                    if ($progress->user_id === $userId && $progress->typing_speed !== null) {
+                        $total += $progress->typing_speed;
+                        $count++;
+                    }
+                }
+            }
+
+            return $count > 0 ? $total / $count : null;
+        }
+
+        $userProgress = UserProgress::where('user_id', $userId)
+            ->where('exercise_id', $this->id)
+            ->select('typing_speed')
+            ->get();
+
+        return $userProgress->avg('typing_speed');
     }
 
     /*
@@ -189,10 +217,38 @@ class Exercise extends Model
 
     public function getAvgAccuracyAttribute()
     {
-        $userProgress = UserProgress::where('user_id', auth()->id())
-            ->where('exercise_id', $this->id)->select('accuracy_percentage')->get();
-        $avgAccuracy = $userProgress->avg('accuracy_percentage');
-        return $avgAccuracy;
+        $userId = auth()->id();
+
+        if (!$userId) {
+            return null;
+        }
+
+        // If screens and their user progress are already loaded, compute in memory
+        // to avoid additional queries per exercise.
+        if ($this->relationLoaded('screens') && $this->screens->every(function ($screen) {
+            return $screen->relationLoaded('userProgress');
+        })) {
+            $total = 0;
+            $count = 0;
+
+            foreach ($this->screens as $screen) {
+                foreach ($screen->userProgress as $progress) {
+                    if ($progress->user_id === $userId && $progress->accuracy_percentage !== null) {
+                        $total += $progress->accuracy_percentage;
+                        $count++;
+                    }
+                }
+            }
+
+            return $count > 0 ? $total / $count : null;
+        }
+
+        $userProgress = UserProgress::where('user_id', $userId)
+            ->where('exercise_id', $this->id)
+            ->select('accuracy_percentage')
+            ->get();
+
+        return $userProgress->avg('accuracy_percentage');
     }
 
 
@@ -203,10 +259,36 @@ class Exercise extends Model
     */
     public function getSumTimeAttribute()
     {
-        $userProgress = UserProgress::where('user_id', auth()->id())
-            ->where('exercise_id', $this->id)->select('time')->get();
-        $sumTime = $userProgress->sum('time');
-        $carbonTime = CarbonInterval::seconds($sumTime)->locale(App::getLocale() == 'ckb' ? 'ckb' : 'en')->cascade()->forHumans();
+        $userId = auth()->id();
+
+        $sumTime = 0;
+
+        // If screens and their user progress are already loaded, compute in memory
+        // to avoid additional queries per exercise.
+        if ($userId && $this->relationLoaded('screens') && $this->screens->every(function ($screen) {
+            return $screen->relationLoaded('userProgress');
+        })) {
+            foreach ($this->screens as $screen) {
+                foreach ($screen->userProgress as $progress) {
+                    if ($progress->user_id === $userId && $progress->time !== null) {
+                        $sumTime += $progress->time;
+                    }
+                }
+            }
+        } elseif ($userId) {
+            $userProgress = UserProgress::where('user_id', $userId)
+                ->where('exercise_id', $this->id)
+                ->select('time')
+                ->get();
+
+            $sumTime = (int) $userProgress->sum('time');
+        }
+
+        $carbonTime = CarbonInterval::seconds($sumTime)
+            ->locale(App::getLocale() == 'ckb' ? 'ckb' : 'en')
+            ->cascade()
+            ->forHumans();
+
         return $carbonTime;
     }
 }

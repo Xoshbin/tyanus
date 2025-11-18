@@ -116,6 +116,17 @@ class ExerciseAndScreenAttributesTest extends TestCase
         $this->assertTrue($exercise->isExerciseFinished);
         $this->assertSame(5, $exercise->totalStarsEarned);
         $this->assertSame(6, $exercise->exerciseTotalStars);
+
+        // Aggregated exercise metrics should be computed correctly as well
+        $this->assertEquals(35, $exercise->avgSpeed);
+        $this->assertEquals(92.5, $exercise->avgAccuracy);
+
+        $expectedHuman = \Carbon\CarbonInterval::seconds(60)
+            ->locale(\Illuminate\Support\Facades\App::getLocale() == 'ckb' ? 'ckb' : 'en')
+            ->cascade()
+            ->forHumans();
+
+        $this->assertSame($expectedHuman, $exercise->sumTime);
     }
 }
 
