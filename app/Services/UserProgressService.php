@@ -12,58 +12,111 @@ use Illuminate\Support\Facades\Auth;
 class UserProgressService
 {
     private $guestUserId;
+    private ?array $aggregates = null;
 
     public function __construct()
     {
         $this->guestUserId = Session::get('guest_user_id');
     }
-
-    public function getTodaySumTime()
+    private function ensureAggregatesComputed(): void
     {
+        if ($this->aggregates !== null) {
+            return;
+        }
+
         $userSettings = new UserSettingsService;
+        $locale = $userSettings->getExerciseLang();
+
         if (Auth::check()) {
-            $userProgressToday = UserProgress::where('user_id', auth()->id())
-                ->whereDate('created_at', Carbon::today())
-                ->where('locale', $userSettings->getExerciseLang())
-                ->select('time')
-                ->get();
+            $userId = auth()->id();
+            $today = Carbon::today()->toDateString();
 
-            $todayTime = $userProgressToday->sum('time');
+            $stats = UserProgress::query()
+                ->where('user_id', $userId)
+                ->where('locale', $locale)
+                ->selectRaw('
+                    COALESCE(SUM(time), 0) as total_time,
+                    COALESCE(AVG(typing_speed), 0) as avg_speed,
+                    COALESCE(AVG(accuracy_percentage), 0) as avg_accuracy,
+                    COALESCE(SUM(CASE WHEN DATE(created_at) = ? THEN time ELSE 0 END), 0) as today_time
+                ', [$today])
+                ->first();
 
-            return $this->formatTime($todayTime);
-        } else {
-            if ($this->guestUserId) {
-                $progressData = session('progress_' . $this->guestUserId);
+            $this->aggregates = [
+                'total_time' => (float) $stats->total_time,
+                'today_time' => (float) $stats->today_time,
+                'avg_speed' => (float) $stats->avg_speed,
+                'avg_accuracy' => (float) $stats->avg_accuracy,
+            ];
+        } elseif ($this->guestUserId) {
+            $progressData = session('progress_' . $this->guestUserId, []);
 
-                // Get the current date in 'Y-m-d' format
-                $currentDate = Carbon::today()->format('Y-m-d');
+            $currentDate = Carbon::today()->format('Y-m-d');
+            $totalTime = 0;
+            $todayTime = 0;
+            $typingSpeedSum = 0;
+            $typingSpeedCount = 0;
+            $accuracySum = 0;
+            $accuracyCount = 0;
 
-                // Initialize a variable to store the sum of time for today
-                $totalTimeToday = 0;
+            if ($progressData) {
+                foreach ($progressData as $outerArray) {
+                    if (!is_array($outerArray)) {
+                        continue;
+                    }
 
-                // Loop through the data
-                if ($progressData) {
-                    foreach ($progressData as $outerArray) {
-                        if (is_array($outerArray)) {
-                            foreach ($outerArray as $innerArray) {
-                                if (isset($innerArray['created_at']) && $innerArray['locale'] === $userSettings->getExerciseLang()) {
-                                    // Get the date part from the "created_at" timestamp
-                                    $entryDate = date('Y-m-d', strtotime($innerArray['created_at']));
+                    foreach ($outerArray as $entry) {
+                        if (!is_array($entry) || ($entry['locale'] ?? null) !== $locale) {
+                            continue;
+                        }
 
-                                    // Check if the entry is from today
-                                    if ($entryDate === $currentDate) {
-                                        // Add the "time" value to the total for today
-                                        $totalTimeToday += $innerArray['time'];
-                                    }
+                        if (isset($entry['time'])) {
+                            $totalTime += $entry['time'];
+
+                            if (isset($entry['created_at'])) {
+                                $entryDate = date('Y-m-d', strtotime($entry['created_at']));
+                                if ($entryDate === $currentDate) {
+                                    $todayTime += $entry['time'];
                                 }
                             }
                         }
+
+                        if (isset($entry['typing_speed'])) {
+                            $typingSpeedSum += $entry['typing_speed'];
+                            $typingSpeedCount++;
+                        }
+
+                        if (isset($entry['accuracy_percentage'])) {
+                            $accuracySum += $entry['accuracy_percentage'];
+                            $accuracyCount++;
+                        }
                     }
                 }
-
-                return $this->formatTime($totalTimeToday);
             }
+
+            $this->aggregates = [
+                'total_time' => $totalTime,
+                'today_time' => $todayTime,
+                'avg_speed' => $typingSpeedCount > 0 ? $typingSpeedSum / $typingSpeedCount : 0,
+                'avg_accuracy' => $accuracyCount > 0 ? $accuracySum / $accuracyCount : 0,
+            ];
+        } else {
+            $this->aggregates = [
+                'total_time' => 0,
+                'today_time' => 0,
+                'avg_speed' => 0,
+                'avg_accuracy' => 0,
+            ];
         }
+    }
+
+
+
+    public function getTodaySumTime()
+    {
+        $this->ensureAggregatesComputed();
+
+        return $this->formatTime((int) round($this->aggregates['today_time'] ?? 0));
     }
 
     // Helper function to format time in "hours:minutes:seconds" format
@@ -79,134 +132,24 @@ class UserProgressService
 
     public function getSumTime()
     {
-        $userSettings = new UserSettingsService;
-        if (Auth::check()) {
-            $userProgress = UserProgress::where('user_id', auth()->id())
-                ->where('locale', $userSettings->getExerciseLang())
-                ->select('time')
-                ->get();
+        $this->ensureAggregatesComputed();
 
-            $sumTime = $userProgress->sum('time');
-
-            return $sumTime;
-        } else {
-            if ($this->guestUserId) {
-                $progressData = session('progress_' . $this->guestUserId);
-
-                // Initialize a variable to store the sum of time
-                $totalTime = 0;
-
-                if ($progressData) {
-
-                    // Loop through the outer array
-                    foreach ($progressData as $outerArray) {
-                        // Check if the outer array is an array
-                        if (is_array($outerArray)) {
-                            // Loop through the inner arrays
-                            foreach ($outerArray as $innerArray) {
-                                if (isset($innerArray['time']) && $innerArray['locale'] === $userSettings->getExerciseLang()) {
-                                    // Add the "time" value to the total time for the specified locale
-                                    $totalTime += $innerArray['time'];
-                                }
-                            }
-                        }
-                    }
-                }
-                return $totalTime;
-            }
-        }
+        return $this->aggregates['total_time'] ?? 0;
     }
 
 
     public function getAvgSpeed()
     {
-        $userSettings = new UserSettingsService;
-        if (Auth::check()) {
-            $userProgress = UserProgress::where('user_id', auth()->id())->where('locale', $userSettings->getExerciseLang())->select('typing_speed')->get();
-            $avgSpeed = $userProgress->avg('typing_speed');
-            return $avgSpeed;
-        } else {
-            if ($this->guestUserId) {
-                $progressData = session('progress_' . $this->guestUserId);
+        $this->ensureAggregatesComputed();
 
-                $averageTypingSpeed = 0;
-
-                $typingSpeedSum = 0;
-                $typingSpeedCount = 0;
-
-                if ($progressData) {
-
-                    foreach ($progressData as $screenData) {
-                        foreach ($screenData as $entry) {
-                            if (isset($entry['typing_speed']) && $entry['locale'] === $userSettings->getExerciseLang()) {
-                                // Add the typing_speed value to the sum
-                                $typingSpeedSum += $entry['typing_speed'];
-                                // Increment the count
-                                $typingSpeedCount++;
-                            }
-                        }
-                    }
-                }
-
-                // Calculate the average typing_speed
-                if ($typingSpeedCount > 0) {
-                    $averageTypingSpeed = $typingSpeedSum / $typingSpeedCount;
-                } else {
-                    // Handle the case when there are no typing_speed entries
-                    $averageTypingSpeed = 0;
-                }
-
-                return $averageTypingSpeed;
-            }
-        }
+        return $this->aggregates['avg_speed'] ?? 0;
     }
 
     public function getAvgAccuracy()
     {
-        $userSettings = new UserSettingsService;
-        if (Auth::check()) {
-            $userProgress = UserProgress::where('user_id', auth()->id())
-                ->where('locale', $userSettings->getExerciseLang())
-                ->select('accuracy_percentage')
-                ->get();
+        $this->ensureAggregatesComputed();
 
-            $avgAccuracy = $userProgress->avg('accuracy_percentage');
-
-            return $avgAccuracy;
-        } else {
-            if ($this->guestUserId) {
-                $progressData = session('progress_' . $this->guestUserId);
-
-                $averageTypingAccuracy = 0;
-
-                $typingAccuracySum = 0;
-                $typingAccuracyCount = 0;
-
-                if ($progressData) {
-
-                    foreach ($progressData as $screenData) {
-                        foreach ($screenData as $entry) {
-                            if (isset($entry['accuracy_percentage']) && $entry['locale'] === $userSettings->getExerciseLang()) {
-                                // Add the accuracy_percentage value to the sum
-                                $typingAccuracySum += $entry['accuracy_percentage'];
-                                // Increment the count
-                                $typingAccuracyCount++;
-                            }
-                        }
-                    }
-                }
-
-                // Calculate the average accuracy_percentage
-                if ($typingAccuracyCount > 0) {
-                    $averageTypingAccuracy = $typingAccuracySum / $typingAccuracyCount;
-                } else {
-                    // Handle the case when there are no accuracy_percentage entries for the given locale
-                    $averageTypingAccuracy = 0;
-                }
-
-                return $averageTypingAccuracy;
-            }
-        }
+        return $this->aggregates['avg_accuracy'] ?? 0;
     }
 
 
