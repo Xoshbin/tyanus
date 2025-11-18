@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" @if (app()->getLocale() == 'ckb') dir="rtl" @endif>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{ app()->getLocale() == 'ckb' ? 'rtl' : 'ltr' }}">
 
 <head>
     @if (app()->environment('production'))

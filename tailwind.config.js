@@ -14,6 +14,15 @@ export default withMT({
 
     theme: {
         extend: {
+            container: {
+                center: true,
+                padding: {
+                    DEFAULT: "1rem",
+                    sm: "1.5rem",
+                    lg: "2rem",
+                    xl: "2.5rem",
+                },
+            },
             backgroundImage: {
                 "blob-blue": "url('/public/img/blob-blue-bg2.svg')",
             },
@@ -51,6 +60,42 @@ export default withMT({
                     900: "#6e3e15",
                     950: "#401f08",
                 },
+                primary: {
+                    50: "#eff6ff",
+                    100: "#dbebfe",
+                    200: "#c0ddfd",
+                    300: "#9acbfc",
+                    400: "#62a9f8",
+                    500: "#3d87f4",
+                    600: "#2769e9",
+                    700: "#1f54d6",
+                    800: "#2045ad",
+                    900: "#1f3e89",
+                    950: "#182753",
+                    DEFAULT: "#2769e9",
+                },
+                accent: {
+                    DEFAULT: "#f3c61c",
+                },
+                surface: "#ffffff",
+                "surface-muted": "#f3f4f6",
+                "border-subtle": "#e5e7eb",
+                success: {
+                    DEFAULT: "#16a34a",
+                    soft: "#dcfce7",
+                },
+                warning: {
+                    DEFAULT: "#f59e0b",
+                    soft: "#fef3c7",
+                },
+                error: {
+                    DEFAULT: "#dc2626",
+                    soft: "#fee2e2",
+                },
+                info: {
+                    DEFAULT: "#0ea5e9",
+                    soft: "#e0f2fe",
+                },
             },
             keyframes: {
                 jump: {
@@ -61,6 +106,13 @@ export default withMT({
             },
             animation: {
                 jump: "jump 8s linear infinite",
+            },
+            borderRadius: {
+                xl: "1rem",
+                "2xl": "1.5rem",
+            },
+            boxShadow: {
+                soft: "0 10px 25px rgba(15, 23, 42, 0.08)",
             },
         },
     },

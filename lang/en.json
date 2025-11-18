@@ -135,6 +135,10 @@
     "Blog posts": "Blog posts",
     "What is toouch typing": "What is toouch typing",
     "Read more": "Read more",
+    "Home": "Home",
+    "Learn": "Learn",
+    "Practice": "Practice",
+    "Progress": "Progress",
     "Stats": "Stats",
     "Progress Overview": "Progress Overview",
     "Select Time Range": "Select Time Range",
@@ -162,5 +166,8 @@
   "Screens played description": "All screens completed by users",
   "Exercises description": "Distinct exercises available",
   "Screens description": "Lesson screens available",
-  "Users description": "Registered users"
+  "Users description": "Registered users",
+  "View on GitHub": "View on GitHub",
+  "View Tyanus on GitHub": "View Tyanus on GitHub",
+  "All Rights Reserved.": "All Rights Reserved."
 }

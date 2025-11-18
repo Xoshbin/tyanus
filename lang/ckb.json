@@ -140,6 +140,10 @@
     "Blog posts": "نووسراوەکان",
     "What is toouch typing": "نووسینی دەستلێدان چییە؟",
     "Read more": "زیاتر بخوێنەرەوە",
+    "Home": "سەرەتا",
+    "Learn": "فێربە",
+    "Practice": "مەشق",
+    "Progress": "پێشکەوتن",
     "Stats": "هەڵسەنگاندن",
     "Progress Overview": "پێشکەوتنی خێرایی و دروستی",
     "Select Time Range": "مەودای کات هەڵبژێرە",
@@ -167,5 +171,8 @@
     "Screens played description": "کۆی یارییە تەواوکراوەکان لەلایەن بەکارهێنەرانەوە",
     "Exercises description": "ژمارەی مەشقە جیاوازەکان",
     "Screens description": "ژمارەی وانەکان",
-    "Users description": "ژمارەی بەکارهێنەران"
+    "Users description": "ژمارەی بەکارهێنەران",
+    "View on GitHub": "سەیری لەسەر گیتهاب بکە",
+    "View Tyanus on GitHub": "سەیری تیانووس لەسەر گیتهاب بکە",
+    "All Rights Reserved.": "هەموو مافەکان پارێزراون."
 }
