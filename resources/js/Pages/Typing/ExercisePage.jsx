@@ -4,8 +4,6 @@ import ExerciseSummary from "@/Components/Typing/ExercisePage/ExerciseSummary";
 import AppLayout from "@/Layouts/AppLayout";
 import LessonSettings from "@/Components/Typing/ExercisePage/LessonSettings";
 import { router, usePage } from "@inertiajs/react";
-import { Alert, Typography } from "@material-tailwind/react";
-import { __ } from "@/Libs/Lang";
 import { calculateTypingMetrics } from "@/Libs/typingMetrics";
 
 import IntroScreen from "@/Components/Typing/ExercisePage/IntroScreen";
@@ -212,10 +210,12 @@ export default function Lesson({
 
         document.addEventListener("keydown", handleKeyDown);
 
+        let timeoutId;
+
         if (isTypingComplete) {
             if (currentScreen === "intro") {
                 setShowFoundKeyMessage(true);
-                const timeout = setTimeout(() => {
+                timeoutId = setTimeout(() => {
                     handleScreenTransition();
                 }, 5000);
             } else {
@@ -235,6 +235,9 @@ export default function Lesson({
 
         return () => {
             document.removeEventListener("keydown", handleKeyDown);
+            if (timeoutId) {
+                clearTimeout(timeoutId);
+            }
         };
     }, [
         userInput,
@@ -277,7 +280,6 @@ export default function Lesson({
     // Calculate timing and typing metrics using a shared helper
     const {
         elapsedSeconds,
-        elapsedMinutes,
         grossWPM,
         netWPM,
         accuracy,
@@ -345,41 +347,49 @@ export default function Lesson({
                         : screen.title
                 }
             />
-            {/* show different interface based on the screen type */}
-            {currentScreen === "intro" ? (
-                <IntroScreen
-                    screen={prevScreen}
-                    showFoundKeyMessage={showFoundKeyMessage}
-                    user_settings={user_settings}
-                    userInput={userInput}
-                    currentCharacter={currentCharacter}
-                />
-            ) : currentScreen === "letters" || currentScreen === "badge" ? (
-                <LettersScreen
-                    screen={currentScreen === "letters" ? screen : prevScreen}
-                    visibleCharacters={visibleCharacters}
-                    user_settings={user_settings}
-                    currentCharacter={currentCharacter}
-                    userInputForHighlight={userInputForHighlight}
-                    flipped={flipped}
-                />
-            ) : currentScreen === "test" ? (
-                <SentencesScreen
-                    screen={screen}
-                    visibleCharacters={visibleCharacters}
-                    user_settings={user_settings}
-                    currentCharacter={currentCharacter}
-                    userInput={userInput}
-                />
-            ) : (
-                <SentencesScreen
-                    screen={prevScreen}
-                    visibleCharacters={visibleCharacters}
-                    user_settings={user_settings}
-                    currentCharacter={currentCharacter}
-                    userInput={userInput}
-                />
-            )}
+            <div className="py-8">
+                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="rounded-2xl bg-surface border border-subtle shadow-soft p-4 sm:p-6">
+                        {/* show different interface based on the screen type */}
+                        {currentScreen === "intro" ? (
+                            <IntroScreen
+                                screen={prevScreen}
+                                showFoundKeyMessage={showFoundKeyMessage}
+                                user_settings={user_settings}
+                                userInput={userInput}
+                                currentCharacter={currentCharacter}
+                            />
+                        ) : currentScreen === "letters" || currentScreen === "badge" ? (
+                            <LettersScreen
+                                screen={
+                                    currentScreen === "letters" ? screen : prevScreen
+                                }
+                                visibleCharacters={visibleCharacters}
+                                user_settings={user_settings}
+                                currentCharacter={currentCharacter}
+                                userInputForHighlight={userInputForHighlight}
+                                flipped={flipped}
+                            />
+                        ) : currentScreen === "test" ? (
+                            <SentencesScreen
+                                screen={screen}
+                                visibleCharacters={visibleCharacters}
+                                user_settings={user_settings}
+                                currentCharacter={currentCharacter}
+                                userInput={userInput}
+                            />
+                        ) : (
+                            <SentencesScreen
+                                screen={prevScreen}
+                                visibleCharacters={visibleCharacters}
+                                user_settings={user_settings}
+                                currentCharacter={currentCharacter}
+                                userInput={userInput}
+                            />
+                        )}
+                    </div>
+                </div>
+            </div>
 
             <Modal show={modalOpen} onClose={closeModal}>
                 <ExerciseSummary
@@ -394,16 +404,6 @@ export default function Lesson({
                     nextScreen={nextScreen}
                 />
             </Modal>
-
-            <div className="flex mx-auto px-1 md:hidden items-center justify-center">
-                <Alert color="blue" className="max-w-screen-md m-0 p-0 py-2">
-                    <Typography color="white" className="font-normal">
-                        {__(
-                            "Sorry, our web app is currently optimized for desktop use and may not work properly on mobile devices. We recommend accessing it on a computer for the best experience."
-                        )}
-                    </Typography>
-                </Alert>
-            </div>
         </AppLayout>
     );
 }
