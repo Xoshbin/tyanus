@@ -27,7 +27,7 @@ const ExerciseSummary = ({
     return (
         <div className="m-4">
             {finishedTyping && (
-                <div className="bg-gradient-to-r from-kblue-600 to-kblue-400 p-8 rounded-lg shadow-lg text-white">
+                <div className="rounded-2xl bg-surface border border-subtle shadow-soft p-6 sm:p-8 text-primary-900">
                     <div className="flex justify-between items-center mb-4">
                         <h2 className="text-2xl font-semibold">
                             {__("Lesson Results")}
@@ -45,7 +45,7 @@ const ExerciseSummary = ({
                         <div>
                             <div className="flex items-center space-x-2">
                                 <svg
-                                    className="w-6 h-6 text-kyellow-400"
+                                    className="w-6 h-6 text-accent"
                                     fill="none"
                                     stroke="currentColor"
                                     viewBox="0 0 24 24"
@@ -76,7 +76,7 @@ const ExerciseSummary = ({
                             <div className="flex items-center space-x-2">
                                 {accuracy >= 75 ? (
                                     <svg
-                                        className="w-6 h-6 text-kyellow-400"
+                                        className="w-6 h-6 text-success"
                                         fill="none"
                                         stroke="currentColor"
                                         viewBox="0 0 24 24"
@@ -91,7 +91,7 @@ const ExerciseSummary = ({
                                     </svg>
                                 ) : (
                                     <svg
-                                        className="w-6 h-6 text-kyellow-400"
+                                        className="w-6 h-6 text-error"
                                         fill="none"
                                         stroke="currentColor"
                                         viewBox="0 0 24 24"
@@ -138,7 +138,7 @@ const ExerciseSummary = ({
                         <Link
                             href={route("lesson", nextScreen.url)}
                             as="button"
-                            className={`inline-flex w-full justify-center rounded-md text-white bg-kblue-600 hover:bg-kblue-500 px-3 py-2 text-sm font-semibold text-kblue shadow-sm sm:ml-3 sm:w-auto`}
+                            className="inline-flex w-full justify-center rounded-full bg-primary text-white px-4 py-2 text-sm font-semibold shadow-soft hover:bg-primary-700 disabled:opacity-60 disabled:cursor-not-allowed sm:ml-3 sm:w-auto"
                             disabled={starsEarned === 0}
                         >
                             {__("Next")}
@@ -147,7 +147,7 @@ const ExerciseSummary = ({
                         <Link
                             href={route("login")}
                             as="button"
-                            className={`inline-flex w-full justify-center rounded-md text-white bg-kblue-600 hover:bg-kblue-500 px-3 py-2 text-sm font-semibold text-kblue shadow-sm sm:ml-3 sm:w-auto`}
+                            className="inline-flex w-full justify-center rounded-full bg-primary text-white px-4 py-2 text-sm font-semibold shadow-soft hover:bg-primary-700 disabled:opacity-60 disabled:cursor-not-allowed sm:ml-3 sm:w-auto"
                             disabled={starsEarned === 0}
                         >
                             {__("Please login to save your progress")}
@@ -161,7 +161,7 @@ const ExerciseSummary = ({
                     <button
                         onClick={redoLesson}
                         type="button"
-                        className="mt-3 inline-flex w-full justify-center rounded-md bg-kblue-50 px-3 py-2 text-sm font-semibold text-kblue-900 shadow-sm ring-1 ring-inset ring-kblue-300 hover:bg-kblue-50 sm:mt-0 sm:w-auto"
+                        className="mt-3 inline-flex w-full justify-center rounded-full bg-surface-muted px-4 py-2 text-sm font-semibold text-primary-800 shadow-sm ring-1 ring-inset ring-border-subtle hover:bg-surface sm:mt-0 sm:w-auto"
                     >
                         {__("Repeat")}
                     </button>
