@@ -18,7 +18,7 @@ const CertificatesPage = ({ certificates }) => {
                         {certificates.map((certificate) => (
                             <div className="px-2 mb-4" key={certificate.id}>
                                 <div className="bg-kblue-200 rounded-lg shadow-lg p-5">
-                                    <a
+                                    <Link
                                         href={route(
                                             "certificate",
                                             certificate.id
@@ -32,7 +32,7 @@ const CertificatesPage = ({ certificates }) => {
                                                 }
                                             />
                                         </div>
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         ))}

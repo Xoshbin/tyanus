@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "@inertiajs/react";
 import { __ } from "@/Libs/Lang";
 
 const HomeKeyboardSection = ({ locale }) => {
@@ -26,7 +27,7 @@ const HomeKeyboardSection = ({ locale }) => {
                         }`}
                         dir={locale === "ckb" ? "ltr" : undefined}
                     >
-                        <a
+                        <Link
                             href={route("lessons")}
                             className="rounded-md px-3.5 py-2 m-1 overflow-hidden relative group cursor-pointer border-2 font-medium border-kyellow-400 text-kyellow-400"
                         >
@@ -34,7 +35,7 @@ const HomeKeyboardSection = ({ locale }) => {
                             <span className="relative text-kyellow-400 transition duration-300 group-hover:text-white ease">
                                 {__("Login")}
                             </span>
-                        </a>
+                        </Link>
                     </div>
                 </div>
                 <div className="group/mockup relative grid w-full max-w-lg">

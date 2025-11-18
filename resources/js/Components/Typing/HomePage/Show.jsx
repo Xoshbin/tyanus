@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "@inertiajs/react";
 import { __ } from "@/Libs/Lang";
 
 const Show = ({ locale }) => {
@@ -28,7 +29,7 @@ const Show = ({ locale }) => {
                         }`}
                         dir={locale === "ckb" ? "ltr" : undefined}
                     >
-                        <a
+                        <Link
                             href={route("lessons")}
                             className="rounded-md px-3.5 py-2 m-1 overflow-hidden relative group cursor-pointer border-2 font-medium border-kyellow-400 text-kyellow-400"
                         >
@@ -36,7 +37,7 @@ const Show = ({ locale }) => {
                             <span className="relative text-kyellow-400 transition duration-300 group-hover:text-white ease">
                                 {__("Try it now")}
                             </span>
-                        </a>
+                        </Link>
                     </div>
                 </div>
 
