@@ -6,6 +6,8 @@ import LessonSettings from "@/Components/Typing/ExercisePage/LessonSettings";
 import { router, usePage } from "@inertiajs/react";
 import { Alert, Typography } from "@material-tailwind/react";
 import { __ } from "@/Libs/Lang";
+import { calculateTypingMetrics } from "@/Libs/typingMetrics";
+
 import IntroScreen from "@/Components/Typing/ExercisePage/IntroScreen";
 import LettersScreen from "@/Components/Typing/ExercisePage/LettersScreen";
 import SentencesScreen from "@/Components/Typing/ExercisePage/SentencesScreen";
@@ -272,40 +274,20 @@ export default function Lesson({
         );
     }
 
-    // Calculate timing and typing metrics
-    const elapsedSeconds =
-        endTime && startTime ? (endTime - startTime) / 1000 : 0;
-    const elapsedMinutes = elapsedSeconds / 60;
-
-    const totalCharactersTyped = userInput.length;
-    const errorCharactersCount = errors.length;
-
-    const grossWPM =
-        elapsedMinutes > 0
-            ? (totalCharactersTyped / 5) / elapsedMinutes
-            : 0;
-
-    const netWPM =
-        elapsedMinutes > 0
-            ? Math.max(
-                  (totalCharactersTyped / 5 - errorCharactersCount) /
-                      elapsedMinutes,
-                  0
-              )
-            : 0;
-
-    // Calculate accuracy as a percentage
-    const accuracy =
-        totalCharactersTyped > 0
-            ? Math.max(
-                  ((totalCharactersTyped - errorCharactersCount) /
-                      totalCharactersTyped) *
-                      100,
-                  0
-              )
-            : 0;
-
-    const starsEarned = Math.round((accuracy / 100) * 3);
+    // Calculate timing and typing metrics using a shared helper
+    const {
+        elapsedSeconds,
+        elapsedMinutes,
+        grossWPM,
+        netWPM,
+        accuracy,
+        starsEarned,
+    } = calculateTypingMetrics({
+        startTime,
+        endTime,
+        totalCharactersTyped: userInput.length,
+        errorCharactersCount: errors.length,
+    });
 
     let currentCharacter = screen.content[currentCharacterIndex];
 
