@@ -59,25 +59,26 @@ export default function Lessons({
             footer={<Footer />}
         >
             <Head title={__("Lessons")} />
-            <div className="py-12">
-                <div
-                    className={` ${
-                        locale === "ckb" ? "" : ""
-                    } max-w-7xl mx-auto sm:px-6 lg:px-8`}
-                >
-                    <div className="flex flex-col max-w-5xl mx-auto justify-center space-y-4">
-                        <div className="px-1">
-                            <Select
-                                value={user_settings.exercise_lang}
-                                label={__("Keyabord type")}
-                                color="blue"
-                                onChange={(value) => changeExerciseLang(value)}
-                            >
-                                <Option value="ckb">{__("Kurdish")}</Option>
-                                <Option value="en">{__("English")}</Option>
-                            </Select>
+            <div className="py-6">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="flex flex-col space-y-4">
+                        <div className="max-w-md">
+                            <div className="rounded-2xl bg-surface border border-subtle shadow-soft p-3 sm:p-4">
+                                <Select
+                                    value={user_settings.exercise_lang}
+                                    label={__("Keyabord type")}
+                                    color="blue"
+                                    onChange={(value) => changeExerciseLang(value)}
+                                >
+                                    <Option value="ckb">{__("Kurdish")}</Option>
+                                    <Option value="en">{__("English")}</Option>
+                                </Select>
+                            </div>
                         </div>
-                        <TabsHorizontal lessons={lessons} />
+
+                        <div>
+                            <TabsHorizontal lessons={lessons} />
+                        </div>
                     </div>
                 </div>
             </div>
