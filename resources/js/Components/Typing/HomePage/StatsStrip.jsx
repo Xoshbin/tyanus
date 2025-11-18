@@ -28,14 +28,14 @@ function CountUp({ value, duration = 800 }) {
 }
 
 const StatCard = ({ label, desc, value }) => (
-    <div className="group relative rounded-xl bg-white/90 border border-kblue-100/50 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5">
+    <div className="group relative rounded-xl bg-surface border border-subtle shadow-soft hover:shadow-md transition-all duration-300 hover:-translate-y-0.5">
         <div className="absolute inset-0 rounded-xl ring-1 ring-black/0 group-hover:ring-black/5"></div>
         <div className="p-5 sm:p-6 flex flex-col items-center text-center">
             <div className="text-[0.8rem] sm:text-sm font-semibold text-dolphin">{label}</div>
             {desc && (
                 <p className="mt-1 text-[0.72rem] sm:text-xs text-dolphin/80 max-w-[16rem]">{desc}</p>
             )}
-            <div className="mt-2 text-3xl sm:text-4xl font-extrabold tracking-tight text-kblue-700">
+            <div className="mt-2 text-3xl sm:text-4xl font-extrabold tracking-tight text-primary-700">
                 <CountUp value={value} />
             </div>
         </div>

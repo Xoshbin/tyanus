@@ -10,7 +10,7 @@ const Show = ({ locale }) => {
                     locale === "ckb" ? "md:space-x-reverse" : ""
                 } md:space-x-8 items-center justify-center gap-20 md:flex-row md:gap-10 lg:justify-between`}
             >
-                <div className="text-kblue-600">
+                <div className="text-primary-700">
                     <div className="text-3xl font-semibold">
                         <span className="font-extrabold">
                             {__("300+ Lessons, 1 Goal: Typing Mastery!")}
@@ -31,10 +31,10 @@ const Show = ({ locale }) => {
                     >
                         <Link
                             href={route("lessons")}
-                            className="rounded-md px-3.5 py-2 m-1 overflow-hidden relative group cursor-pointer border-2 font-medium border-kyellow-400 text-kyellow-400"
+                            className="rounded-md px-3.5 py-2 m-1 overflow-hidden relative group cursor-pointer border-2 font-medium border-primary-600 text-primary-600"
                         >
-                            <span className="absolute w-64 h-0 transition-all duration-300 origin-center rotate-45 -translate-x-20 bg-kyellow-400 top-1/2 group-hover:h-64 group-hover:-translate-y-32 ease"></span>
-                            <span className="relative text-kyellow-400 transition duration-300 group-hover:text-white ease">
+                            <span className="absolute w-64 h-0 transition-all duration-300 origin-center rotate-45 -translate-x-20 bg-primary-600 top-1/2 group-hover:h-64 group-hover:-translate-y-32 ease"></span>
+                            <span className="relative text-primary-600 transition duration-300 group-hover:text-white ease">
                                 {__("Try it now")}
                             </span>
                         </Link>
@@ -61,7 +61,7 @@ const Show = ({ locale }) => {
                         />
                     </div>
 
-                    <div className="relative h-[120%] w-full self-center justify-self-center rounded-[3rem] bg-gradient-to-bl from-kyellow-100 to-transparent [grid-area:1/-1] md:left-10 md:rotate-2 md:justify-self-start lg:h-[25rem] lg:w-[110%]"></div>
+                    <div className="relative h-[120%] w-full self-center justify-self-center rounded-[3rem] bg-gradient-to-bl from-primary-50 to-transparent [grid-area:1/-1] md:left-10 md:rotate-2 md:justify-self-start lg:h-[25rem] lg:w-[110%]"></div>
                 </div>
             </div>
         </div>
