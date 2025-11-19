@@ -3,119 +3,108 @@ import { Head } from "@inertiajs/react";
 import AppLayout from "@/Layouts/AppLayout";
 import Footer from "@/Components/Typing/Footer";
 import MarkdownRenderer from "../../Components/Typing/MarkdownRenderer";
+import { __ } from "@/Libs/Lang";
 
 const PostsPage = ({ posts, title }) => {
     const { auth } = usePage().props;
     const { locale } = usePage().props;
 
+    const hasPosts = Array.isArray(posts) && posts.length > 0;
+
     return (
-        <AppLayout user={auth ? auth.user : undefined} footer={<Footer />}>
+        <AppLayout
+            locale={locale}
+            user={auth ? auth.user : undefined}
+            footer={<Footer />}
+        >
             <Head title={title} />
-            <>
-                <div className="space-y-4 w-7/12 mx-auto">
-                    <div className="divide-y divide-gray-200 dark:divide-gray-700">
-                        <div className="space-y-2 pb-8 pt-6 md:space-y-5">
-                            <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-                                {title}
-                            </h1>
-                            {/* <div className="relative max-w-lg">
-                                <label>
-                                    <span className="sr-only">
-                                        Search articles
-                                    </span>
-                                    <input
-                                        aria-label="Search articles"
-                                        type="text"
-                                        onChange={(e) =>
-                                            setSearchValue(e.target.value)
-                                        }
-                                        placeholder="Search articles"
-                                        className="block w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-900 dark:bg-gray-800 dark:text-gray-100"
-                                    />
-                                </label>
-                                <svg
-                                    className="absolute right-3 top-3 h-5 w-5 text-gray-400 dark:text-gray-300"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                                    />
-                                </svg>
-                            </div> */}
-                        </div>
-                        <ul>
-                            {posts.map((post) => {
-                                const { slug, created_at, title, body } = post;
-                                return (
-                                    <li key={slug} className="py-4">
-                                        <article className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
-                                            <dl>
-                                                <dt className="sr-only">
-                                                    Published on
-                                                </dt>
-                                                <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                                                    <time dateTime={created_at}>
-                                                        {new Date(
-                                                            created_at
-                                                        ).toLocaleDateString(
-                                                            locale
-                                                        )}
-                                                    </time>
-                                                </dd>
-                                            </dl>
-                                            <div className="space-y-3 xl:col-span-3">
-                                                <div>
-                                                    <h3 className="text-2xl font-bold leading-8 tracking-tight">
-                                                        <Link
-                                                            href={route(
-                                                                "blog.show",
-                                                                post.slug
-                                                            )}
-                                                            className="text-gray-900 dark:text-gray-100"
-                                                        >
-                                                            {post.title}
-                                                        </Link>
-                                                    </h3>
-                                                </div>
+            <div className="max-w-5xl mx-auto space-y-6">
+                <header className="space-y-2">
+                    <p className="text-sm font-medium text-dolphin uppercase tracking-wide">
+                        {__("Blog")}
+                    </p>
+                    <h1 className="text-3xl font-semibold text-primary-700 sm:text-4xl md:text-5xl">
+                        {title}
+                    </h1>
+                </header>
+
+                {hasPosts ? (
+                    <ul className="space-y-4">
+                        {posts.map((post) => {
+                            const {
+                                slug,
+                                created_at,
+                                title: postTitle,
+                                body,
+                                media = [],
+                            } = post;
+
+                            const previewSource = body ?? "";
+                            const preview =
+                                previewSource.length > 0
+                                    ? `${previewSource.substring(0, 300)}…`
+                                    : "";
+
+                            const hasPreviewImage = media.length > 0;
+
+                            return (
+                                <li key={slug}>
+                                    <article className="flex flex-col gap-4 rounded-2xl bg-surface border border-subtle shadow-soft p-4 sm:flex-row sm:p-6">
+                                        {hasPreviewImage && (
+                                            <div className="sm:w-1/3">
                                                 <img
-                                                    src={
-                                                        post.media[0]
-                                                            .preview_url
-                                                    }
-                                                    alt=""
+                                                    src={media[0].preview_url}
+                                                    alt={postTitle}
+                                                    className="h-40 w-full rounded-xl object-cover"
                                                 />
-                                                <div className="prose max-w-none text-gray-500 dark:text-gray-400">
-                                                    <MarkdownRenderer
-                                                        markdownContent={
-                                                            body.substring(
-                                                                0,
-                                                                300
-                                                            ) + "..."
-                                                        }
-                                                        className="pt-2"
-                                                    />{" "}
-                                                </div>
                                             </div>
-                                        </article>
-                                    </li>
-                                );
-                            })}
-                        </ul>
-                    </div>
-                </div>
-                {/* {pagination && pagination.totalPages > 1 && !searchValue && (
-                <Pagination
-                    currentPage={pagination.currentPage}
-                    totalPages={pagination.totalPages}
-                />
-            )} */}
-            </>
+                                        )}
+                                        <div className="flex-1 space-y-3">
+                                            <p className="text-xs font-medium text-dolphin">
+                                                <span className="sr-only">
+                                                    {__("Published on")}
+                                                </span>
+                                                <time dateTime={created_at}>
+                                                    {new Date(
+                                                        created_at
+                                                    ).toLocaleDateString(
+                                                        locale
+                                                    )}
+                                                </time>
+                                            </p>
+
+                                            <h3 className="text-xl font-semibold leading-7 text-primary-700">
+                                                <Link
+                                                    href={route(
+                                                        "blog.show",
+                                                        slug
+                                                    )}
+                                                    className="hover:text-primary-600"
+                                                >
+                                                    {postTitle}
+                                                </Link>
+                                            </h3>
+
+                                            {preview && (
+                                                <div className="text-sm text-dolphin">
+                                                    <MarkdownRenderer
+                                                        markdownContent={preview}
+                                                        className="pt-2"
+                                                    />
+                                                </div>
+                                            )}
+                                        </div>
+                                    </article>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                ) : (
+                    <p className="text-sm text-dolphin">
+                        {__("No blog posts have been published yet.")}
+                    </p>
+                )}
+            </div>
         </AppLayout>
     );
 };
