@@ -59,9 +59,38 @@ class LessonController extends Controller
 
     public function challenge(Screen $screen): Response
     {
-        $nextScreen = Screen::where('id', $screen->id + 1)->first();
+        $userId = auth()->id();
+
+        // Eager load userProgress for the current screen to avoid N+1 queries
+        $screen->load(['userProgress' => function ($query) use ($userId) {
+            if ($userId) {
+                $query->where('user_id', $userId);
+            } else {
+                $query->whereRaw('1 = 0');
+            }
+        }]);
+
+        // Load next and previous screens with userProgress
+        $nextScreen = Screen::where('id', $screen->id + 1)
+            ->with(['userProgress' => function ($query) use ($userId) {
+                if ($userId) {
+                    $query->where('user_id', $userId);
+                } else {
+                    $query->whereRaw('1 = 0');
+                }
+            }])
+            ->first();
+
         if ($screen->content_type == 'letters') {
-            $prevScreen = Screen::where('id', $screen->id - 1)->first();
+            $prevScreen = Screen::where('id', $screen->id - 1)
+                ->with(['userProgress' => function ($query) use ($userId) {
+                    if ($userId) {
+                        $query->where('user_id', $userId);
+                    } else {
+                        $query->whereRaw('1 = 0');
+                    }
+                }])
+                ->first();
             $exerciseTotalStars = 3;
             return Inertia::render('Typing/ExercisePage', [
                 'screen' => $screen,
@@ -70,7 +99,19 @@ class LessonController extends Controller
                 'nextScreen' => $nextScreen
             ]);
         } elseif ($screen->content_type == 'badge') {
-            $exercise = Exercise::find($screen->exercise_id);
+            // Eager load exercise with screens and userProgress to avoid N+1 queries
+            $exercise = Exercise::with([
+                'screens' => function ($query) {
+                    $query->whereIn('content_type', ['letters', 'sentences']);
+                },
+                'screens.userProgress' => function ($query) use ($userId) {
+                    if ($userId) {
+                        $query->where('user_id', $userId);
+                    } else {
+                        $query->whereRaw('1 = 0');
+                    }
+                }
+            ])->find($screen->exercise_id);
 
             if (auth()->check()) {
                 //save badge
@@ -93,8 +134,35 @@ class LessonController extends Controller
             // and for the next screen we plus it by 2
             // and for the prev screen we show current screen
             // it's very complicated just don't touch it 😊
-            $nextScreenPlusTwo = $screen->content_type === "sentences" ? Screen::where('id', $screen->id + 1)->first() : Screen::where('id', $screen->id + 2)->first();
-            $prevScreen = Screen::where('id', $screen->id - 1)->first();
+            $nextScreenPlusTwo = $screen->content_type === "sentences"
+                ? Screen::where('id', $screen->id + 1)
+                    ->with(['userProgress' => function ($query) use ($userId) {
+                        if ($userId) {
+                            $query->where('user_id', $userId);
+                        } else {
+                            $query->whereRaw('1 = 0');
+                        }
+                    }])
+                    ->first()
+                : Screen::where('id', $screen->id + 2)
+                    ->with(['userProgress' => function ($query) use ($userId) {
+                        if ($userId) {
+                            $query->where('user_id', $userId);
+                        } else {
+                            $query->whereRaw('1 = 0');
+                        }
+                    }])
+                    ->first();
+
+            $prevScreen = Screen::where('id', $screen->id - 1)
+                ->with(['userProgress' => function ($query) use ($userId) {
+                    if ($userId) {
+                        $query->where('user_id', $userId);
+                    } else {
+                        $query->whereRaw('1 = 0');
+                    }
+                }])
+                ->first();
             $exerciseTotalStars = 3;
             return Inertia::render('Typing/ExercisePage', [
                 'screen' => $screen->content_type == "sentences" ? $screen : $nextScreen,
@@ -107,7 +175,21 @@ class LessonController extends Controller
 
     public function test(): Response
     {
-        $testScreen = Screen::where('content_type', 'test')->where('locale', app()->getLocale())->inRandomOrder()->first();
+        $userId = auth()->id();
+
+        // Eager load userProgress to avoid N+1 queries
+        $testScreen = Screen::where('content_type', 'test')
+            ->where('locale', app()->getLocale())
+            ->with(['userProgress' => function ($query) use ($userId) {
+                if ($userId) {
+                    $query->where('user_id', $userId);
+                } else {
+                    $query->whereRaw('1 = 0');
+                }
+            }])
+            ->inRandomOrder()
+            ->first();
+
         return Inertia::render('Typing/ExercisePage', [
             'screen' => $testScreen,
         ]);
@@ -116,7 +198,7 @@ class LessonController extends Controller
 
     public function saveProgress(Request $request)
     {
-        $data = $request->validate([
+        $request->validate([
             'lesson_id' => 'required',
             'exercise_id' => 'required',
             'screen_id' => 'required',
@@ -134,7 +216,10 @@ class LessonController extends Controller
         $screen = Screen::find($request->screen_id);
 
         if ($screen->content_type == 'letters' || $screen->content_type == 'sentences') {
-            $lesson = Lesson::find($request->lesson_id); // Replace $lessonId with the ID of the lesson you're interested in.
+            // Eager load exercises with screens to avoid N+1 queries
+            $lesson = Lesson::with(['exercises.screens' => function ($query) {
+                $query->whereIn('content_type', ['letters', 'sentences']);
+            }])->find($request->lesson_id);
 
             $exercise = $lesson->exercises->last();
 
