@@ -31,136 +31,121 @@ export default function Register() {
 
     return (
         <GuestLayout>
-            <Head title="Register" />
+            <Head title={__("Register")} />
 
-            <form onSubmit={submit}>
-                <div>
-                    <InputLabel htmlFor="name" value="Name" />
-
-                    <TextInput
-                        id="name"
-                        name="name"
-                        value={data.name}
-                        className="mt-1 block w-full"
-                        autoComplete="name"
-                        isFocused={true}
-                        onChange={(e) => setData("name", e.target.value)}
-                        required
-                    />
-
-                    <InputError message={errors.name} className="mt-2" />
+            <div className="space-y-6">
+                <div className="text-center">
+                    <h1 className="text-2xl font-semibold tracking-tight text-gray-900">
+                        {__("Create your account")}
+                    </h1>
+                    <p className="mt-1 text-sm text-gray-600">
+                        {__(
+                            "Join Tyanus to track your typing progress and improve your skills."
+                        )}
+                    </p>
                 </div>
 
-                <div className="mt-4">
-                    <InputLabel htmlFor="email" value="Email" />
+                <form onSubmit={submit} className="space-y-4">
+                    <div className="space-y-1">
+                        <InputLabel htmlFor="name" value={__("Name")} />
 
-                    <TextInput
-                        id="email"
-                        type="email"
-                        name="email"
-                        value={data.email}
-                        className="mt-1 block w-full"
-                        autoComplete="username"
-                        onChange={(e) => setData("email", e.target.value)}
-                        required
-                    />
+                        <TextInput
+                            id="name"
+                            name="name"
+                            value={data.name}
+                            className="mt-1 block w-full border-subtle bg-surface-muted/50 focus:border-primary-500 focus:ring-primary-500"
+                            autoComplete="name"
+                            isFocused={true}
+                            onChange={(e) => setData("name", e.target.value)}
+                            required
+                        />
 
-                    <InputError message={errors.email} className="mt-2" />
-                </div>
+                        <InputError message={errors.name} className="mt-2" />
+                    </div>
 
-                <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
+                    <div className="space-y-1">
+                        <InputLabel htmlFor="email" value={__("Email")} />
 
-                    <TextInput
-                        id="password"
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        onChange={(e) => setData("password", e.target.value)}
-                        required
-                    />
+                        <TextInput
+                            id="email"
+                            type="email"
+                            name="email"
+                            value={data.email}
+                            className="mt-1 block w-full border-subtle bg-surface-muted/50 focus:border-primary-500 focus:ring-primary-500"
+                            autoComplete="username"
+                            onChange={(e) => setData("email", e.target.value)}
+                            required
+                        />
 
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
+                        <InputError message={errors.email} className="mt-2" />
+                    </div>
 
-                <div className="mt-4">
-                    <InputLabel
-                        htmlFor="password_confirmation"
-                        value="Confirm Password"
-                    />
+                    <div className="space-y-1">
+                        <InputLabel htmlFor="password" value={__("Password")} />
 
-                    <TextInput
-                        id="password_confirmation"
-                        type="password"
-                        name="password_confirmation"
-                        value={data.password_confirmation}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        onChange={(e) =>
-                            setData("password_confirmation", e.target.value)
-                        }
-                        required
-                    />
+                        <TextInput
+                            id="password"
+                            type="password"
+                            name="password"
+                            value={data.password}
+                            className="mt-1 block w-full border-subtle bg-surface-muted/50 focus:border-primary-500 focus:ring-primary-500"
+                            autoComplete="new-password"
+                            onChange={(e) => setData("password", e.target.value)}
+                            required
+                        />
 
-                    <InputError
-                        message={errors.password_confirmation}
-                        className="mt-2"
-                    />
-                </div>
+                        <InputError message={errors.password} className="mt-2" />
+                    </div>
 
-                <div className="flex items-center justify-end mt-4">
+                    <div className="space-y-1">
+                        <InputLabel
+                            htmlFor="password_confirmation"
+                            value={__("Confirm Password")}
+                        />
+
+                        <TextInput
+                            id="password_confirmation"
+                            type="password"
+                            name="password_confirmation"
+                            value={data.password_confirmation}
+                            className="mt-1 block w-full border-subtle bg-surface-muted/50 focus:border-primary-500 focus:ring-primary-500"
+                            autoComplete="new-password"
+                            onChange={(e) =>
+                                setData("password_confirmation", e.target.value)
+                            }
+                            required
+                        />
+
+                        <InputError
+                            message={errors.password_confirmation}
+                            className="mt-2"
+                        />
+                    </div>
+
+                    <div className="pt-2 text-xs text-gray-500">
+                        {__(
+                            "By creating an account, you agree to our terms of service and privacy policy."
+                        )}
+                    </div>
+
+                    <PrimaryButton
+                        className="mt-4 inline-flex w-full justify-center rounded-md bg-primary-600 text-sm font-semibold text-white shadow-soft hover:bg-primary-700 focus:bg-primary-700 focus:ring-primary-500"
+                        disabled={processing}
+                    >
+                        {__("Create account")}
+                    </PrimaryButton>
+                </form>
+
+                <p className="text-center text-sm text-gray-600">
+                    {__("Already have an account?")}{" "}
                     <Link
                         href={route("login")}
-                        className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        className="font-medium text-primary-600 hover:text-primary-700"
                     >
-                        Already registered?
+                        {__("Log in")}
                     </Link>
-
-                    <PrimaryButton className="ml-4" disabled={processing}>
-                        Register
-                    </PrimaryButton>
-                </div>
-                {/* <div
-                    className="flex flex-col md:flex-row items-center justify-center space-x-4 mt-4"
-                    dir={` ${locale === "ckb" ? "ltr" : "rtl"}`}
-                >
-                    <a
-                        href="/auth/facebook"
-                        className="h-12 text-white flex-row space-x-2 justify-center bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mb-2"
-                    >
-                        <svg
-                            className="w-4 h-4"
-                            aria-hidden="true"
-                            focusable="false"
-                            data-prefix="fab"
-                            data-icon="facebook-f"
-                            role="img"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 320 512"
-                        >
-                            <path
-                                fill="currentColor"
-                                d="M279.1 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.4 0 225.4 0c-73.22 0-121.1 44.38-121.1 124.7v70.62H22.89V288h81.39v224h100.2V288z"
-                            ></path>
-                        </svg>
-                        <div className="flex">
-                            {__("Sign in with Facebook")}
-                        </div>
-                    </a>
-                    <a
-                        href="/auth/google"
-                        className="h-12 dark:text-white flex-row shadow-md  bg-[#ffffff] space-x-2 justify-center dark:bg-[#4285F4] dark:hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm pl-1 pr-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mb-2"
-                    >
-                        <img
-                            src="/img/google.svg"
-                            className="bg-white p-2 rounded-sm"
-                        />
-                        <div className="flex">{__("Sign in with Google")}</div>
-                    </a>
-                </div> */}
-            </form>
+                </p>
+            </div>
         </GuestLayout>
     );
 }
