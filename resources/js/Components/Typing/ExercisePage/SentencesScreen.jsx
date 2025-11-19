@@ -2,8 +2,6 @@ import React, { useEffect, useState, useRef } from "react";
 import MacKeyboardEn from "@/Components/Typing/Keyboard/MacKeyboardEn";
 import MacKeyboardKu from "@/Components/Typing/Keyboard/MacKeyboardKu";
 import WindowsKeyboardKu from "@/Components/Typing/Keyboard/WindowsKeyboardKu";
-import { __ } from "@/Libs/Lang";
-import "moment/locale/ku"; // Import the Kurdish locale
 
 import {
     macFingerMapping,
@@ -50,16 +48,16 @@ const SentencesScreen = ({
             {screen && screen.content ? (
                 <div
                     ref={containerRef}
-                    className="w-full py-4 px-4 text-3xl text-center max-h-48 overflow-y-scroll transform flex-col-reverse justify-end scroll-smooth leading-loose"
+                    className="w-full py-4 px-4 text-3xl text-center text-primary-800 max-h-48 overflow-y-scroll transform flex-col-reverse justify-end scroll-smooth leading-loose"
                 >
                     {visibleCharacters.split("").map((char, i) => {
-                        let color = "text-black";
+                        let color = "text-primary-800";
 
                         if (i < userInput.length) {
                             color =
                                 char === userInput[i]
-                                    ? "text-green-400"
-                                    : "text-red-400"; // Remove underline when user types correctly
+                                    ? "text-success"
+                                    : "text-error";
                         }
 
                         if (char === " ") {
@@ -67,7 +65,7 @@ const SentencesScreen = ({
                                 <span key={i}>
                                     <span
                                         className={`text-2xl font-naskh underline ${
-                                            color === "text-black"
+                                            color === "text-primary-800"
                                                 ? "text-transparent"
                                                 : color
                                         }`}

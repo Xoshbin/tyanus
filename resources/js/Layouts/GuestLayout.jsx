@@ -1,26 +1,33 @@
-import ApplicationLogo from "@/Components/ApplicationLogo";
-import { Link } from "@inertiajs/react";
+import { usePage } from "@inertiajs/react";
+import Navbar from "@/Components/Typing/Navbar";
 import { Alert } from "@material-tailwind/react";
 import { __ } from "@/Libs/Lang";
 
 export default function Guest({ children }) {
+    const { locale } = usePage().props;
+
     return (
-        <div className="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-            <div>
-                <Link href="/">
-                    <ApplicationLogo className="w-20 h-20 fill-current text-gray-500" />
-                </Link>
-            </div>
-            <div className="md:hidden mx-4 mt-1">
-                <Alert color="blue">
+        <div className="min-h-screen bg-surface-muted">
+            <Navbar locale={locale} />
+
+            <div className="md:hidden container mt-2">
+                <Alert
+                    color="blue"
+                    className={locale === "ckb" ? "text-right" : "text-left"}
+                >
                     {__(
                         "Desktop is Ideal: For the optimal typing experience, switch to a desktop for this app!"
                     )}
                 </Alert>
             </div>
-            <div className="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
-                {children}
-            </div>
+
+            <main className="container flex justify-center py-8 sm:py-12">
+                <div className="w-full max-w-md">
+                    <div className="rounded-2xl bg-surface border border-subtle shadow-soft px-6 py-8 sm:px-8">
+                        {children}
+                    </div>
+                </div>
+            </main>
         </div>
     );
 }

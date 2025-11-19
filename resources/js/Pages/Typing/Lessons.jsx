@@ -7,6 +7,8 @@ import { Select, Option } from "@material-tailwind/react";
 import { useEffect } from "react";
 import { Head } from "@inertiajs/react";
 import Footer from "@/Components/Typing/Footer";
+import axios from "axios";
+
 
 export default function Lessons({
     lessons,
@@ -31,15 +33,20 @@ export default function Lessons({
         }
     }, [user_settings.exercise_lang]);
 
-    const changeExerciseLang = (newValue) => {
-        router.post(
-            "/update-user-settings",
-            {
+    const changeExerciseLang = async (newValue) => {
+        try {
+            await axios.post("/update-user-settings", {
                 setting: "exercise_lang",
                 value: newValue,
-            },
-            { preserveState: true }
-        );
+            });
+
+            router.visit(route("lessons"), {
+                preserveScroll: true,
+                replace: true,
+            });
+        } catch (error) {
+            console.error("Failed to update exercise language", error);
+        }
     };
 
     return (
@@ -59,25 +66,26 @@ export default function Lessons({
             footer={<Footer />}
         >
             <Head title={__("Lessons")} />
-            <div className="py-12">
-                <div
-                    className={` ${
-                        locale === "ckb" ? "" : ""
-                    } max-w-7xl mx-auto sm:px-6 lg:px-8`}
-                >
-                    <div className="flex flex-col max-w-5xl mx-auto justify-center space-y-4">
-                        <div className="px-1">
-                            <Select
-                                value={user_settings.exercise_lang}
-                                label={__("Keyabord type")}
-                                color="blue"
-                                onChange={(value) => changeExerciseLang(value)}
-                            >
-                                <Option value="ckb">{__("Kurdish")}</Option>
-                                <Option value="en">{__("English")}</Option>
-                            </Select>
+            <div className="py-6">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="flex flex-col space-y-4">
+                        <div className="max-w-md">
+                            <div className="rounded-2xl bg-surface border border-subtle shadow-soft p-3 sm:p-4">
+                                <Select
+                                    value={user_settings.exercise_lang}
+                                    label={__("Keyabord type")}
+                                    color="blue"
+                                    onChange={(value) => changeExerciseLang(value)}
+                                >
+                                    <Option value="ckb">{__("Kurdish")}</Option>
+                                    <Option value="en">{__("English")}</Option>
+                                </Select>
+                            </div>
                         </div>
-                        <TabsHorizontal lessons={lessons} />
+
+                        <div>
+                            <TabsHorizontal lessons={lessons} />
+                        </div>
                     </div>
                 </div>
             </div>

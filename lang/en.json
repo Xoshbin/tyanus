@@ -14,6 +14,9 @@
     "Update": "Update",
     "Cancel": "Cancel",
 
+    "You can change the keyboard layout here.": "You can change the keyboard layout here.",
+    "Got it": "Got it",
+
     "Finished exercise": "Finished exercise",
     "Stars earned out of 3": "Stars earned out of 3!",
     "Start": "Start",
@@ -52,10 +55,18 @@
     "next": "Next",
 
     "Login": "Login",
+    "Log in": "Log in",
+    "Welcome back": "Welcome back",
+    "Sign in to continue to Tyanus.": "Sign in to continue to Tyanus.",
     "Email": "Email",
     "Password": "Password",
     "Remember me": "Remember me",
     "Forgot your password?": "Forgot your password?",
+    "Don't have an account?": "Don't have an account?",
+    "Already have an account?": "Already have an account?",
+    "Create an account": "Create an account",
+    "Create your account": "Create your account",
+    "Create account": "Create account",
     "Sign in with Facebook": "Sign in with Facebook",
     "Sign in with Google": "Sign in with Google",
     "Name": "Name",
@@ -67,6 +78,9 @@
     "Please login to save your progress": "Please login to save your progress",
     "Full Name": "Full Name",
     "Full name for the certificate": "Full name for the certificate",
+    "Join Tyanus to track your typing progress and improve your skills.": "Join Tyanus to track your typing progress and improve your skills.",
+    "By creating an account, you agree to our terms of service and privacy policy.": "By creating an account, you agree to our terms of service and privacy policy.",
+
 
     "Master the Art of Typing: 300+ Lessons Await!": "Master the Art of Typing: 300+ Lessons Await!",
     "In Kurdish and English": "In English و بە کوردی",
@@ -135,6 +149,10 @@
     "Blog posts": "Blog posts",
     "What is toouch typing": "What is toouch typing",
     "Read more": "Read more",
+    "Home": "Home",
+    "Learn": "Learn",
+    "Practice": "Practice",
+    "Progress": "Progress",
     "Stats": "Stats",
     "Progress Overview": "Progress Overview",
     "Select Time Range": "Select Time Range",
@@ -162,5 +180,8 @@
   "Screens played description": "All screens completed by users",
   "Exercises description": "Distinct exercises available",
   "Screens description": "Lesson screens available",
-  "Users description": "Registered users"
+  "Users description": "Registered users",
+  "View on GitHub": "View on GitHub",
+  "View Tyanus on GitHub": "View Tyanus on GitHub",
+  "All Rights Reserved.": "All Rights Reserved."
 }

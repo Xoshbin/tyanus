@@ -57,7 +57,7 @@ const IntroScreen = ({
     return (
         <>
             <Collapse open={showFoundKeyMessage}>
-                <Card className="my-4 mx-auto w-6/12">
+                <Card className="my-4 mx-auto w-6/12 rounded-2xl bg-surface border border-subtle shadow-soft">
                     <CardBody>
                         <Typography className="justify-center items-center flex space-x-2">
                             {__("Don't forget to never look at the keyboard")}
@@ -76,27 +76,14 @@ const IntroScreen = ({
                 )}
 
                 {showFoundKeyMessage === false && (
-                    <div className="text-center bg-kblue-600 rounded-md">
-                        {screen.content.split("").map((char, i) => {
-                            let color = "bg-white";
-
-                            if (i < userInput.length) {
-                                color =
-                                    char === userInput[i]
-                                        ? "bg-green-400"
-                                        : "bg-red-400"; // Remove underline when user types correctly
-                            }
-
-                            return (
-                                <div key={i} className=" space-y-4">
-                                    <div
-                                        className={`mx-1 text-5xl text-center text-white font-naskh py-4 px-2`}
-                                    >
-                                        {char === " " ? spaceIcon : char}
-                                    </div>
+                    <div className="text-center bg-primary-700 rounded-md">
+                        {screen.content.split("").map((char, i) => (
+                            <div key={i} className="space-y-4">
+                                <div className="mx-1 text-5xl text-center text-white font-naskh py-4 px-2">
+                                    {char === " " ? spaceIcon : char}
                                 </div>
-                            );
-                        })}
+                            </div>
+                        ))}
                     </div>
                 )}
 

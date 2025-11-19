@@ -2,8 +2,6 @@ import React from "react";
 import MacKeyboardEn from "@/Components/Typing/Keyboard/MacKeyboardEn";
 import MacKeyboardKu from "@/Components/Typing/Keyboard/MacKeyboardKu";
 import WindowsKeyboardKu from "@/Components/Typing/Keyboard/WindowsKeyboardKu";
-import { __ } from "@/Libs/Lang";
-import "moment/locale/ku"; // Import the Kurdish locale
 import {
     macFingerMapping,
     macLeftKeys,
@@ -30,19 +28,19 @@ const LettersScreen = ({
         <div className="hidden md:flex flex-col w-full max-w-3xl justify-center items-center mx-auto mt-6">
             <div className="flex">
                 {visibleCharacters.split("").map((char, i) => {
-                    let color = "bg-white";
+                    let color = "bg-surface text-primary-800";
 
                     if (i < userInputForHighlight.length) {
                         color =
                             char === userInputForHighlight[i]
-                                ? "bg-green-400"
-                                : "bg-red-400"; // Remove underline when user types correctly
+                                ? "bg-success-soft text-success"
+                                : "bg-error-soft text-error";
                     }
 
                     return (
-                        <div key={i} className=" space-y-4">
+                        <div key={i} className="space-y-4">
                             <div
-                                className={`w-20 h-16 mx-1 py-2 px-2 text-5xl text-center border rounded-md font-naskh ${color} ${
+                                className={`w-20 h-16 mx-1 py-2 px-2 text-5xl text-center border border-subtle rounded-xl font-naskh ${color} ${
                                     flipped ? "flip" : ""
                                 }`}
                             >

@@ -3,11 +3,11 @@ import { Link } from "@inertiajs/react";
 
 export default function Footer(props) {
     return (
-        <footer className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+        <div className="w-full py-6 lg:py-8">
             <div className="md:flex md:justify-between">
                 <div className="mb-6 md:mb-0">
                     <Link href="/" className="flex items-center">
-                        <span className="self-center text-6xl font-thin whitespace-nowrap font-feelfree subpixel-antialiased text-kblue-600">
+                        <span className="self-center text-6xl font-thin whitespace-nowrap font-feelfree subpixel-antialiased text-primary-600">
                             Tyanus
                         </span>
                     </Link>
@@ -76,7 +76,7 @@ export default function Footer(props) {
                     </div>
                 </div>
             </div>
-            <hr className="my-6 border-gray-200 sm:mx-auto lg:my-8" />
+            <hr className="my-6 border-subtle sm:mx-auto lg:my-8" />
             <div className="sm:flex sm:items-center sm:justify-between">
                 <span className="text-sm text-gray-500 sm:text-center">
                     © 2023{" "}
@@ -86,14 +86,14 @@ export default function Footer(props) {
                     >
                         Tyanus™
                     </Link>
-                    . All Rights Reserved.
+                    . {__("All Rights Reserved.")}
                 </span>
                 <a
                     href="https://github.com/Xoshbin/tyanus"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="mt-4 inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 sm:mt-0"
-                    aria-label="View Tyanus on GitHub"
+                    aria-label={__("View Tyanus on GitHub")}
                 >
                     <span className="flex h-5 w-5 items-center justify-center">
                         <svg
@@ -107,6 +107,6 @@ export default function Footer(props) {
                     <span>{__("View on GitHub")}</span>
                 </a>
             </div>
-        </footer>
+        </div>
     );
 }

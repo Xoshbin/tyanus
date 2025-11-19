@@ -10,24 +10,35 @@
     font-style: normal;
 }
 
-/*  flip the letters when changeing the letters in the exercise page
-    when the screen is letters
-*/
-.flip {
-    transform: rotateX(360deg);
-    transition: transform 0.5s;
+/* Global layout & typography */
+body {
+    @apply bg-surface text-gray-900 antialiased;
+    scroll-behavior: smooth;
 }
 
-/* markdown styling */
+/* Flip animation used in exercise page */
+.flip {
+    transform: rotateX(360deg);
+    transition: transform 0.5s ease-out;
+}
 
-/* .markdown-container h1 {
-    @apply mt-8 text-2xl font-black;
+/* Markdown content styling */
+.markdown-container h1 {
+    @apply mt-8 text-2xl font-semibold;
 }
 
 .markdown-container h2 {
-    @apply mt-4 text-xl font-extrabold;
+    @apply mt-6 text-xl font-semibold;
+}
+
+.markdown-container h3 {
+    @apply mt-4 text-lg font-semibold;
+}
+
+.markdown-container p {
+    @apply mt-4 text-base leading-7 text-gray-800;
 }
 
 .markdown-container a {
-    @apply text-kblue-400;
-} */
+    @apply text-primary-600 underline underline-offset-2 hover:text-primary-700;
+}

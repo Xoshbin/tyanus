@@ -1,14 +1,43 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "@/Components/Modal";
 import { router, usePage } from "@inertiajs/react";
 import KeyboardSettings from "./KeyboardSettings";
+import { __ } from "@/Libs/Lang";
 
 const LessonSettings = ({ locale, screenlocale }) => {
     const [modalOpen, setModalOpen] = useState(false);
+    const [showKeyboardSettingsTooltip, setShowKeyboardSettingsTooltip] =
+        useState(false);
     const { user_settings } = usePage().props;
+
+    useEffect(() => {
+        if (typeof window === "undefined") {
+            return;
+        }
+
+        const hasSeenTip = window.localStorage.getItem(
+            "tyanus_keyboard_layout_tip_seen"
+        );
+
+        if (!hasSeenTip) {
+            setShowKeyboardSettingsTooltip(true);
+        }
+    }, []);
+
+    const dismissKeyboardSettingsTooltip = () => {
+        setShowKeyboardSettingsTooltip(false);
+
+        if (typeof window !== "undefined") {
+            window.localStorage.setItem("tyanus_keyboard_layout_tip_seen", "1");
+        }
+    };
 
     const openKeyboardSettings = () => {
         setModalOpen(true);
+
+        if (showKeyboardSettingsTooltip) {
+            dismissKeyboardSettingsTooltip();
+        }
     };
 
     const closeModal = () => {
@@ -37,14 +66,14 @@ const LessonSettings = ({ locale, screenlocale }) => {
 
     return (
         <div
-            className={`flex justify-end h-0 ${
+            className={`flex justify-end items-center ${
                 locale === "ckb" ? "flex-row-reverse" : ""
             }`}
         >
             <div
-                className={`hidden sm:flex ${
+                className={`hidden sm:flex items-center justify-end gap-4 rounded-full bg-surface border border-subtle shadow-soft px-3 py-1.5 ${
                     locale === "ckb" ? "flex-row-reverse" : ""
-                } space-x-8 justify-end mr-40`}
+                }`}
             >
                 {/* redoLesson */}
                 <div
@@ -55,7 +84,8 @@ const LessonSettings = ({ locale, screenlocale }) => {
                     <button
                         onClick={redoLesson}
                         type="button"
-                        className="inline-flex w-full justify-center cursor-pointer"
+                        className="inline-flex items-center justify-center rounded-full p-2 text-primary-600 hover:bg-primary-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                        aria-label={__("Restart lesson")}
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -84,7 +114,8 @@ const LessonSettings = ({ locale, screenlocale }) => {
                     <button
                         onClick={toggleKeyboardSound}
                         type="button"
-                        className="inline-flex w-full justify-center cursor-pointer"
+                        className="inline-flex items-center justify-center rounded-full p-2 text-primary-600 hover:bg-primary-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                        aria-label={__("Toggle keyboard sound")}
                     >
                         {user_settings.enable_sound === true ? (
                             <svg
@@ -140,37 +171,56 @@ const LessonSettings = ({ locale, screenlocale }) => {
                         locale === "ckb" ? "flex-row-reverse" : ""
                     } items-center space-x-2`}
                 >
-                    <button
-                        onClick={openKeyboardSettings}
-                        type="button"
-                        className="inline-flex w-full justify-center cursor-pointer"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="icon icon-tabler icon-tabler-keyboard"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            strokeWidth="1.5"
-                            stroke="#1f54d6"
-                            fill="none"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
+                    <div className="relative">
+                        {showKeyboardSettingsTooltip && (
+                            <div className="absolute top-full mt-3 left-1/2 -translate-x-1/2 z-20">
+                                <div className="relative rounded-xl bg-blue-600 text-white text-xs px-4 py-3 shadow-lg w-64">
+                                    <p className={locale === "ckb" ? "text-right" : ""}>
+                                        {__("You can change the keyboard layout here.")}
+                                    </p>
+                                    <button
+                                        type="button"
+                                        onClick={dismissKeyboardSettingsTooltip}
+                                        className="mt-1 text-[10px] underline text-blue-100"
+                                    >
+                                        {__("Got it")}
+                                    </button>
+                                    <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-blue-600 rotate-45" />
+                                </div>
+                            </div>
+                        )}
+                        <button
+                            onClick={openKeyboardSettings}
+                            type="button"
+                            className="inline-flex items-center justify-center rounded-full p-2 text-primary-600 hover:bg-primary-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                            aria-label={__("Keyboard settings")}
                         >
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M2 6m0 2a2 2 0 0 1 2 -2h16a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-16a2 2 0 0 1 -2 -2z" />
-                            <path d="M6 10l0 .01" />
-                            <path d="M10 10l0 .01" />
-                            <path d="M14 10l0 .01" />
-                            <path d="M18 10l0 .01" />
-                            <path d="M6 14l0 .01" />
-                            <path d="M18 14l0 .01" />
-                            <path d="M10 14l4 .01" />
-                        </svg>
-                    </button>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="icon icon-tabler icon-tabler-keyboard"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                strokeWidth="1.5"
+                                stroke="#1f54d6"
+                                fill="none"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            >
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M2 6m0 2a2 2 0 0 1 2 -2h16a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-16a2 2 0 0 1 -2 -2z" />
+                                <path d="M6 10l0 .01" />
+                                <path d="M10 10l0 .01" />
+                                <path d="M14 10l0 .01" />
+                                <path d="M18 10l0 .01" />
+                                <path d="M6 14l0 .01" />
+                                <path d="M18 14l0 .01" />
+                                <path d="M10 14l4 .01" />
+                            </svg>
+                        </button>
+                    </div>
                 </div>
             </div>
-            {/* Include your Inertia components or React components here */}
             <Modal show={modalOpen} onClose={closeModal}>
                 <KeyboardSettings locale={screenlocale} />
             </Modal>

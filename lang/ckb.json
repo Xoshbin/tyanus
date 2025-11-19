@@ -14,6 +14,9 @@
     "Update": "نوێکردنەوە",
     "Cancel": "ڕەتکردنەوە",
 
+    "You can change the keyboard layout here.": "دەتوانیت لێرە شێوازی کیبۆرد بگۆڕیت.",
+    "Got it": "باشە",
+
     "Finished exercise": "ئەنجامی وانە",
     "Stars earned out of 3": "ئەستێرەت بەدەست هێنا لە کۆی 3!",
     "Speed": "خێرایی",
@@ -57,10 +60,18 @@
     "user": "ناتوانین هیچ بەکارهێنەرێک بدۆزینەوە کە بەو ئیمەیڵە تۆمار کرابێت.",
 
     "Login": "بچۆ ژوور",
+    "Log in": "بچۆ ژوور",
+    "Welcome back": "بەخێربێیتەوە",
+    "Sign in to continue to Tyanus.": "بچۆ ژوورەوە بۆ بەردەوامبوون لە تیانووس.",
     "Email": "ئیمەیڵ",
     "Password": "ووشەی نهێنی",
     "Remember me": "لە بیرم مەکە",
     "Forgot your password?": "ووشەی نهێنیت لەبیرکردووە؟",
+    "Don't have an account?": "هەژمارت نییە؟",
+    "Already have an account?": "پێشتر هەژمارت هەیە؟",
+    "Create an account": "هەژمارێک دروست بکە",
+    "Create your account": "هەژمارت دروست بکە",
+    "Create account": "هەژمار دروست بکە",
     "Sign in with Facebook": "بچۆ ژوور لەڕێی فەیسبووک",
     "Sign in with Google": "بچۆ ژوور لە ڕێی گووگڵ",
     "Name": "ناو",
@@ -72,6 +83,9 @@
     "Please login to save your progress": "تکایە بچۆرە ژوورەوە بۆ ئەوەی پێشکەوتنەکانت پاشەکەوت بکەیت",
     "Full Name": "ناوی سیانی",
     "Full name for the certificate": "ناوی سیانی بۆ سەر بڕوانامەکەت",
+    "Join Tyanus to track your typing progress and improve your skills.": "لە تیانووس بەشداری بکە بۆ تۆمارکردنی پێشکەوتنی تایپکردنت و باشترکردنی لێهاتووییەکانت.",
+    "By creating an account, you agree to our terms of service and privacy policy.": "بە دروستکردنی هەژمار، ڕازی دەبیت بە مەرجەکانی خزمەتگوزاری و سیاسەتی پاراستنی نهێنییەکەمان.",
+
 
     "Master the Art of Typing: 300+ Lessons Await!": "شارەزابە لە هونەری تایپکردن: زیاد لە ٣٠٠ وانە چاوەڕێت دەکەن!",
     "In Kurdish and English": "بە کوردی و ئینگلیزی",
@@ -140,6 +154,10 @@
     "Blog posts": "نووسراوەکان",
     "What is toouch typing": "نووسینی دەستلێدان چییە؟",
     "Read more": "زیاتر بخوێنەرەوە",
+    "Home": "سەرەتا",
+    "Learn": "فێربە",
+    "Practice": "مەشق",
+    "Progress": "پێشکەوتن",
     "Stats": "هەڵسەنگاندن",
     "Progress Overview": "پێشکەوتنی خێرایی و دروستی",
     "Select Time Range": "مەودای کات هەڵبژێرە",
@@ -167,5 +185,8 @@
     "Screens played description": "کۆی یارییە تەواوکراوەکان لەلایەن بەکارهێنەرانەوە",
     "Exercises description": "ژمارەی مەشقە جیاوازەکان",
     "Screens description": "ژمارەی وانەکان",
-    "Users description": "ژمارەی بەکارهێنەران"
+    "Users description": "ژمارەی بەکارهێنەران",
+    "View on GitHub": "سەیری لەسەر گیتهاب بکە",
+    "View Tyanus on GitHub": "سەیری تیانووس لەسەر گیتهاب بکە",
+    "All Rights Reserved.": "هەموو مافەکان پارێزراون."
 }

@@ -10,115 +10,107 @@ export default function Navbar({ locale }) {
     const { auth } = usePage().props;
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
+    const isAuthenticated = Boolean(auth.user);
+
     return (
-        <nav>
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8" dir="ltr">
-                <div className="flex justify-between h-16">
-                    {/* Auth */}
-                    <div className="hidden sm:flex sm:items-center sm:ml-6">
-                        <div className="ml-3 relative">
-                            {auth.user ? (
-                                <Dropdown>
-                                    <Dropdown.Trigger>
-                                        <span className="inline-flex rounded-md">
-                                            <button
-                                                type="button"
-                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
-                                            >
-                                                {auth.user.name}
+        <nav className="bg-surface border-b border-subtle">
+            <div className="container flex h-16 items-center justify-between">
+                {/* Logo */}
+                <div className="flex items-center">
+                    <Link href={route("home")} className="flex items-center">
+                        <ApplicationLogo className="text-primary-700" />
+                    </Link>
+                </div>
 
-                                                <svg
-                                                    className="ml-2 -mr-0.5 h-4 w-4"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20"
-                                                    fill="currentColor"
-                                                >
-                                                    <path
-                                                        fillRule="evenodd"
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                        clipRule="evenodd"
-                                                    />
-                                                </svg>
-                                            </button>
-                                        </span>
-                                    </Dropdown.Trigger>
+                {/* Primary navigation - desktop */}
+                <div className="hidden sm:flex sm:items-center sm:space-x-4">
+                    <NavLink href={route("home")} active={route().current("home")}>
+                        {__("Home")}
+                    </NavLink>
+                    <NavLink
+                        href={route("lessons")}
+                        active={route().current("lessons")}
+                    >
+                        {__("Learn")}
+                    </NavLink>
+                    <NavLink
+                        href={route("test")}
+                        active={route().current("test")}
+                    >
+                        {__("Practice")}
+                    </NavLink>
+                    <NavLink
+                        href={route("stats")}
+                        active={
+                            route().current("stats") ||
+                            route().current("badges") ||
+                            route().current("certificates")
+                        }
+                    >
+                        {__("Progress")}
+                    </NavLink>
+                    <NavLink
+                        href={route("blog.index")}
+                        active={
+                            route().current("blog.index") ||
+                            route().current("blog.show")
+                        }
+                    >
+                        {__("Blog")}
+                    </NavLink>
+                </div>
 
-                                    <Dropdown.Content>
-                                        <Dropdown.Link
-                                            href={route("profile.edit")}
-                                        >
-                                            {__("Profile")}
-                                        </Dropdown.Link>
-                                        <Dropdown.Link href={route("badges")}>
-                                            {__("badges")}
-                                        </Dropdown.Link>
-                                        <Dropdown.Link
-                                            href={route("certificates")}
-                                        >
-                                            {__("certificates")}
-                                        </Dropdown.Link>
-                                        <Dropdown.Link
-                                            href={route("logout")}
-                                            method="post"
-                                            as="button"
-                                        >
-                                            {__("Log Out")}
-                                        </Dropdown.Link>
-                                    </Dropdown.Content>
-                                </Dropdown>
-                            ) : (
-                                <>
-                                    <Link
-                                        href={route("login")}
-                                        className="text-xl border-2 border-transparent rounded-full transition text-kblue-600"
+                {/* Right side: language + auth + mobile toggle */}
+                <div className="flex items-center space-x-3">
+                    {/* Language switcher - desktop */}
+                    <div className="hidden sm:flex sm:items-center">
+                        <Dropdown>
+                            <Dropdown.Trigger>
+                                <span className="inline-flex rounded-full shadow-sm">
+                                    <button
+                                        type="button"
+                                        className="inline-flex items-center rounded-full border border-subtle bg-surface px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-surface-muted focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                                     >
-                                        {__("Login")}
-                                    </Link>
+                                        {locale}
 
-                                    <Link
-                                        href={route("register")}
-                                        className="mx-4 text-xl border-2 border-transparent rounded-full transition text-kblue-600"
-                                    >
-                                        {__("Register")}
-                                    </Link>
-                                </>
-                            )}
-                        </div>
+                                        <svg
+                                            className="ml-2 -mr-0.5 h-4 w-4"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 20 20"
+                                            fill="currentColor"
+                                        >
+                                            <path
+                                                fillRule="evenodd"
+                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                clipRule="evenodd"
+                                            />
+                                        </svg>
+                                    </button>
+                                </span>
+                            </Dropdown.Trigger>
+
+                            <Dropdown.Content>
+                                <Dropdown.Link href={route("setlocale", "ckb")}>
+                                    {__("KU")}
+                                </Dropdown.Link>
+                                <Dropdown.Link href={route("setlocale", "en")}>
+                                    {__("EN")}
+                                </Dropdown.Link>
+                            </Dropdown.Content>
+                        </Dropdown>
                     </div>
 
-                    <div className="flex sm:items-center sm:ml-6 sm:space-x-10">
-                        {/* Menus */}
-                        <div className="hidden space-x-4 sm:-my-px sm:ml-10 sm:flex">
-                            <NavLink
-                                className="flex text-xl border-2 border-transparent rounded-full transition text-kblue-600"
-                                href={route("stats")}
-                                active={route().current("stats")}
-                            >
-                                {__("Stats")}
-                            </NavLink>
-                            <NavLink
-                                className="flex text-xl border-2 border-transparent rounded-full transition text-kblue-600"
-                                href={route("test")}
-                                active={route().current("test")}
-                            >
-                                {__("Test")}
-                            </NavLink>
-                            <NavLink
-                                className="flex text-xl border-2 border-transparent rounded-full transition text-kblue-600"
-                                href={route("lessons")}
-                                active={route().current("lessons")}
-                            >
-                                {__("Lessons")}
-                            </NavLink>
-
+                    {/* Auth - desktop */}
+                    <div className="hidden sm:flex sm:items-center">
+                        {isAuthenticated ? (
                             <Dropdown>
                                 <Dropdown.Trigger>
-                                    <span className="inline-flex rounded-md">
+                                    <span className="inline-flex rounded-full shadow-sm">
                                         <button
                                             type="button"
-                                            className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                            className="inline-flex items-center rounded-full border border-subtle bg-surface px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-surface-muted focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                                         >
-                                            {locale}
+                                            {auth.user.name}
 
                                             <svg
                                                 className="ml-2 -mr-0.5 h-4 w-4"
@@ -137,37 +129,52 @@ export default function Navbar({ locale }) {
                                 </Dropdown.Trigger>
 
                                 <Dropdown.Content>
-                                    <Dropdown.Link
-                                        href={route("setlocale", "ckb")}
-                                    >
-                                        {__("KU")}
+                                    <Dropdown.Link href={route("profile.edit")}>
+                                        {__("Profile")}
+                                    </Dropdown.Link>
+                                    <Dropdown.Link href={route("badges")}>
+                                        {__("badges")}
+                                    </Dropdown.Link>
+                                    <Dropdown.Link href={route("certificates")}>
+                                        {__("certificates")}
                                     </Dropdown.Link>
                                     <Dropdown.Link
-                                        href={route("setlocale", "en")}
+                                        href={route("logout")}
+                                        method="post"
+                                        as="button"
                                     >
-                                        {__("EN")}
+                                        {__("Log Out")}
                                     </Dropdown.Link>
                                 </Dropdown.Content>
                             </Dropdown>
-                        </div>
-                        {/* Logo */}
-                        <div className="flex">
-                            <div className="shrink-0 flex items-center">
-                                <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
+                        ) : (
+                            <div className="flex items-center gap-3">
+                                <Link
+                                    href={route("login")}
+                                    className="inline-flex items-center rounded-full border border-subtle bg-surface px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-surface-muted hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                                >
+                                    {__("Login")}
+                                </Link>
+                                <Link
+                                    href={route("register")}
+                                    className="inline-flex items-center rounded-full bg-primary-600 px-3 py-1.5 text-sm font-medium text-white shadow-soft hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                                >
+                                    {__("Register")}
                                 </Link>
                             </div>
-                        </div>
+                        )}
                     </div>
 
-                    <div className="-mr-2 flex items-center sm:hidden">
+                    {/* Mobile menu toggle */}
+                    <div className="flex items-center sm:hidden">
                         <button
+                            type="button"
                             onClick={() =>
                                 setShowingNavigationDropdown(
                                     (previousState) => !previousState
                                 )
                             }
-                            className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
+                            className="inline-flex items-center justify-center rounded-md p-2 text-gray-500 hover:bg-surface-muted hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                         >
                             <svg
                                 className="h-6 w-6"
@@ -203,26 +210,79 @@ export default function Navbar({ locale }) {
                 </div>
             </div>
 
+            {/* Mobile navigation */}
             <div
                 className={
                     (showingNavigationDropdown ? "block" : "hidden") +
                     " sm:hidden"
                 }
             >
-                {auth.user ? (
-                    <div className="pt-4 pb-1 border-t border-gray-200">
-                        <div className="px-4">
-                            <div className="font-medium text-base text-gray-800">
+                <div className="space-y-1 border-t border-subtle bg-surface py-3">
+                    {isAuthenticated ? (
+                        <div className="px-4 pb-3">
+                            <div className="text-base font-medium text-gray-900">
                                 {auth.user.name}
                             </div>
-                            <div className="font-medium text-sm text-gray-500">
+                            <div className="text-sm font-medium text-gray-500">
                                 {auth.user.email}
                             </div>
                         </div>
+                    ) : null}
 
-                        <div className="mt-3 space-y-1">
+                    {/* Primary nav - mobile */}
+                    <ResponsiveNavLink
+                        href={route("home")}
+                        active={route().current("home")}
+                    >
+                        {__("Home")}
+                    </ResponsiveNavLink>
+                    <ResponsiveNavLink
+                        href={route("lessons")}
+                        active={route().current("lessons")}
+                    >
+                        {__("Learn")}
+                    </ResponsiveNavLink>
+                    <ResponsiveNavLink
+                        href={route("test")}
+                        active={route().current("test")}
+                    >
+                        {__("Practice")}
+                    </ResponsiveNavLink>
+                    <ResponsiveNavLink
+                        href={route("stats")}
+                        active={route().current("stats")}
+                    >
+                        {__("Progress")}
+                    </ResponsiveNavLink>
+                    <ResponsiveNavLink
+                        href={route("blog.index")}
+                        active={
+                            route().current("blog.index") ||
+                            route().current("blog.show")
+                        }
+                    >
+                        {__("Blog")}
+                    </ResponsiveNavLink>
+
+                    {/* Language switcher - mobile */}
+                    <ResponsiveNavLink href={route("setlocale", "ckb")}>
+                        {__("KU")}
+                    </ResponsiveNavLink>
+                    <ResponsiveNavLink href={route("setlocale", "en")}>
+                        {__("EN")}
+                    </ResponsiveNavLink>
+
+                    {/* Auth actions - mobile */}
+                    {isAuthenticated ? (
+                        <>
                             <ResponsiveNavLink href={route("profile.edit")}>
                                 {__("Profile")}
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink href={route("badges")}>
+                                {__("badges")}
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink href={route("certificates")}>
+                                {__("certificates")}
                             </ResponsiveNavLink>
                             <ResponsiveNavLink
                                 method="post"
@@ -231,36 +291,24 @@ export default function Navbar({ locale }) {
                             >
                                 {__("Log Out")}
                             </ResponsiveNavLink>
-                        </div>
-                    </div>
-                ) : (
-                    <div className="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink
-                            href={route("login")}
-                            active={route().current("login")}
-                        >
-                            {__("Login")}
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink
-                            href={route("register")}
-                            active={route().current("register")}
-                        >
-                            {__("Register")}
-                        </ResponsiveNavLink>
-                    </div>
-                )}
-                <ResponsiveNavLink
-                    href={route("lessons")}
-                    active={route().current("lessons")}
-                >
-                    {__("lessons")}
-                </ResponsiveNavLink>
-                <ResponsiveNavLink
-                    href={route("test")}
-                    active={route().current("test")}
-                >
-                    {__("Test")}
-                </ResponsiveNavLink>
+                        </>
+                    ) : (
+                        <>
+                            <ResponsiveNavLink
+                                href={route("login")}
+                                active={route().current("login")}
+                            >
+                                {__("Login")}
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink
+                                href={route("register")}
+                                active={route().current("register")}
+                            >
+                                {__("Register")}
+                            </ResponsiveNavLink>
+                        </>
+                    )}
+                </div>
             </div>
         </nav>
     );
