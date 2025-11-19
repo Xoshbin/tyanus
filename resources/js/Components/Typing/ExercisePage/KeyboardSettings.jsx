@@ -44,6 +44,13 @@ const KeyboardSettings = ({ locale }) => {
             },
             { preserveState: true }
         );
+
+        if (typeof window !== "undefined") {
+            window.localStorage.setItem(
+                "tyanus_keyboard_layout_manual",
+                "1"
+            );
+        }
     };
 
     return (

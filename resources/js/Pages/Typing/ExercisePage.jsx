@@ -5,6 +5,7 @@ import AppLayout from "@/Layouts/AppLayout";
 import LessonSettings from "@/Components/Typing/ExercisePage/LessonSettings";
 import { router, usePage } from "@inertiajs/react";
 import { calculateTypingMetrics } from "@/Libs/typingMetrics";
+import { detectKeyboardTypeFromNavigator } from "@/Libs/keyboardDetection";
 
 import IntroScreen from "@/Components/Typing/ExercisePage/IntroScreen";
 import LettersScreen from "@/Components/Typing/ExercisePage/LettersScreen";
@@ -43,6 +44,51 @@ export default function Lesson({
     const [startVisibleCharacterCount, setstartVisibleCharacterCount] =
         useState(0);
     const [flipped, setFlipped] = useState(false);
+    const [effectiveKeyboardType, setEffectiveKeyboardType] = useState(
+        user_settings.keyboard_type || null
+    );
+
+    useEffect(() => {
+        if (typeof window === "undefined") {
+            return;
+        }
+
+        const hasManualOverride =
+            window.localStorage.getItem("tyanus_keyboard_layout_manual") ===
+            "1";
+
+        const detectedType = detectKeyboardTypeFromNavigator();
+
+        if (hasManualOverride) {
+            setEffectiveKeyboardType(
+                user_settings.keyboard_type || detectedType || "windows"
+            );
+            return;
+        }
+
+        if (detectedType && user_settings.keyboard_type !== detectedType) {
+            setEffectiveKeyboardType(detectedType);
+
+            router.post(
+                "/update-user-settings",
+                {
+                    setting: "keyboard_type",
+                    value: detectedType,
+                },
+                { preserveState: true }
+            );
+        } else {
+            setEffectiveKeyboardType(
+                user_settings.keyboard_type || detectedType || "windows"
+            );
+        }
+    }, [user_settings.keyboard_type]);
+
+    const resolvedUserSettings = {
+        ...user_settings,
+        keyboard_type:
+            effectiveKeyboardType || user_settings.keyboard_type || "windows",
+    };
 
     // this function is changing the current screen to letters if it's intro screen
     // by changing I mean the interface below not the data
@@ -355,7 +401,7 @@ export default function Lesson({
                             <IntroScreen
                                 screen={prevScreen}
                                 showFoundKeyMessage={showFoundKeyMessage}
-                                user_settings={user_settings}
+                                user_settings={resolvedUserSettings}
                                 userInput={userInput}
                                 currentCharacter={currentCharacter}
                             />
@@ -365,7 +411,7 @@ export default function Lesson({
                                     currentScreen === "letters" ? screen : prevScreen
                                 }
                                 visibleCharacters={visibleCharacters}
-                                user_settings={user_settings}
+                                user_settings={resolvedUserSettings}
                                 currentCharacter={currentCharacter}
                                 userInputForHighlight={userInputForHighlight}
                                 flipped={flipped}
@@ -374,7 +420,7 @@ export default function Lesson({
                             <SentencesScreen
                                 screen={screen}
                                 visibleCharacters={visibleCharacters}
-                                user_settings={user_settings}
+                                user_settings={resolvedUserSettings}
                                 currentCharacter={currentCharacter}
                                 userInput={userInput}
                             />
@@ -382,7 +428,7 @@ export default function Lesson({
                             <SentencesScreen
                                 screen={prevScreen}
                                 visibleCharacters={visibleCharacters}
-                                user_settings={user_settings}
+                                user_settings={resolvedUserSettings}
                                 currentCharacter={currentCharacter}
                                 userInput={userInput}
                             />
