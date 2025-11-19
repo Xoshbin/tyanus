@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -18,7 +17,7 @@ class Exercise extends Model
     // protected $with = ['screens'];
 
     //in inertia react, you have to load the accessors at the beginning otherwise the accessors not going down to the react or js
-    protected $appends = array('isExerciseFinished', 'isHalfwayThroughExercise', 'totalStarsEarned', 'exerciseTotalStars');
+    protected $appends = array('isExerciseFinished', 'isHalfwayThroughExercise', 'totalStarsEarned', 'exerciseTotalStars', 'avgSpeed', 'avgAccuracy', 'sumTime');
 
 
     protected $fillable = ['lesson_id', 'title', 'target_speed'];
@@ -178,7 +177,7 @@ class Exercise extends Model
         $userId = auth()->id();
 
         if (!$userId) {
-            return null;
+            return 0;
         }
 
         // If screens and their user progress are already loaded, compute in memory
@@ -190,23 +189,39 @@ class Exercise extends Model
             $count = 0;
 
             foreach ($this->screens as $screen) {
-                foreach ($screen->userProgress as $progress) {
-                    if ($progress->user_id === $userId && $progress->typing_speed !== null) {
-                        $total += $progress->typing_speed;
-                        $count++;
-                    }
+                // Get the latest progress for this screen
+                $latestProgress = $screen->userProgress
+                    ->where('user_id', $userId)
+                    ->sortByDesc('completed_at')
+                    ->first();
+
+                if ($latestProgress && $latestProgress->typing_speed !== null) {
+                    $total += $latestProgress->typing_speed;
+                    $count++;
                 }
             }
 
-            return $count > 0 ? $total / $count : null;
+            return $count > 0 ? round($total / $count, 2) : 0;
         }
 
-        $userProgress = UserProgress::where('user_id', $userId)
+        // Fallback: get latest progress for each screen
+        $latestProgressPerScreen = UserProgress::where('user_id', $userId)
             ->where('exercise_id', $this->id)
-            ->select('typing_speed')
+            ->whereNotNull('typing_speed')
+            ->where(function ($query) {
+                $query->whereRaw('completed_at = (
+                    SELECT MAX(completed_at)
+                    FROM user_progress AS up
+                    WHERE up.user_id = user_progress.user_id
+                    AND up.exercise_id = user_progress.exercise_id
+                    AND up.screen_id = user_progress.screen_id
+                )');
+            })
             ->get();
 
-        return $userProgress->avg('typing_speed');
+        return $latestProgressPerScreen->count() > 0
+            ? round($latestProgressPerScreen->avg('typing_speed'), 2)
+            : 0;
     }
 
     /*
@@ -220,7 +235,7 @@ class Exercise extends Model
         $userId = auth()->id();
 
         if (!$userId) {
-            return null;
+            return 0;
         }
 
         // If screens and their user progress are already loaded, compute in memory
@@ -232,23 +247,39 @@ class Exercise extends Model
             $count = 0;
 
             foreach ($this->screens as $screen) {
-                foreach ($screen->userProgress as $progress) {
-                    if ($progress->user_id === $userId && $progress->accuracy_percentage !== null) {
-                        $total += $progress->accuracy_percentage;
-                        $count++;
-                    }
+                // Get the latest progress for this screen
+                $latestProgress = $screen->userProgress
+                    ->where('user_id', $userId)
+                    ->sortByDesc('completed_at')
+                    ->first();
+
+                if ($latestProgress && $latestProgress->accuracy_percentage !== null) {
+                    $total += $latestProgress->accuracy_percentage;
+                    $count++;
                 }
             }
 
-            return $count > 0 ? $total / $count : null;
+            return $count > 0 ? round($total / $count, 2) : 0;
         }
 
-        $userProgress = UserProgress::where('user_id', $userId)
+        // Fallback: get latest progress for each screen
+        $latestProgressPerScreen = UserProgress::where('user_id', $userId)
             ->where('exercise_id', $this->id)
-            ->select('accuracy_percentage')
+            ->whereNotNull('accuracy_percentage')
+            ->where(function ($query) {
+                $query->whereRaw('completed_at = (
+                    SELECT MAX(completed_at)
+                    FROM user_progress AS up
+                    WHERE up.user_id = user_progress.user_id
+                    AND up.exercise_id = user_progress.exercise_id
+                    AND up.screen_id = user_progress.screen_id
+                )');
+            })
             ->get();
 
-        return $userProgress->avg('accuracy_percentage');
+        return $latestProgressPerScreen->count() > 0
+            ? round($latestProgressPerScreen->avg('accuracy_percentage'), 2)
+            : 0;
     }
 
 
@@ -269,19 +300,33 @@ class Exercise extends Model
             return $screen->relationLoaded('userProgress');
         })) {
             foreach ($this->screens as $screen) {
-                foreach ($screen->userProgress as $progress) {
-                    if ($progress->user_id === $userId && $progress->time !== null) {
-                        $sumTime += $progress->time;
-                    }
+                // Get the latest progress for this screen
+                $latestProgress = $screen->userProgress
+                    ->where('user_id', $userId)
+                    ->sortByDesc('completed_at')
+                    ->first();
+
+                if ($latestProgress && $latestProgress->time !== null) {
+                    $sumTime += $latestProgress->time;
                 }
             }
         } elseif ($userId) {
-            $userProgress = UserProgress::where('user_id', $userId)
+            // Fallback: get latest progress for each screen
+            $latestProgressPerScreen = UserProgress::where('user_id', $userId)
                 ->where('exercise_id', $this->id)
-                ->select('time')
+                ->whereNotNull('time')
+                ->where(function ($query) {
+                    $query->whereRaw('completed_at = (
+                        SELECT MAX(completed_at)
+                        FROM user_progress AS up
+                        WHERE up.user_id = user_progress.user_id
+                        AND up.exercise_id = user_progress.exercise_id
+                        AND up.screen_id = user_progress.screen_id
+                    )');
+                })
                 ->get();
 
-            $sumTime = (int) $userProgress->sum('time');
+            $sumTime = (int) $latestProgressPerScreen->sum('time');
         }
 
         $carbonTime = CarbonInterval::seconds($sumTime)

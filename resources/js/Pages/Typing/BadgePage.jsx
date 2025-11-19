@@ -104,14 +104,14 @@ const BadgePage = ({
                     <div className="flex flex-row w-full justify-center bg-kblue-50">
                         {/* Replace the SVG icons with their React components */}
                         <div className="flex flex-row border-y-2 w-4/12 justify-center items-center border-kblue-400 px-4 py-1">
-                            {__("Speed")}: {parseInt(avgSpeed)}{" "}
+                            {__("Speed")}: {avgSpeed ? parseInt(avgSpeed) : 0}{" "}
                             {__("Words per minute")}
                         </div>
                         <div className="flex flex-row border-y-2 w-4/12 justify-center items-center border-kblue-400 px-4 py-1">
-                            {__("Accuracy")}: {parseInt(avgAccuraccy)}%
+                            {__("Accuracy")}: {avgAccuraccy ? parseInt(avgAccuraccy) : 0}%
                         </div>
                         <div className="flex flex-row border-y-2 w-4/12 justify-center items-center border-kblue-400 px-4 py-1">
-                            {__("Time")}: {sumTime}
+                            {__("Time")}: {sumTime || __("0 seconds")}
                         </div>
                     </div>
                     {/* Add the rest of your component content */}
