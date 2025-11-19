@@ -112,6 +112,22 @@ class Exercise extends Model
     }
 
 
+    /**
+     * Get the latest progress for a screen from session data (for guest users)
+     */
+    private function getLatestProgressFromSession($screenId, $guestUserId)
+    {
+        $progressData = session('progress_' . $guestUserId, []);
+
+        if (!isset($progressData[$screenId]) || empty($progressData[$screenId])) {
+            return null;
+        }
+
+        // Get the latest progress (last item in the array)
+        $screenProgress = $progressData[$screenId];
+        return end($screenProgress);
+    }
+
     /*
     Get total stars earned per exercise,
     don't confuse it with the UserProgress service, it's doing calculations for "all" the progresses made by the user
@@ -121,8 +137,22 @@ class Exercise extends Model
     {
         $userId = auth()->id();
 
+        // Handle guest users
         if (!$userId) {
-            return 0;
+            $guestUserId = session('guest_user_id');
+            if (!$guestUserId) {
+                return 0;
+            }
+
+            $total = 0;
+            foreach ($this->screens as $screen) {
+                $latestProgress = $this->getLatestProgressFromSession($screen->id, $guestUserId);
+                if ($latestProgress && isset($latestProgress['stars_earned'])) {
+                    $total += $latestProgress['stars_earned'];
+                }
+            }
+
+            return $total;
         }
 
         // If screens and their user progress are already loaded, compute in memory
@@ -176,8 +206,25 @@ class Exercise extends Model
     {
         $userId = auth()->id();
 
+        // Handle guest users
         if (!$userId) {
-            return 0;
+            $guestUserId = session('guest_user_id');
+            if (!$guestUserId) {
+                return 0;
+            }
+
+            $total = 0;
+            $count = 0;
+
+            foreach ($this->screens as $screen) {
+                $latestProgress = $this->getLatestProgressFromSession($screen->id, $guestUserId);
+                if ($latestProgress && isset($latestProgress['typing_speed'])) {
+                    $total += $latestProgress['typing_speed'];
+                    $count++;
+                }
+            }
+
+            return $count > 0 ? round($total / $count, 2) : 0;
         }
 
         // If screens and their user progress are already loaded, compute in memory
@@ -234,8 +281,25 @@ class Exercise extends Model
     {
         $userId = auth()->id();
 
+        // Handle guest users
         if (!$userId) {
-            return 0;
+            $guestUserId = session('guest_user_id');
+            if (!$guestUserId) {
+                return 0;
+            }
+
+            $total = 0;
+            $count = 0;
+
+            foreach ($this->screens as $screen) {
+                $latestProgress = $this->getLatestProgressFromSession($screen->id, $guestUserId);
+                if ($latestProgress && isset($latestProgress['accuracy_percentage'])) {
+                    $total += $latestProgress['accuracy_percentage'];
+                    $count++;
+                }
+            }
+
+            return $count > 0 ? round($total / $count, 2) : 0;
         }
 
         // If screens and their user progress are already loaded, compute in memory
@@ -294,9 +358,21 @@ class Exercise extends Model
 
         $sumTime = 0;
 
+        // Handle guest users
+        if (!$userId) {
+            $guestUserId = session('guest_user_id');
+            if ($guestUserId) {
+                foreach ($this->screens as $screen) {
+                    $latestProgress = $this->getLatestProgressFromSession($screen->id, $guestUserId);
+                    if ($latestProgress && isset($latestProgress['time'])) {
+                        $sumTime += $latestProgress['time'];
+                    }
+                }
+            }
+        }
         // If screens and their user progress are already loaded, compute in memory
         // to avoid additional queries per exercise.
-        if ($userId && $this->relationLoaded('screens') && $this->screens->every(function ($screen) {
+        elseif ($this->relationLoaded('screens') && $this->screens->every(function ($screen) {
             return $screen->relationLoaded('userProgress');
         })) {
             foreach ($this->screens as $screen) {
@@ -310,7 +386,7 @@ class Exercise extends Model
                     $sumTime += $latestProgress->time;
                 }
             }
-        } elseif ($userId) {
+        } else {
             // Fallback: get latest progress for each screen
             $latestProgressPerScreen = UserProgress::where('user_id', $userId)
                 ->where('exercise_id', $this->id)
