@@ -30,6 +30,12 @@ return new class extends Migration
             $table->foreign('lesson_id')->references('id')->on('lessons')->onDelete('cascade');
             $table->foreign('exercise_id')->references('id')->on('exercises')->onDelete('cascade');
             $table->foreign('screen_id')->references('id')->on('screens')->onDelete('cascade');
+
+            // Add indexes for better query performance
+            $table->index(['user_id', 'screen_id'], 'idx_user_screen');
+            $table->index(['user_id', 'exercise_id'], 'idx_user_exercise');
+            $table->index(['user_id', 'lesson_id'], 'idx_user_lesson');
+            $table->index(['user_id', 'completed_at'], 'idx_user_completed');
         });
     }
 

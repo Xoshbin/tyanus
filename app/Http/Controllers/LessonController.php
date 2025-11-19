@@ -20,8 +20,25 @@ class LessonController extends Controller
         $userSettings = new UserSettingsService;
         $userProgressService = new UserProgressService;
         $exerciseLanguage = $userSettings->getExerciseLang();
-        // dd($exerciseLanguage);
-        $lessons = Lesson::where('locale', $exerciseLanguage)->where('active', true)->with('exercises.screens.userProgress')->get();
+        $userId = auth()->id();
+
+        // Optimize query to only load current user's progress
+        $lessons = Lesson::where('locale', $exerciseLanguage)
+            ->where('active', true)
+            ->with([
+                'exercises.screens' => function ($query) {
+                    $query->whereIn('content_type', ['letters', 'sentences']);
+                },
+                'exercises.screens.userProgress' => function ($query) use ($userId) {
+                    if ($userId) {
+                        $query->where('user_id', $userId);
+                    } else {
+                        // If not authenticated, don't load any progress
+                        $query->whereRaw('1 = 0');
+                    }
+                }
+            ])
+            ->get();
 
         $daily_time = $userSettings->getDailyTime();
 
