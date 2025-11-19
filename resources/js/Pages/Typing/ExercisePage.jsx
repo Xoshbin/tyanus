@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo, useRef, useCallback } from "react";
 import Modal from "@/Components/Modal";
 import ExerciseSummary from "@/Components/Typing/ExercisePage/ExerciseSummary";
 import AppLayout from "@/Layouts/AppLayout";
@@ -31,6 +31,20 @@ export default function Lesson({
     const keySound = "/sound/soft-key.mp3";
     const wrongKeySound = "/sound/wrong.mp3";
     const [errors, setErrors] = useState([]);
+
+    // Pre-create audio objects for better performance
+    const keySoundRef = useRef(null);
+    const wrongKeySoundRef = useRef(null);
+
+    // Initialize audio objects once
+    useEffect(() => {
+        keySoundRef.current = new Audio(keySound);
+        wrongKeySoundRef.current = new Audio(wrongKeySound);
+
+        // Preload audio files
+        keySoundRef.current.load();
+        wrongKeySoundRef.current.load();
+    }, []);
     //start setting current screen by prev screen content type
     const [currentScreen, setCurrentScreen] = useState(
         prevScreen && prevScreen.content_type == "intro"
@@ -105,26 +119,25 @@ export default function Lesson({
         setUserInputForHighlight("");
     };
 
-    const playKeySound = () => {
-        if (user_settings.enable_sound) {
-            const audio = new Audio(keySound);
-            audio.play();
+    const playKeySound = useCallback(() => {
+        if (user_settings.enable_sound && keySoundRef.current) {
+            // Reset audio to beginning and play
+            keySoundRef.current.currentTime = 0;
+            keySoundRef.current.play().catch(() => {
+                // Ignore errors if audio can't play
+            });
         }
-    };
+    }, [user_settings.enable_sound]);
 
-    const playWrongKeySound = () => {
-        if (user_settings.enable_sound) {
-            const audio = new Audio(wrongKeySound);
-            audio.play();
+    const playWrongKeySound = useCallback(() => {
+        if (user_settings.enable_sound && wrongKeySoundRef.current) {
+            // Reset audio to beginning and play
+            wrongKeySoundRef.current.currentTime = 0;
+            wrongKeySoundRef.current.play().catch(() => {
+                // Ignore errors if audio can't play
+            });
         }
-    };
-
-    // Define a function to update the current character
-    const updateCurrentCharacter = () => {
-        if (currentCharacterIndex < screen.content.length) {
-            setCurrentCharacterIndex(currentCharacterIndex + 1);
-        }
-    };
+    }, [user_settings.enable_sound]);
 
     const resetHighlightColor = () => {
         setUserInputForHighlight("");
@@ -164,8 +177,6 @@ export default function Lesson({
         const handleKeyDown = (e) => {
             const key = e.key;
 
-            playKeySound();
-
             // Check if the user has reached the end of the text
             if (currentCharacterIndex < screen.content.length) {
                 // Only capture character keys (letters and spaces)
@@ -179,72 +190,63 @@ export default function Lesson({
                     !e.key.startsWith("Arrow") &&
                     e.key !== "Backspace" // Exclude the Backspace key
                 ) {
+                    const characterToType = e.key === "Enter" ? "↵" : e.key;
+                    const isCorrect = screen.content.charAt(currentCharacterIndex) === characterToType;
+                    const isEnterKey = characterToType === "↵";
+
+                    // Play sound asynchronously (non-blocking)
+                    if (isCorrect || isEnterKey) {
+                        playKeySound();
+                    } else {
+                        playWrongKeySound();
+                    }
+
+                    // Batch all state updates together
                     if (!startTime) {
                         setStartTime(Date.now());
                     }
 
-                    const characterToType = e.key === "Enter" ? "↵" : e.key;
-
                     // Check if the character at the current position should match the Enter symbol
-                    if (
-                        screen.content.charAt(currentCharacterIndex) ===
-                        characterToType
-                    ) {
+                    if (isCorrect) {
                         setUserInput((prev) => prev + characterToType);
                         setUserInputForHighlight(
                             (prev) => prev + characterToType
                         );
-                    } else if (characterToType === "↵") {
+                    } else if (isEnterKey) {
                         // Allow Enter key even if it does not match the expected character
                         setUserInput((prev) => prev + characterToType);
                         setUserInputForHighlight(
                             (prev) => prev + characterToType
                         );
                     } else {
-                        // Wrong character typed - record the error and play the wrong key sound
+                        // Wrong character typed - record the error
                         setUserInput((prev) => prev + e.key);
                         setUserInputForHighlight((prev) => prev + e.key);
-                        playWrongKeySound();
                         setErrors((prevErrors) => [
                             ...prevErrors,
                             screen.content[currentCharacterIndex],
                         ]);
                     }
 
+                    // Update the current character index
+                    setCurrentCharacterIndex(currentCharacterIndex + 1);
+
                     // Check if typing is complete
-                    // check the complete based on the content of the shown screen (intro, letters)
-                    // otherwise it's counting the characters length with different text on the screen
+                    const nextIndex = currentCharacterIndex + 1;
+                    let isComplete = false;
+
                     if (currentScreen === "intro") {
-                        if (
-                            currentCharacterIndex + 1 ===
-                            prevScreen.content.length
-                        ) {
-                            setIsTypingComplete(true);
-                        }
-                    }
-                    if (
-                        currentScreen === "letters" ||
-                        currentScreen === "badge"
-                    ) {
-                        if (
-                            currentCharacterIndex + 1 ===
-                            screen.content.length
-                        ) {
-                            setEndTime(Date.now());
-                            setIsTypingComplete(true);
-                        }
+                        isComplete = nextIndex === prevScreen.content.length;
+                    } else if (currentScreen === "letters" || currentScreen === "badge") {
+                        isComplete = nextIndex === screen.content.length;
                     } else {
-                        if (
-                            currentCharacterIndex + 1 ===
-                            screen.content.length
-                        ) {
-                            setEndTime(Date.now());
-                            setIsTypingComplete(true);
-                        }
+                        isComplete = nextIndex === screen.content.length;
                     }
 
-                    // Update the current character
-                    updateCurrentCharacter();
+                    if (isComplete) {
+                        setEndTime(Date.now());
+                        setIsTypingComplete(true);
+                    }
                 }
             }
 
@@ -323,19 +325,19 @@ export default function Lesson({
         );
     }
 
-    // Calculate timing and typing metrics using a shared helper
+    // Calculate timing and typing metrics using a shared helper - memoized for performance
     const {
         elapsedSeconds,
         grossWPM,
         netWPM,
         accuracy,
         starsEarned,
-    } = calculateTypingMetrics({
+    } = useMemo(() => calculateTypingMetrics({
         startTime,
         endTime,
         totalCharactersTyped: userInput.length,
         errorCharactersCount: errors.length,
-    });
+    }), [startTime, endTime, userInput.length, errors.length]);
 
     let currentCharacter = screen.content[currentCharacterIndex];
 

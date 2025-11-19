@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import MacKeyboardEn from "@/Components/Typing/Keyboard/MacKeyboardEn";
 import MacKeyboardKu from "@/Components/Typing/Keyboard/MacKeyboardKu";
 import WindowsKeyboardKu from "@/Components/Typing/Keyboard/WindowsKeyboardKu";
+import SentenceCharacter from "@/Components/Typing/ExercisePage/SentenceCharacter";
 
 import {
     macFingerMapping,
@@ -60,41 +61,13 @@ const SentencesScreen = ({
                                     : "text-error";
                         }
 
-                        if (char === " ") {
-                            return (
-                                <span key={i}>
-                                    <span
-                                        className={`text-2xl font-naskh underline ${
-                                            color === "text-primary-800"
-                                                ? "text-transparent"
-                                                : color
-                                        }`}
-                                    >
-                                        {char}
-                                    </span>
-                                </span>
-                            );
-                        }
-
-                        /// animate the next upcoming character
-                        if (i === nextCharIndex) {
-                            return (
-                                <span key={i}>
-                                    <span className="animate-pulse text-2xl font-naskh font-black">
-                                        {char}
-                                    </span>
-                                </span>
-                            );
-                        }
-
                         return (
-                            <span key={i}>
-                                <span
-                                    className={`text-2xl font-naskh ${color}`}
-                                >
-                                    {char}
-                                </span>
-                            </span>
+                            <SentenceCharacter
+                                key={i}
+                                char={char}
+                                color={color}
+                                isNextChar={i === nextCharIndex}
+                            />
                         );
                     })}
                 </div>

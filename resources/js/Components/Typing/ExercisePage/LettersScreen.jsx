@@ -2,6 +2,7 @@ import React from "react";
 import MacKeyboardEn from "@/Components/Typing/Keyboard/MacKeyboardEn";
 import MacKeyboardKu from "@/Components/Typing/Keyboard/MacKeyboardKu";
 import WindowsKeyboardKu from "@/Components/Typing/Keyboard/WindowsKeyboardKu";
+import CharacterBox from "@/Components/Typing/ExercisePage/CharacterBox";
 import {
     macFingerMapping,
     macLeftKeys,
@@ -38,15 +39,12 @@ const LettersScreen = ({
                     }
 
                     return (
-                        <div key={i} className="space-y-4">
-                            <div
-                                className={`w-20 h-16 mx-1 py-2 px-2 text-5xl text-center border border-subtle rounded-xl font-naskh ${color} ${
-                                    flipped ? "flip" : ""
-                                }`}
-                            >
-                                {char}
-                            </div>
-                        </div>
+                        <CharacterBox
+                            key={i}
+                            char={char}
+                            color={color}
+                            flipped={flipped}
+                        />
                     );
                 })}
             </div>
