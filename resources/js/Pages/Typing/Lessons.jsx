@@ -7,6 +7,8 @@ import { Select, Option } from "@material-tailwind/react";
 import { useEffect } from "react";
 import { Head } from "@inertiajs/react";
 import Footer from "@/Components/Typing/Footer";
+import axios from "axios";
+
 
 export default function Lessons({
     lessons,
@@ -31,15 +33,20 @@ export default function Lessons({
         }
     }, [user_settings.exercise_lang]);
 
-    const changeExerciseLang = (newValue) => {
-        router.post(
-            "/update-user-settings",
-            {
+    const changeExerciseLang = async (newValue) => {
+        try {
+            await axios.post("/update-user-settings", {
                 setting: "exercise_lang",
                 value: newValue,
-            },
-            { preserveState: true }
-        );
+            });
+
+            router.visit(route("lessons"), {
+                preserveScroll: true,
+                replace: true,
+            });
+        } catch (error) {
+            console.error("Failed to update exercise language", error);
+        }
     };
 
     return (
