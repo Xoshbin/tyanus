@@ -6,6 +6,7 @@ use App\Models\Exercise;
 use App\Models\Screen;
 use App\Models\User;
 use App\Models\UserProgress;
+use App\Models\StatsCounter;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 
@@ -20,7 +21,7 @@ class HomepageService
             $users = User::count();
             $screens = Screen::count();
             $exercises = Exercise::count();
-            $screensPlayed = UserProgress::count();
+            $screensPlayed = StatsCounter::getScreensPlayed();
 
             // Trend: last 30 days vs previous 30 days
             $now = Carbon::now();

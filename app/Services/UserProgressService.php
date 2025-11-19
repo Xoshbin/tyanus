@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\UserProgress;
+use App\Models\StatsCounter;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -155,10 +156,10 @@ class UserProgressService
 
     public function setProgress(Request $request)
     {
-        // we need this check here to create the data with the user id
-        $data = $request->all();
+        StatsCounter::incrementScreensPlayed();
 
         if (Auth::check()) {
+            $data = $request->all();
             $data['user_id'] = auth()->user()->id;
             UserProgress::create($data);
         } else {
