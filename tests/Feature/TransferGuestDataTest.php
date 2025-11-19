@@ -29,6 +29,7 @@ class TransferGuestDataTest extends TestCase
         $exercise = Exercise::create([
             'lesson_id' => $lesson->id,
             'title' => 'Exercise 1',
+            'locale' => 'en',
             'target_speed' => 40,
         ]);
 
@@ -40,6 +41,7 @@ class TransferGuestDataTest extends TestCase
             'locale' => 'en',
             'content_type' => 'letters',
             'content' => 'test',
+            'extra' => '',
             'order' => 1,
         ]);
 
@@ -121,6 +123,7 @@ class TransferGuestDataTest extends TestCase
         $exercise = Exercise::create([
             'lesson_id' => $lesson->id,
             'title' => 'Exercise 2',
+            'locale' => 'en',
             'target_speed' => 50,
         ]);
 
@@ -132,6 +135,7 @@ class TransferGuestDataTest extends TestCase
             'locale' => 'en',
             'content_type' => 'letters',
             'content' => 'test 2',
+            'extra' => '',
             'order' => 1,
         ]);
 

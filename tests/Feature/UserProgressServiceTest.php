@@ -39,10 +39,9 @@ class UserProgressServiceTest extends TestCase
         $exercise = Exercise::create([
             'lesson_id' => $lesson->id,
             'title' => 'Test Exercise',
+            'locale' => 'en',
             'target_speed' => 50,
         ]);
-        $exercise->locale = 'en';
-        $exercise->save();
 
         $screen1 = Screen::create([
             'exercise_id' => $exercise->id,

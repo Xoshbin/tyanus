@@ -20,7 +20,7 @@ class Exercise extends Model
     protected $appends = array('isExerciseFinished', 'isHalfwayThroughExercise', 'totalStarsEarned', 'exerciseTotalStars', 'avgSpeed', 'avgAccuracy', 'sumTime');
 
 
-    protected $fillable = ['lesson_id', 'title', 'target_speed'];
+    protected $fillable = ['lesson_id', 'title', 'locale', 'target_speed'];
 
     public function lesson(): BelongsTo
     {

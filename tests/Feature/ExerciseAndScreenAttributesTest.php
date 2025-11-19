@@ -30,6 +30,7 @@ class ExerciseAndScreenAttributesTest extends TestCase
         $exercise = Exercise::create([
             'lesson_id' => $lesson->id,
             'title' => 'Exercise',
+            'locale' => 'en',
             'target_speed' => 40,
         ]);
 
