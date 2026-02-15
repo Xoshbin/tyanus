@@ -1,0 +1,1 @@
+## 2026-02-16 - Eager Loading Limits | Learning: Laravel 11+ supports native `limit()` in eager loading constraints using window functions, solving the N+1 problem for "latest per parent" efficiently without extra packages or manual subqueries. | Action: Use `->limit(1)` in `with()` closures for HasMany relationships when only the latest/first record is needed per parent.

@@ -31,7 +31,11 @@ class LessonController extends Controller
                 },
                 'exercises.screens.userProgress' => function ($query) use ($userId) {
                     if ($userId) {
-                        $query->where('user_id', $userId);
+                        // In Laravel 11+, limit() in eager loading works per-parent using window functions.
+                        // This efficiently loads only the latest progress record per screen.
+                        $query->where('user_id', $userId)
+                            ->latest('completed_at')
+                            ->limit(1);
                     } else {
                         // If not authenticated, don't load any progress
                         $query->whereRaw('1 = 0');
