@@ -21,9 +21,13 @@ export default function TabsVertical({ exercises, lesson }) {
         icon: IconDiscountCheckFilled,
         value: exercise.title.toLowerCase(),
         desc: (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 place-items-center">
                 {exercise.screens.map((screen) => (
-                    <Link key={screen.id} href={route("lesson", screen.url)}>
+                    <Link
+                        key={screen.id}
+                        href={route("lesson", screen.url)}
+                        className="block w-fit transition-transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-kblue-300 rounded-xl"
+                    >
                         <ExerciseCard screen={screen} />
                     </Link>
                 ))}
