@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\UserProgress;
 use App\Models\StatsCounter;
+use App\Services\StreakService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -162,6 +163,9 @@ class UserProgressService
             $data = $request->all();
             $data['user_id'] = auth()->user()->id;
             UserProgress::create($data);
+
+            // Update user streak
+            (new StreakService())->updateStreak(auth()->user());
         } else {
             // Check if a guest user ID already exists in the session
             $guestUserId = session('guest_user_id');
