@@ -20,7 +20,7 @@ class StreakService
 
         // Ensure streak record exists
         /** @var UserStreak $streak */
-        $streak = $user->streak()->firstOrCreate([], [
+        $streak = $user->streak()->firstOrNew([], [
             'current_streak' => 0,
             'max_streak' => 0,
             'last_activity_at' => null,
