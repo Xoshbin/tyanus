@@ -4,26 +4,31 @@
 <head>
     @if (app()->environment('production'))
         <!-- Google Tag Manager -->
-        <script>
-            (function(w, d, s, l, i) {
-                w[l] = w[l] || [];
-                w[l].push({
-                    'gtm.start': new Date().getTime(),
-                    event: 'gtm.js'
-                });
-                var f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s),
-                    dl = l != 'dataLayer' ? '&l=' + l : '';
-                j.async = true;
-                j.src =
-                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-                f.parentNode.insertBefore(j, f);
-            })(window, document, 'script', 'dataLayer', 'GTM-KLF4M88Z');
-        </script>
+        @if (config('services.google_tag_manager.id'))
+            <script>
+                (function(w, d, s, l, i) {
+                    w[l] = w[l] || [];
+                    w[l].push({
+                        'gtm.start': new Date().getTime(),
+                        event: 'gtm.js'
+                    });
+                    var f = d.getElementsByTagName(s)[0],
+                        j = d.createElement(s),
+                        dl = l != 'dataLayer' ? '&l=' + l : '';
+                    j.async = true;
+                    j.src =
+                        'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                    f.parentNode.insertBefore(j, f);
+                })(window, document, 'script', 'dataLayer', '{{ config('services.google_tag_manager.id') }}');
+            </script>
+        @endif
         <!-- End Google Tag Manager -->
 
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6978489323266231"
-            crossorigin="anonymous"></script>
+        @if (config('services.google_adsense.id'))
+            <script async
+                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ config('services.google_adsense.id') }}"
+                crossorigin="anonymous"></script>
+        @endif
     @endif
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -56,10 +61,11 @@
 </head>
 
 <body class="font-sans antialiased">
-    @if (app()->environment('production'))
+    @if (app()->environment('production') && config('services.google_tag_manager.id'))
         <!-- Google Tag Manager (noscript) -->
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KLF4M88Z" height="0" width="0"
-                style="display:none;visibility:hidden"></iframe></noscript>
+        <noscript><iframe
+                src="https://www.googletagmanager.com/ns.html?id={{ config('services.google_tag_manager.id') }}"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- End Google Tag Manager (noscript) -->
     @endif
     @inertia

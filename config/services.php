@@ -43,4 +43,12 @@ return [
         'redirect' => env('GOOGLE_REDIRECT_URI'),
     ],
 
+    'google_adsense' => [
+        'id' => env('GOOGLE_ADSENSE_ID'),
+    ],
+
+    'google_tag_manager' => [
+        'id' => env('GOOGLE_TAG_MANAGER_ID'),
+    ],
+
 ];
