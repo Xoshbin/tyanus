@@ -11,6 +11,7 @@ import IntroScreen from "@/Components/Typing/ExercisePage/IntroScreen";
 import LettersScreen from "@/Components/Typing/ExercisePage/LettersScreen";
 import SentencesScreen from "@/Components/Typing/ExercisePage/SentencesScreen";
 import { Head } from "@inertiajs/react";
+import { __ } from "@/Libs/Lang";
 
 export default function Lesson({
     screen,
@@ -398,6 +399,30 @@ export default function Lesson({
             <div className="py-8">
                 <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="rounded-2xl bg-surface border border-subtle shadow-soft p-4 sm:p-6">
+                        {/* Kurdish Keyboard Help Message - Only on first lesson first screen */}
+                        {screen.lesson_id === 1 && screen.order === 1 && screen.locale === 'ckb' && (
+                            <div className="mb-8 p-6 bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800 rounded-2xl flex items-start gap-4">
+                                <div className="bg-primary-100 dark:bg-primary-900/40 p-3 rounded-xl">
+                                    <svg className="w-6 h-6 text-primary-600 dark:text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <div className="flex-1">
+                                    <h4 className="text-lg font-bold text-primary-900 dark:text-primary-100 mb-2">
+                                        {__("Kurdish Keyboard Setup")}
+                                    </h4>
+                                    <div className="space-y-2 text-primary-800 dark:text-primary-300">
+                                        <p className="leading-relaxed">
+                                            {__("Please change your keyboard to Kurdish on your operating system (Windows, macOS, or Linux).")}
+                                        </p>
+                                        <p className="font-medium">
+                                            {__("You should use the official Unicode keyboard from the operating system.")}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
                         {/* show different interface based on the screen type */}
                         {currentScreen === "intro" ? (
                             <IntroScreen

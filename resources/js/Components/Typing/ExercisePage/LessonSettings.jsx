@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import Modal from "@/Components/Modal";
 import { router, usePage } from "@inertiajs/react";
 import KeyboardSettings from "./KeyboardSettings";
+import KeyboardSetupHelpModal from "./KeyboardSetupHelpModal";
 import { __ } from "@/Libs/Lang";
 
 const LessonSettings = ({ locale, screenlocale }) => {
     const [modalOpen, setModalOpen] = useState(false);
+    const [helpModalOpen, setHelpModalOpen] = useState(false);
     const [showKeyboardSettingsTooltip, setShowKeyboardSettingsTooltip] =
         useState(false);
     const { user_settings } = usePage().props;
@@ -44,6 +46,14 @@ const LessonSettings = ({ locale, screenlocale }) => {
         setModalOpen(false);
     };
 
+    const openHelpModal = () => {
+        setHelpModalOpen(true);
+    };
+
+    const closeHelpModal = () => {
+        setHelpModalOpen(false);
+    };
+
     const redoLesson = () => {
         // Perform a visit to the current page's URL to reload it.
         window.location.reload();
@@ -66,20 +76,17 @@ const LessonSettings = ({ locale, screenlocale }) => {
 
     return (
         <div
-            className={`flex justify-end items-center ${
-                locale === "ckb" ? "flex-row-reverse" : ""
-            }`}
+            className={`flex justify-end items-center ${locale === "ckb" ? "flex-row-reverse" : ""
+                }`}
         >
             <div
-                className={`hidden sm:flex items-center justify-end gap-4 rounded-full bg-surface border border-subtle shadow-soft px-3 py-1.5 ${
-                    locale === "ckb" ? "flex-row-reverse" : ""
-                }`}
+                className={`hidden sm:flex items-center justify-end gap-4 rounded-full bg-surface border border-subtle shadow-soft px-3 py-1.5 ${locale === "ckb" ? "flex-row-reverse" : ""
+                    }`}
             >
                 {/* redoLesson */}
                 <div
-                    className={`flex ${
-                        locale === "ckb" ? "flex-row-reverse" : ""
-                    } items-center space-x-2`}
+                    className={`flex ${locale === "ckb" ? "flex-row-reverse" : ""
+                        } items-center space-x-2`}
                 >
                     <button
                         onClick={redoLesson}
@@ -107,9 +114,8 @@ const LessonSettings = ({ locale, screenlocale }) => {
                 </div>
                 {/* Sound */}
                 <div
-                    className={`flex ${
-                        locale === "ckb" ? "flex-row-reverse" : ""
-                    } items-center space-x-2`}
+                    className={`flex ${locale === "ckb" ? "flex-row-reverse" : ""
+                        } items-center space-x-2`}
                 >
                     <button
                         onClick={toggleKeyboardSound}
@@ -167,9 +173,8 @@ const LessonSettings = ({ locale, screenlocale }) => {
                 </div>
                 {/* Keyboard */}
                 <div
-                    className={`flex ${
-                        locale === "ckb" ? "flex-row-reverse" : ""
-                    } items-center space-x-2`}
+                    className={`flex ${locale === "ckb" ? "flex-row-reverse" : ""
+                        } items-center space-x-2`}
                 >
                     <div className="relative">
                         {showKeyboardSettingsTooltip && (
@@ -220,10 +225,40 @@ const LessonSettings = ({ locale, screenlocale }) => {
                         </button>
                     </div>
                 </div>
+                {/* Help */}
+                <div
+                    className={`flex ${locale === "ckb" ? "flex-row-reverse" : ""
+                        } items-center space-x-2`}
+                >
+                    <button
+                        onClick={openHelpModal}
+                        type="button"
+                        className="inline-flex items-center justify-center rounded-full p-2 text-primary-600 hover:bg-primary-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                        aria-label={__("Help")}
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="icon icon-tabler icon-tabler-question-mark"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            strokeWidth="1.5"
+                            stroke="#1f54d6"
+                            fill="none"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        >
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M8 8a3.5 3 0 0 1 3.5 -3h1a3.5 3.5 0 0 1 3.5 3a3 3 0 0 1 -2 3a3 4 0 0 0 -2 4" />
+                            <line x1="12" y1="19" x2="12" y2="19.01" />
+                        </svg>
+                    </button>
+                </div>
             </div>
             <Modal show={modalOpen} onClose={closeModal}>
                 <KeyboardSettings locale={screenlocale} />
             </Modal>
+            <KeyboardSetupHelpModal show={helpModalOpen} onClose={closeHelpModal} />
         </div>
     );
 };
