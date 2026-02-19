@@ -45,6 +45,7 @@ return [
 
     'google_adsense' => [
         'id' => env('GOOGLE_ADSENSE_ID'),
+        'enabled' => env('GOOGLE_ADSENSE_ENABLED', true),
     ],
 
     'google_tag_manager' => [

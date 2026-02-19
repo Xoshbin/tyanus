@@ -24,7 +24,7 @@
         @endif
         <!-- End Google Tag Manager -->
 
-        @if (config('services.google_adsense.id'))
+        @if (config('services.google_adsense.id') && config('services.google_adsense.enabled'))
             <script async
                 src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ config('services.google_adsense.id') }}"
                 crossorigin="anonymous"></script>
