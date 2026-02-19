@@ -258,7 +258,11 @@ const LessonSettings = ({ locale, screenlocale }) => {
             <Modal show={modalOpen} onClose={closeModal}>
                 <KeyboardSettings locale={screenlocale} />
             </Modal>
-            <KeyboardSetupHelpModal show={helpModalOpen} onClose={closeHelpModal} />
+            <KeyboardSetupHelpModal
+                show={helpModalOpen}
+                onClose={closeHelpModal}
+                keyboardLocale={screenlocale}
+            />
         </div>
     );
 };

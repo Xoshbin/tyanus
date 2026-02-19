@@ -8,14 +8,16 @@ import {
     IconX
 } from '@tabler/icons-react';
 
-export default function KeyboardSetupHelpModal({ show, onClose }) {
+export default function KeyboardSetupHelpModal({ show, onClose, keyboardLocale = 'ckb' }) {
+
+    const isKurdish = keyboardLocale === 'ckb';
 
     return (
         <Modal show={show} onClose={onClose} maxWidth="2xl">
             <div className="p-6">
                 <div className="flex items-center justify-between mb-8">
                     <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 italic">
-                        {__("Keyboard Help")}
+                        {isKurdish ? __("Keyboard Help") : __("English Keyboard Setup")}
                     </h2>
                     <button
                         onClick={onClose}
@@ -44,16 +46,28 @@ export default function KeyboardSetupHelpModal({ show, onClose }) {
                             </li>
                             <li className="flex items-start gap-4">
                                 <span className="flex-shrink-0 w-7 h-7 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center text-sm font-bold text-gray-500">2</span>
-                                <span className="pt-0.5">{__("2. Click 'Add a language' and search for 'Kurdish'.")}</span>
+                                <span className="pt-0.5">
+                                    {isKurdish ? __("2. Click 'Add a language' and search for 'Kurdish'.") : __("2. Click 'Add a language' and search for 'English'.")}
+                                </span>
                             </li>
                             <li className="flex items-start gap-4">
                                 <span className="flex-shrink-0 w-7 h-7 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center text-sm font-bold text-gray-500">3</span>
-                                <span className="pt-0.5">{__("3. Select 'Kurdish (Central)' or 'Kurdish (Kurmanji)'.")}</span>
+                                <span className="pt-0.5">
+                                    {isKurdish ? __("3. Select 'Kurdish (Central)' or 'Kurdish (Kurmanji)'.") : __("3. Select 'English (United States)' or your preferred variant.")}
+                                </span>
                             </li>
-                            <li className="flex items-start gap-4">
-                                <span className="flex-shrink-0 w-7 h-7 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center text-sm font-bold text-gray-500">4</span>
-                                <span className="pt-0.5">{__("4. Make sure 'Central Kurdish (Unicode)' keyboard is added.")}</span>
-                            </li>
+                            {isKurdish && (
+                                <li className="flex items-start gap-4">
+                                    <span className="flex-shrink-0 w-7 h-7 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center text-sm font-bold text-gray-500">4</span>
+                                    <span className="pt-0.5">{__("4. Make sure 'Central Kurdish (Unicode)' keyboard is added.")}</span>
+                                </li>
+                            )}
+                            {!isKurdish && (
+                                <li className="flex items-start gap-4">
+                                    <span className="flex-shrink-0 w-7 h-7 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center text-sm font-bold text-gray-500">4</span>
+                                    <span className="pt-0.5">{__("4. Make sure 'English (US)' keyboard is added.")}</span>
+                                </li>
+                            )}
                         </ul>
                     </section>
 
@@ -78,7 +92,9 @@ export default function KeyboardSetupHelpModal({ show, onClose }) {
                             </li>
                             <li className="flex items-start gap-4">
                                 <span className="flex-shrink-0 w-7 h-7 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center text-sm font-bold text-gray-500">3</span>
-                                <span className="pt-0.5">{__("3. Search for 'Kurdish' and select 'Kurdish - Central'.")}</span>
+                                <span className="pt-0.5">
+                                    {isKurdish ? __("3. Search for 'Kurdish' and select 'Kurdish - Central'.") : __("3. Search for 'English' and select 'ABC' or 'U.S.'.")}
+                                </span>
                             </li>
                         </ul>
                     </section>
@@ -100,11 +116,15 @@ export default function KeyboardSetupHelpModal({ show, onClose }) {
                             </li>
                             <li className="flex items-start gap-4">
                                 <span className="flex-shrink-0 w-7 h-7 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center text-sm font-bold text-gray-500">2</span>
-                                <span className="pt-0.5">{__("2. Add 'Kurdish' as a layout.")}</span>
+                                <span className="pt-0.5">
+                                    {isKurdish ? __("2. Add 'Kurdish' as a layout.") : __("2. Add 'English (US)' as a layout.")}
+                                </span>
                             </li>
                             <li className="flex items-start gap-4">
                                 <span className="flex-shrink-0 w-7 h-7 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center text-sm font-bold text-gray-500">3</span>
-                                <span className="pt-0.5">{__("3. Choose the 'Kurdish (Central)' or 'Kurdish (Standard)' layout.")}</span>
+                                <span className="pt-0.5">
+                                    {isKurdish ? __("3. Choose the 'Kurdish (Central)' or 'Kurdish (Standard)' layout.") : __("3. Choose the 'English (US)' layout.")}
+                                </span>
                             </li>
                         </ul>
                     </section>

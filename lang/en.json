@@ -176,9 +176,17 @@
   "3. Select 'Kurdish (Central)' or 'Kurdish (Kurmanji)'.": "3. Select 'Kurdish (Central)' or 'Kurdish (Kurmanji)'.",
   "4. Make sure 'Central Kurdish (Unicode)' keyboard is added.": "4. Make sure 'Central Kurdish (Unicode)' keyboard is added.",
   "1. Go to System Settings > Keyboard.": "1. Go to System Settings > Keyboard.",
-  "2. Click the '+' button under 'Input Sources'.": "1. Go to System Settings > Keyboard.",
+  "2. Click the '+' button under 'Input Sources'.": "2. Click the '+' button under 'Input Sources'.",
   "3. Search for 'Kurdish' and select 'Kurdish - Central'.": "3. Search for 'Kurdish' and select 'Kurdish - Central'.",
   "1. Open your Keyboard Settings (varies by desktop environment like GNOME or KDE).": "1. Open your Keyboard Settings (varies by desktop environment like GNOME or KDE).",
   "2. Add 'Kurdish' as a layout.": "2. Add 'Kurdish' as a layout.",
-  "3. Choose the 'Kurdish (Central)' or 'Kurdish (Standard)' layout.": "3. Choose the 'Kurdish (Central)' or 'Kurdish (Standard)' layout."
+  "3. Choose the 'Kurdish (Central)' or 'Kurdish (Standard)' layout.": "3. Choose the 'Kurdish (Central)' or 'Kurdish (Standard)' layout.",
+  "English Keyboard Setup": "English Keyboard Setup",
+  "How to change keyboard to English": "How to change keyboard to English",
+  "2. Click 'Add a language' and search for 'English'.": "2. Click 'Add a language' and search for 'English'.",
+  "3. Select 'English (United States)' or your preferred variant.": "3. Select 'English (United States)' or your preferred variant.",
+  "4. Make sure 'English (US)' keyboard is added.": "4. Make sure 'English (US)' keyboard is added.",
+  "3. Search for 'English' and select 'ABC' or 'U.S.'.": "3. Search for 'English' and select 'ABC' or 'U.S.'.",
+  "2. Add 'English (US)' as a layout.": "2. Add 'English (US)' as a layout.",
+  "3. Choose the 'English (US)' layout.": "3. Choose the 'English (US)' layout."
 }
