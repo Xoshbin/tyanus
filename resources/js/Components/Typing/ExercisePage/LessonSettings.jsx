@@ -3,13 +3,13 @@ import Modal from "@/Components/Modal";
 import { router, usePage } from "@inertiajs/react";
 import KeyboardSettings from "./KeyboardSettings";
 import KeyboardSetupHelpModal from "./KeyboardSetupHelpModal";
+import OnboardingTour from "./OnboardingTour";
 import { __ } from "@/Libs/Lang";
 
-const LessonSettings = ({ locale, screenlocale }) => {
+const LessonSettings = ({ locale, screenlocale, isFirstLesson }) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [helpModalOpen, setHelpModalOpen] = useState(false);
-    const [showKeyboardSettingsTooltip, setShowKeyboardSettingsTooltip] =
-        useState(false);
+    const [onboardingOpen, setOnboardingOpen] = useState(false);
     const { user_settings } = usePage().props;
 
     useEffect(() => {
@@ -17,29 +17,28 @@ const LessonSettings = ({ locale, screenlocale }) => {
             return;
         }
 
-        const hasSeenTip = window.localStorage.getItem(
-            "tyanus_keyboard_layout_tip_seen"
+        const hasSeenOnboarding = window.localStorage.getItem(
+            "tyanus_onboarding_seen"
         );
 
-        if (!hasSeenTip) {
-            setShowKeyboardSettingsTooltip(true);
+        if (!hasSeenOnboarding && isFirstLesson) {
+            const timer = setTimeout(() => {
+                setOnboardingOpen(true);
+            }, 1000);
+            return () => clearTimeout(timer);
         }
-    }, []);
+    }, [isFirstLesson]);
 
-    const dismissKeyboardSettingsTooltip = () => {
-        setShowKeyboardSettingsTooltip(false);
+    const completeOnboarding = () => {
+        setOnboardingOpen(false);
 
         if (typeof window !== "undefined") {
-            window.localStorage.setItem("tyanus_keyboard_layout_tip_seen", "1");
+            window.localStorage.setItem("tyanus_onboarding_seen", "1");
         }
     };
 
     const openKeyboardSettings = () => {
         setModalOpen(true);
-
-        if (showKeyboardSettingsTooltip) {
-            dismissKeyboardSettingsTooltip();
-        }
     };
 
     const closeModal = () => {
@@ -89,6 +88,7 @@ const LessonSettings = ({ locale, screenlocale }) => {
                         } items-center space-x-2`}
                 >
                     <button
+                        id="step-restart"
                         onClick={redoLesson}
                         type="button"
                         className="inline-flex items-center justify-center rounded-full p-2 text-primary-600 hover:bg-primary-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
@@ -118,6 +118,7 @@ const LessonSettings = ({ locale, screenlocale }) => {
                         } items-center space-x-2`}
                 >
                     <button
+                        id="step-sound"
                         onClick={toggleKeyboardSound}
                         type="button"
                         className="inline-flex items-center justify-center rounded-full p-2 text-primary-600 hover:bg-primary-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
@@ -177,24 +178,8 @@ const LessonSettings = ({ locale, screenlocale }) => {
                         } items-center space-x-2`}
                 >
                     <div className="relative">
-                        {showKeyboardSettingsTooltip && (
-                            <div className="absolute top-full mt-3 left-1/2 -translate-x-1/2 z-20">
-                                <div className="relative rounded-xl bg-blue-600 text-white text-xs px-4 py-3 shadow-lg w-64">
-                                    <p className={locale === "ckb" ? "text-right" : ""}>
-                                        {__("You can change the keyboard layout here.")}
-                                    </p>
-                                    <button
-                                        type="button"
-                                        onClick={dismissKeyboardSettingsTooltip}
-                                        className="mt-1 text-[10px] underline text-blue-100"
-                                    >
-                                        {__("Got it")}
-                                    </button>
-                                    <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-blue-600 rotate-45" />
-                                </div>
-                            </div>
-                        )}
                         <button
+                            id="step-keyboard"
                             onClick={openKeyboardSettings}
                             type="button"
                             className="inline-flex items-center justify-center rounded-full p-2 text-primary-600 hover:bg-primary-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
@@ -231,6 +216,7 @@ const LessonSettings = ({ locale, screenlocale }) => {
                         } items-center space-x-2`}
                 >
                     <button
+                        id="step-help"
                         onClick={openHelpModal}
                         type="button"
                         className="inline-flex items-center justify-center rounded-full p-2 text-primary-600 hover:bg-primary-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
@@ -263,6 +249,12 @@ const LessonSettings = ({ locale, screenlocale }) => {
                 onClose={closeHelpModal}
                 keyboardLocale={screenlocale}
             />
+            {onboardingOpen && (
+                <OnboardingTour
+                    locale={locale}
+                    onComplete={completeOnboarding}
+                />
+            )}
         </div>
     );
 };

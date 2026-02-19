@@ -192,5 +192,18 @@
     "4. Make sure 'English (US)' keyboard is added.": "٤. دڵنیابەرەوە کە کیبۆردی 'English (US)' زیادکراوە.",
     "3. Search for 'English' and select 'ABC' or 'U.S.'.": "٣. بگەڕێ بۆ 'English' و 'U.S.' یان 'ABC' هەڵبژێرە.",
     "2. Add 'English (US)' as a layout.": "٢. 'English (US)' وەک زمانێکی نوێ زیاد بکە.",
-    "3. Choose the 'English (US)' layout.": "٣. شێوازی 'English (US)' هەڵبژێرە."
+    "3. Choose the 'English (US)' layout.": "شێوازی 'English (US)' هەڵبژێرە.",
+    "Restart lesson": "دووبارەکردنەوەی وانە",
+    "Keyboard layouts": "شێوازەکانی کیبۆرد",
+    "Help & Support": "یارمەتی و پشتگیری",
+    "Back": "بگەڕێوە",
+    "Skip": "تێپەڕاندن",
+    "Restart Lesson": "دووبارەکردنەوەی وانە",
+    "If you want to start over, you can quickly restart the lesson here.": "ئەگەر دەتەوێت لە سەرەتاوە دەست پێ بکەیتەوە، دەتوانیت بە خێرایی وانەکە لێرە دووبارە بکەیتەوە.",
+    "Sound Settings": "ڕێکخستنەکانی دەنگ",
+    "Toggle typing sounds on or off to suit your style.": "دەنگی تایپکردن دابگیرسێنە یان بکوژێنەرەوە بەپێی ئارەزووی خۆت.",
+    "Keyboard Layout": "شێوازی کیبۆرد",
+    "Change your keyboard layout and visualization settings here.": "لێرەدا شێوازی کیبۆرد و ڕێکخستنەکانی پیشاندان بگۆڕە.",
+    "Need help setting up your keyboard? Detailed guides are available here.": "پێویستت بە یارمەتییە بۆ ڕێکخستنی کیبۆردەکەت؟ ڕێنمایی ورد لێرەدا بەردەستە.",
+    "Finish": "کۆتایی"
 }

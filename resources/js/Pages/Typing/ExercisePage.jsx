@@ -386,6 +386,7 @@ export default function Lesson({
                 <LessonSettings
                     locale={locale}
                     screenlocale={screen.locale}
+                    isFirstLesson={screen.lesson_id === 1}
                 ></LessonSettings>
             }
         >
