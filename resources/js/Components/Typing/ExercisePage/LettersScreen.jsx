@@ -25,9 +25,11 @@ const LettersScreen = ({
     userInputForHighlight,
     flipped,
 }) => {
+    const isRtl = screen?.locale === "ckb";
+
     return (
         <div className="hidden md:flex flex-col w-full max-w-3xl justify-center items-center mx-auto mt-6">
-            <div className="flex">
+            <div className="flex" dir={isRtl ? "rtl" : "ltr"}>
                 {visibleCharacters.split("").map((char, i) => {
                     let color = "bg-surface text-primary-800";
 

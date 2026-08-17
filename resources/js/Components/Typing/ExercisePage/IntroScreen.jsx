@@ -76,7 +76,10 @@ const IntroScreen = ({
                 )}
 
                 {showFoundKeyMessage === false && (
-                    <div className="text-center bg-primary-700 rounded-md">
+                    <div
+                        className="text-center bg-primary-700 rounded-md"
+                        dir={screen?.locale === "ckb" ? "rtl" : "ltr"}
+                    >
                         {screen.content.split("").map((char, i) => (
                             <div key={i} className="space-y-4">
                                 <div className="mx-1 text-5xl text-center text-white font-naskh py-4 px-2">

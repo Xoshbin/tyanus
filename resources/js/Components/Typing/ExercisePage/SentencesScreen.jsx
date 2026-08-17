@@ -44,11 +44,14 @@ const SentencesScreen = ({
         scrollToBottom();
     }, [visibleCharacters]);
 
+    const isRtl = screen?.locale === "ckb";
+
     return (
         <div className="hidden md:flex flex-col w-full max-w-3xl justify-center items-center mx-auto mt-6">
             {screen && screen.content ? (
                 <div
                     ref={containerRef}
+                    dir={isRtl ? "rtl" : "ltr"}
                     className="w-full py-4 px-4 text-3xl text-center text-primary-800 max-h-48 overflow-y-scroll transform flex-col-reverse justify-end scroll-smooth leading-loose"
                 >
                     {visibleCharacters.split("").map((char, i) => {
